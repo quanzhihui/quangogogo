@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.InterfaceServer;
+import service.PostServer;
 
 
 
@@ -68,6 +69,13 @@ public class IndexSeverlet extends HttpServlet {
 		}else if(request.getRequestURI().contains("fakouling.jsp") ){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/fakouling.jsp");
 			dispatcher.forward(request, response);	
+		}else if(request.getRequestURI().contains("post") ){
+			if(request.getRequestURI().contains("post/client_fakouling")){
+				response.getWriter().write(PostServer.postClientKL(request)?"1":"0");
+			}else if(request.getRequestURI().contains("post/shop_fakouling")){
+				response.getWriter().write(PostServer.postShopKL(request)?"1":"0");
+			}
+			
 		}
 		
 	}

@@ -63,6 +63,31 @@ public class InfoDao {
 		}
 	}
 	
+	/*
+	 * 插入口令
+	 */
+	public static String addInfo="insert into infomation value(?,?,?,?,?,?,?,?,?,?);";
+	
+	public boolean postKL(Imformation info){
+		Connection conn = MysqlUtil.getInstance().getConnection();
+		try {
+			PreparedStatement  sta=conn.prepareStatement(addInfo);
+			//表结构定了再说
+			return true;
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		 
+		
+		
+		
+		
+		
+	}
 	
 	
 }

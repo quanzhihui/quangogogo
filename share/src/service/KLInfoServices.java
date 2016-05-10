@@ -100,7 +100,15 @@ public class KLInfoServices {
 //		return idao.getTopInfoByMysql(it,getCurrentDay());
 //	}
    
-   
-   
+    /*
+     * 新增口令信息
+     */
+   public static boolean postKL(Imformation info){
+	   
+	   InfoDao dao =new InfoDao();
+//	  return  dao.postKL(info);
+	   return true;
+	     
+   }
    
 }
