@@ -18,8 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <link rel="stylesheet" href="/share/style/weui.css"/>
-    <link rel="stylesheet" href="/share/example/example.css"/> 
+    <link rel="stylesheet" href="<%=path%>/style/weui.css"/>
+    <link rel="stylesheet" href="<%=path%>/example/example.css"/> 
 	<title>红包分享页面</title>
 </head>
 <body ontouchstart>
@@ -51,7 +51,7 @@ $("#dialog1").hide();
 	 
 $("#dialog1_confirm").click(function(){
 	
-	 $.post("/share/index/interface/info/useticket",
+	 $.post("<%=path%>/index/interface/info/useticket",
   {
     client:clientwx,
     type:"ticket"
@@ -62,7 +62,7 @@ $("#dialog1_confirm").click(function(){
   $("#hongbaokouling").html(data);
   
   
-   $.post("/share/index/interface/info/gettype",
+   $.post("<%=path%>/index/interface/info/gettype",
   {
 
     imfomationid:infoid
@@ -73,7 +73,7 @@ $("#dialog1_confirm").click(function(){
   $("#shoptiaozhuan").html("口令已经放到【我的】中，先去发口令的商家那看看有什么好东东吧。");
   $("#dialog3_confirm").click(function(){
   
-  $.post("/share/index/interface/info/redirect",
+  $.post("<%=path%>/index/interface/info/redirect",
   {
     imfomationid:infoid
     
@@ -221,9 +221,9 @@ $("#dialog1").hide();
 
 </script>
 
-	<script src="/share/example/zepto.min.js"></script>
-    <script src="/share/example/router.min.js"></script>
-    <script src="/share/example/example.js"></script>
+	<script src="<%=path%>/example/zepto.min.js"></script>
+    <script src="<%=path%>/example/router.min.js"></script>
+    <script src="<%=path%>/example/example.js"></script>
 
 
 

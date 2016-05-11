@@ -14,7 +14,7 @@ public class CodeServer {
 	 static String str="abcdefghijklmnopqrstuvwxyz0123456789";  
      
 	/*
-	 * 获取10位邀请码,或6位消息码
+	 * 获取10位邀请码,或6位消息码,或8位推广码（用户让别人登陆）
 	 */
 	public static String getCode(String type){	 
 	        StringBuffer sb = new StringBuffer();  

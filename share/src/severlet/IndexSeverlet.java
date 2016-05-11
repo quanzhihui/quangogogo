@@ -46,19 +46,31 @@ public class IndexSeverlet extends HttpServlet {
 		request.getSession().setAttribute("clientwx", "100");
 		String code=(String)request.getAttribute("code");
  		String[] arg=request.getRequestURI().split("/");
-
-		if(arg[arg.length-1].contains("ggg") ){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
-			dispatcher.forward(request, response);	
-		}else if(arg[arg.length-1].contains("index2") ){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/example/index.html");
-			dispatcher.forward(request, response);	
-		}else if(request.getRequestURI().contains("interface") ){
+ 		String uri=request.getRequestURI();
+ 		if(uri.contains("/url/")){
+ 			if(uri.contains("/url/main") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
+ 				dispatcher.forward(request, response);	
+ 			}else if(uri.contains("/url/index2") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/example/index.html");
+ 				dispatcher.forward(request, response);	
+ 			}else if(uri.contains("/url/fakouling") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/fakouling.jsp");
+ 				dispatcher.forward(request, response);	
+ 			}else if(uri.contains("/url/mine/main") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/mine.jsp");
+ 				dispatcher.forward(request, response);	
+ 			}else if(uri.contains("/tab/framemain/myjifen") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/myjifen.jsp");
+ 				dispatcher.forward(request, response);	
+ 			}
+ 			
+ 		}else if(uri.contains("interface") ){
 			InterfaceServer.getData( request, response);
-		}else if(request.getRequestURI().contains("framemain") ){
-			 if(request.getRequestURI().contains("ontime")){
+		}else if(uri.contains("/tab/framemain") ){
+			 if(uri.contains("ontime")){
 				request.setAttribute("type", "ontime");
-			}else if(request.getRequestURI().contains("history")){
+			}else if(uri.contains("history")){
 				request.setAttribute("type", "history");
 			}else{
 				//默认是热度 
@@ -66,13 +78,12 @@ public class IndexSeverlet extends HttpServlet {
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/framemain.jsp");
 			dispatcher.forward(request, response);	
-		}else if(request.getRequestURI().contains("fakouling.jsp") ){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/fakouling.jsp");
-			dispatcher.forward(request, response);	
-		}else if(request.getRequestURI().contains("post") ){
-			if(request.getRequestURI().contains("post/client_fakouling")){
-				response.getWriter().write(PostServer.postClientKL(request)?"1":"0");
-			}else if(request.getRequestURI().contains("post/shop_fakouling")){
+		}else if(uri.contains("post") ){
+			if(uri.contains("post/client_fakouling")){
+				//1代表成功，2代表口令已存在，0代表插库失败
+				response.getWriter().write(String.valueOf(PostServer.postClientKL(request)));
+				
+			}else if(uri.contains("post/shop_fakouling")){
 				response.getWriter().write(PostServer.postShopKL(request)?"1":"0");
 			}
 			

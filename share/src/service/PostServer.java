@@ -12,10 +12,11 @@ public class PostServer {
 	/*
 	 * 普通用户发送口令
 	 */
-	public static boolean postClientKL(HttpServletRequest request){
+	public static int postClientKL(HttpServletRequest request){
 		request.getParameter("");
 		Imformation info =new Imformation();
-		return KLInfoServices.postKL(info);	
+//		return KLInfoServices.postKL(info);	
+		return 2;
 	}
 	
 	/*

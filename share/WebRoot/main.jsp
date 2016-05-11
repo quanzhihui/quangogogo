@@ -18,8 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <link rel="stylesheet" href="/share/style/weui.css"/>
-    <link rel="stylesheet" href="/share/example/example.css"/> 
+    <link rel="stylesheet" href="<%=path%>/style/weui.css"/>
+    <link rel="stylesheet" href="<%=path%>/example/example.css"/> 
 	<title>红包分享页面</title>
     
 
@@ -38,28 +38,28 @@ $("#redu").click(function(){
  $("#ontime").removeClass("weui_bar_item_on");
  $("#history").removeClass("weui_bar_item_on");
 
-  document.getElementById("mainframe").src="/share/index/info/framemain/redu.jsp";
+  document.getElementById("mainframe").src="<%=path%>/index/info/tab/framemain/redu.jsp";
  });
  
  $("#ontime").click(function(){
  $("#ontime").addClass("weui_bar_item_on");
  $("#redu").removeClass("weui_bar_item_on");
  $("#history").removeClass("weui_bar_item_on");
- document.getElementById("mainframe").src="/share/index/info/framemain/ontime.jsp";
+ document.getElementById("mainframe").src="<%=path%>/index/info/tab/framemain/ontime.jsp";
  });
  
  $("#history").click(function(){
  $("#history").addClass("weui_bar_item_on");
  $("#redu").removeClass("weui_bar_item_on");
  $("#ontime").removeClass("weui_bar_item_on");
-  document.getElementById("mainframe").src="/share/index/info/framemain/history.jsp";
+  document.getElementById("mainframe").src="<%=path%>/index/info/tab/framemain/history.jsp";
  });
  
  $("#dialog_qiandao").hide();
  
  $("#qiandao").click(function(){
 
- $.post("/share/index/interface/client/qiandao",
+ $.post("<%=path%>/index/interface/client/qiandao",
   {
     client:clientwx
   },
@@ -82,9 +82,12 @@ $("#dialog_qiandao").hide();
  });
  
  $("#fakouling").click(function(){
-	window.location.href="/share/fakouling.jsp";
+	window.location.href="<%=path%>/index/url/fakouling";
  });
  
+  $("#wode").click(function(){
+	window.location.href="<%=path%>/index/url/mine/main";
+ });
  
  
  
@@ -111,32 +114,32 @@ $("#dialog_qiandao").hide();
      
 
 
-<iframe class="weui_panel_bd" height=84% width=90%  src="/share/index/info/framemain/redu.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
+<iframe class="weui_panel_bd" height=84% width=90%  src="<%=path%>/index/info/tab/framemain/redu.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
 
 
 
     <div class="weui_tabbar">
         <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
             <div class="weui_tabbar_icon">
-                <img src="/share/example/images/icon_nav_button.png" alt="">
+                <img src="<%=path%>/example/images/icon_nav_button.png" alt="">
             </div>
             <p class="weui_tabbar_label" id="qiandao">签到</p>
         </a>
         <a href="javascript:;" class="weui_tabbar_item">
             <div class="weui_tabbar_icon">
-                <img src="/share/example/images/icon_nav_msg.png" alt="">
+                <img src="<%=path%>/example/images/icon_nav_msg.png" alt="">
             </div>
             <p class="weui_tabbar_label" id="fakouling">发口令</p>
         </a>
         <a href="javascript:;" class="weui_tabbar_item">
             <div class="weui_tabbar_icon">
-                <img src="/share/example/images/icon_nav_article.png" alt="">
+                <img src="<%=path%>/example/images/icon_nav_article.png" alt="">
             </div>
             <p class="weui_tabbar_label" id="wode">我的</p>
         </a>
         <a href="javascript:;" class="weui_tabbar_item">
             <div class="weui_tabbar_icon">
-                <img src="/share/example/images/icon_nav_cell.png" alt="">
+                <img src="<%=path%>/example/images/icon_nav_cell.png" alt="">
             </div>
             <p class="weui_tabbar_label" id="shangjiarukou">商家入口</p>
         </a>
@@ -157,9 +160,9 @@ $("#dialog_qiandao").hide();
 
 
 
-	<script src="/share/example/zepto.min.js"></script>
-    <script src="/share/example/router.min.js"></script>
-    <script src="/share/example/example.js"></script>
+	<script src="<%=path%>/example/zepto.min.js"></script>
+    <script src="<%=path%>/example/router.min.js"></script>
+    <script src="<%=path%>/example/example.js"></script>
 	
 
 
