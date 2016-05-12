@@ -76,6 +76,24 @@ public class ClientServer {
 			  return true; 
 		   }
 		   
-		   
+		   /*
+		    * 分数兑换门票
+		    */
+		   public static int transTicket(String clientwx){
+			   
+			   ClientDao idao =new ClientDao();
+			  	  
+			  return 1; 
+		   }
 	   
+		   /*
+		    * 获取推广链接
+		    */
+		   public static String getTGurl(String clientwx){
+			   
+			   ClientDao idao =new ClientDao();
+			  	  
+			  return "http://sdsdslafjdskfjdsl/sdfdsf/dsfsd"; 
+		   }
+		   
 }

@@ -60,8 +60,11 @@ public class IndexSeverlet extends HttpServlet {
  			}else if(uri.contains("/url/mine/main") ){
  				RequestDispatcher dispatcher = request.getRequestDispatcher("/mine.jsp");
  				dispatcher.forward(request, response);	
- 			}else if(uri.contains("/tab/framemain/myjifen") ){
+ 			}else if(uri.contains("/tab/mineframe/myjifen") ){
  				RequestDispatcher dispatcher = request.getRequestDispatcher("/myjifen.jsp");
+ 				dispatcher.forward(request, response);	
+ 			}else if(uri.contains("/tab/mineframe/mykgdkl") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/mykgdkl.jsp");
  				dispatcher.forward(request, response);	
  			}
  			
@@ -84,7 +87,7 @@ public class IndexSeverlet extends HttpServlet {
 				response.getWriter().write(String.valueOf(PostServer.postClientKL(request)));
 				
 			}else if(uri.contains("post/shop_fakouling")){
-				response.getWriter().write(PostServer.postShopKL(request)?"1":"0");
+				response.getWriter().write(String.valueOf(PostServer.postShopKL(request)));
 			}
 			
 		}

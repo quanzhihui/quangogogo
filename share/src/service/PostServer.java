@@ -10,7 +10,7 @@ import bean.Imformation;
 public class PostServer {
 
 	/*
-	 * 普通用户发送口令
+	 * 用户发口令
 	 */
 	public static int postClientKL(HttpServletRequest request){
 		request.getParameter("");
@@ -20,12 +20,13 @@ public class PostServer {
 	}
 	
 	/*
-	 * 商家用户发送口令
+	 * 商家发口令
 	 */
-	public static boolean postShopKL(HttpServletRequest request){
+	public static int postShopKL(HttpServletRequest request){
 		request.getParameter("");
 		Imformation info =new Imformation();
-		return KLInfoServices.postKL(info);	
+//		return KLInfoServices.postKL(info);	
+		return 2;
 	}
 	
 	

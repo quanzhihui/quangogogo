@@ -11,8 +11,17 @@ public class Client {
 	private int score ;
 	//门票数
 	private int ticket ;
+	//推广链接
+	private String tgurl ;
 	
 	
+	
+	public String getTgurl() {
+		return tgurl;
+	}
+	public void setTgurl(String tgurl) {
+		this.tgurl = tgurl;
+	}
 	public int getTicket() {
 		return ticket;
 	}
