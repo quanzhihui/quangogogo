@@ -50,4 +50,9 @@ public class CodeServer {
 		System.out.println(new Date(new java.util.Date().getTime()));
 	}
 	
+	public static String getImageCode(){
+		return new java.util.Date().getTime()+getCode("img");
+		
+	}
+	
 }

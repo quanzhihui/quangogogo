@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.InterfaceServer;
 import service.PostServer;
+import util.ShareConst;
 
 
 
@@ -27,7 +28,9 @@ public class IndexSeverlet extends HttpServlet {
 	@Override
 	public void init() {
 
-	
+		ShareConst.path = getServletContext().getRealPath("/");
+		
+		
 	}
 
 	@Override
@@ -48,7 +51,48 @@ public class IndexSeverlet extends HttpServlet {
  		String[] arg=request.getRequestURI().split("/");
  		String uri=request.getRequestURI();
  		if(uri.contains("/url/")){
- 			if(uri.contains("/url/main") ){
+ 			 if(uri.contains("/url/shop") ){
+ 				 //登录、注册页面不用验证权限，其他页面都需要
+ 				 if(uri.contains("/shop/shopdl") ){
+ 	 				RequestDispatcher dispatcher = request.getRequestDispatcher("/shopdl.jsp");
+ 	 				dispatcher.forward(request, response);	
+ 	 				return;
+ 	 			}else if(uri.contains("/shop/shopzc")){
+ 	 				RequestDispatcher dispatcher = request.getRequestDispatcher("/shopzc.jsp");
+ 	 				dispatcher.forward(request, response);
+ 	 				return;
+	 			}
+ 				 
+ 				 
+ 				 //验证权限
+ 				if(request.getSession().getAttribute("shopname")==null||"".equals(request.getSession().getAttribute("shopname"))){
+ 					RequestDispatcher dispatcher = request.getRequestDispatcher("/shopdl.jsp");
+	 	 			dispatcher.forward(request, response);		
+	 	 			return;
+ 				}
+ 				
+ 				if(uri.contains("/shop/shopmain") ){
+ 	 				RequestDispatcher dispatcher = request.getRequestDispatcher("/shopmain.jsp");
+ 	 	 				dispatcher.forward(request, response);	
+ 	 			}else if(uri.contains("/url/shop/tab/shopmain/") ){
+ 					if(uri.contains("lskl")){
+ 						RequestDispatcher dispatcher = request.getRequestDispatcher("/shoplskl.jsp");
+	 	 				dispatcher.forward(request, response);		
+ 					}else if(uri.contains("fbkl")){
+ 						RequestDispatcher dispatcher = request.getRequestDispatcher("/shopfbkl.jsp");
+	 	 				dispatcher.forward(request, response);		
+ 					}else if(uri.contains("zlwh")){
+ 						RequestDispatcher dispatcher = request.getRequestDispatcher("/shopzlwh.jsp");
+	 	 				dispatcher.forward(request, response);		
+ 					}
+ 					
+ 				}
+ 				
+  				
+  			}
+
+ 			
+ 			else if(uri.contains("/url/main") ){
  				RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
  				dispatcher.forward(request, response);	
  			}else if(uri.contains("/url/index2") ){
@@ -67,6 +111,10 @@ public class IndexSeverlet extends HttpServlet {
  				RequestDispatcher dispatcher = request.getRequestDispatcher("/mykgdkl.jsp");
  				dispatcher.forward(request, response);	
  			}
+ 			
+ 			
+ 			
+ 			
  			
  		}else if(uri.contains("interface") ){
 			InterfaceServer.getData( request, response);

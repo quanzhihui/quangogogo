@@ -9,10 +9,23 @@ public class ViewLog {
 	Date viewdate  ;
 	String kouling;
 	int sdate ;
-	int shour ;
-	int sminute;
+	int stime ;
+	String tgurl;
 	
 	
+
+	public String getTgurl() {
+		return tgurl;
+	}
+	public void setTgurl(String tgurl) {
+		this.tgurl = tgurl;
+	}
+	public int getStime() {
+		return stime;
+	}
+	public void setStime(int stime) {
+		this.stime = stime;
+	}
 	public String getClientWx() {
 		return clientWx;
 	}
@@ -43,18 +56,7 @@ public class ViewLog {
 	public void setSdate(int sdate) {
 		this.sdate = sdate;
 	}
-	public int getShour() {
-		return shour;
-	}
-	public void setShour(int shour) {
-		this.shour = shour;
-	}
-	public int getSminute() {
-		return sminute;
-	}
-	public void setSminute(int sminute) {
-		this.sminute = sminute;
-	}
+ 
 
 	
 	

@@ -14,7 +14,7 @@ public class LogDao {
 
 	//增加查看日志
 	public static String addTicket="inser into viewlog values(NULL,?,?,?)";
-	public boolean addClientTicket(String clientwx,int infoId,Date time){
+	public boolean addClientViewLog(String clientwx,int infoId,Date time){
 		Connection conn = MysqlUtil.getInstance().getConnection();
 		try {
 			PreparedStatement sta=conn.prepareStatement(addTicket);
@@ -45,8 +45,8 @@ public class LogDao {
 			vl.setViewdate(new Date(rs.getLong("viewdate")));
 			vl.setKouling(rs.getString("kouling"));
 			vl.setSdate(rs.getInt("sdate"));
-			vl.setShour(rs.getInt("shour"));
-			vl.setSminute(rs.getInt("sminute"));
+			vl.setStime(rs.getInt("stime"));
+			vl.setTgurl(rs.getString("tgurl"));
 			list.add(vl);
 			}
 			return list;

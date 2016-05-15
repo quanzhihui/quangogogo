@@ -32,27 +32,27 @@ var clientwx=<%=100%>;
 
 $(document).ready(function(){
 
-$("#redu").click(function(){
+$("#lskl").click(function(){
  
- $("#redu").addClass("weui_bar_item_on");
- $("#ontime").removeClass("weui_bar_item_on");
- $("#history").removeClass("weui_bar_item_on");
+ $("#lskl").addClass("weui_bar_item_on");
+ $("#fbkl").removeClass("weui_bar_item_on");
+ $("#zlwh").removeClass("weui_bar_item_on");
 
-  document.getElementById("mainframe").src="<%=path%>/index/info/tab/framemain/redu.jsp";
+  document.getElementById("mainframe").src="<%=path%>/index/url/shop/tab/shopmain/lskl";
  });
  
- $("#ontime").click(function(){
- $("#ontime").addClass("weui_bar_item_on");
- $("#redu").removeClass("weui_bar_item_on");
- $("#history").removeClass("weui_bar_item_on");
- document.getElementById("mainframe").src="<%=path%>/index/info/tab/framemain/ontime.jsp";
+ $("#fbkl").click(function(){
+ $("#fbkl").addClass("weui_bar_item_on");
+ $("#lskl").removeClass("weui_bar_item_on");
+ $("#zlwh").removeClass("weui_bar_item_on");
+ document.getElementById("mainframe").src="<%=path%>/index/url/shop/tab/shopmain/fbkl";
  });
  
- $("#history").click(function(){
- $("#history").addClass("weui_bar_item_on");
- $("#redu").removeClass("weui_bar_item_on");
- $("#ontime").removeClass("weui_bar_item_on");
-  document.getElementById("mainframe").src="<%=path%>/index/info/tab/framemain/history.jsp";
+ $("#zlwh").click(function(){
+ $("#zlwh").addClass("weui_bar_item_on");
+ $("#lskl").removeClass("weui_bar_item_on");
+ $("#fbkl").removeClass("weui_bar_item_on");
+  document.getElementById("mainframe").src="<%=path%>/index/url/shop/tab/shopmain/zlwh";
  });
  
  $("#dialog_qiandao").hide();
@@ -102,14 +102,14 @@ $("#dialog_qiandao").hide();
 <div class="bd" style="height: 8%;">
     <div class="weui_tab">
         <div class="weui_navbar">
-            <div class="weui_navbar_item  weui_bar_item_on"  id='redu'>
-                热度红包
+            <div class="weui_navbar_item  weui_bar_item_on"  id='lskl'>
+                历史口令
             </div>
-            <div class="weui_navbar_item"   id='ontime'>
-                最新红包
+            <div class="weui_navbar_item"   id='fbkl'>
+                发布口令
             </div>
-            <div class="weui_navbar_item"   id='history'>
-                往期红包
+            <div class="weui_navbar_item"   id='zlwh'>
+                资料维护
             </div>
         </div>
       
@@ -118,36 +118,10 @@ $("#dialog_qiandao").hide();
      
 
 
-<iframe class="weui_panel_bd" height=84% width=90%  src="<%=path%>/index/info/tab/framemain/redu.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
+<iframe class="weui_panel_bd" height=84% width=90%  src="<%=path%>/index/info/tab/shopmain/lskl.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
 
 
 
-    <div class="weui_tabbar">
-        <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
-            <div class="weui_tabbar_icon">
-                <img src="<%=path%>/example/images/icon_nav_button.png" alt="">
-            </div>
-            <p class="weui_tabbar_label" id="qiandao">签到</p>
-        </a>
-        <a href="javascript:;" class="weui_tabbar_item">
-            <div class="weui_tabbar_icon">
-                <img src="<%=path%>/example/images/icon_nav_msg.png" alt="">
-            </div>
-            <p class="weui_tabbar_label" id="fakouling">发口令</p>
-        </a>
-        <a href="javascript:;" class="weui_tabbar_item">
-            <div class="weui_tabbar_icon">
-                <img src="<%=path%>/example/images/icon_nav_article.png" alt="">
-            </div>
-            <p class="weui_tabbar_label" id="wode">我的</p>
-        </a>
-        <a href="javascript:;" class="weui_tabbar_item" id="shangjiarukou">
-            <div class="weui_tabbar_icon">
-                <img src="<%=path%>/example/images/icon_nav_cell.png" alt="">
-            </div>
-            <p class="weui_tabbar_label" >商家入口</p>
-        </a>
-    </div>
 
 
 <div class="weui_dialog_confirm"  id="dialog_qiandao" >

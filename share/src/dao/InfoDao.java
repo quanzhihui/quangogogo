@@ -47,8 +47,8 @@ public class InfoDao {
 				info.setIntroduct_num(rs.getInt("introduct_num"));
 				info.setKouling(rs.getString("kouling"));
 				info.setSdate(rs.getInt("sdate"));
-				info.setShour(rs.getInt("shour"));
-				info.setSminute(rs.getInt("sminute"));
+				info.setStime(rs.getInt("stime"));
+				
 				info.setZan(rs.getInt("zan"));
 				info.setKeng(rs.getInt("keng"));
 				info.setVisitor(rs.getInt("visitor"));
@@ -82,12 +82,6 @@ public class InfoDao {
 			return false;
 		}
 		 
-		
-		
-		
-		
-		
+
 	}
-	
-	
 }

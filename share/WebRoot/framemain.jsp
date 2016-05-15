@@ -54,7 +54,8 @@ $("#dialog1_confirm").click(function(){
 	 $.post("<%=path%>/index/interface/info/useticket",
   {
     client:clientwx,
-    type:"ticket"
+    type:"ticket",
+    imfomation:infoid
   },
   function(data,status){
   if(data!="null"){
@@ -64,8 +65,7 @@ $("#dialog1_confirm").click(function(){
   
    $.post("<%=path%>/index/interface/info/gettype",
   {
-
-    imfomationid:infoid
+    imformationid:infoid
   },
   function(data,status){
   if(data="0"){
@@ -75,7 +75,7 @@ $("#dialog1_confirm").click(function(){
   
   $.post("<%=path%>/index/interface/info/redirect",
   {
-    imfomationid:infoid
+    imformationid:infoid
     
   },
   function(data,status){
@@ -97,9 +97,7 @@ $("#dialog1").hide();
 
   }
   
-  });
-  
-  
+  });  
   
   }else{
   $("#dialog2").show();
@@ -140,7 +138,7 @@ $("#dialog1").hide();
                    
                     <p class="weui_media_desc">预计红包金额：<%=infolist.get(i).getIntroduct_acount() %></p>
                     <p class="weui_media_desc">预计红包数量：<%=infolist.get(i).getIntroduct_num() %></p>
-                    <p class="weui_media_desc">预计时间：<%=infolist.get(i).getOutputsdate() %> <%=infolist.get(i).getShour() %>:<%=infolist.get(i).getSminute() %></p>
+                    <p class="weui_media_desc">预计时间：<%=TextUtil.getOutputDayTimeStamp(infolist.get(i).getStime()) %> </p>
              		<p class="weui_media_desc">已有<%=infolist.get(i).getVisitor() %>人看过，目前还有<%=infolist.get(i).getAllowVisit()-infolist.get(i).getVisitor() %>人能看</p>
              		  
                 </div>
@@ -150,7 +148,7 @@ $("#dialog1").hide();
         <script>
         $(document).ready(function(){
 	  $("#<%=infolist.get(i).getImfoId()%>").click(function(){
-	  infoid=<%=infolist.get(i).getImfoId()%>
+	  infoid=<%=infolist.get(i).getImfoId()%>;
 	  $("#dialog1").show();
 	  });
 	 

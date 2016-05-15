@@ -1,8 +1,20 @@
 package service;
 
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import util.FileUploadUtil;
+import util.ShareConst;
 
 import dao.ClientType;
 
@@ -27,7 +39,12 @@ public class InterfaceServer {
 			response.setHeader("content-type", "text/html;charset=UTF-8");
 			response.setCharacterEncoding("utf8");
 			String uri = request.getRequestURI();
-			String infoid = request.getParameter("imfomationid");
+			String tmpInfoid=request.getParameter("imformationid");
+			Integer infoid =0 ;
+			if(tmpInfoid!=null){
+				infoid =Integer.valueOf(tmpInfoid);
+			}
+		
 			String clientwx = request.getParameter("clientwx");
 
 			if (uri.indexOf("/client") != -1) {
@@ -62,7 +79,6 @@ public class InterfaceServer {
 					response.getWriter().write(ClientServer.getTGurl(clientwx));
 					
 				}
-
 				
 			} else if (uri.indexOf("/info") != -1) {
 				if (uri.indexOf("/info/useticket") != -1) {
@@ -81,7 +97,42 @@ public class InterfaceServer {
 					}
 
 				}
+				
+				
+				
+			}else if(uri.indexOf("/log/") != -1){
+				
+				 if (uri.indexOf("/log/tuiguanclick") != -1) {
+					String tgurl=request.getParameter("imformationid");
+						LogServer.tgUrlClickLog(clientwx, Integer.valueOf(infoid), tgurl);
+						response.getWriter().write("ok");
+				}
+				
+			}else if(uri.indexOf("/shop/") != -1){
+				
+				 if (uri.indexOf("/shop/userlogin") != -1) {
+					String shopname=request.getParameter("shopname");
+					String shoppassword=request.getParameter("shoppassword");
+					request.getSession().setAttribute("shopname",shopname);
+					response.getWriter().write(String.valueOf(ShopServer.shopLoging(shopname, shoppassword)));
+				}else if (uri.indexOf("/shop/image") != -1) {
+					
+					ServletFileUpload upload=FileUploadUtil.getServletFileUpload();
+					List<FileItem> fileItems = upload.parseRequest(request);  
+					   for (Iterator iter = fileItems.iterator(); iter.hasNext();) {  
+						   FileItem item = (FileItem) iter.next();  
+						   File savedFile = new File(ShareConst.imgPath, fullFile.getName());
+						   fi.write(savedFile);
+					   }
+					
+					
+					
+					
+					response.getWriter().write(String.valueOf(1));
+				}
+				
 			}
+			
 
 		}catch(Exception e){
 			

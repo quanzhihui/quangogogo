@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="<%=path%>/style/weui.css"/>
     <link rel="stylesheet" href="<%=path%>/example/example.css"/> 
-	<title>发口令页面</title>
+	<title>商家发口令页面</title>
 
 </head>
 

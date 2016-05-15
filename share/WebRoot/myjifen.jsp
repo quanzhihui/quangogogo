@@ -39,7 +39,14 @@ var clientwx=<%=client.getClientWxid()%>;
 
 
 $(document).ready(function(){
+
+
+      $("#gobacktomain").click(function(){
+               window.parent.location.href="<%=path%>/index/url/main"; 
+          });
+
    $("#duihuanchenggong").hide();
+   $("#fuzhi_title").hide();
  
    $("#dhmpbutton").click(function(){
  $.post("<%=path%>/index/interface/client/trans",
@@ -83,19 +90,19 @@ $(document).ready(function(){
   });
 
 
-$("#fuzhilianjie").click(function(){
- 
-   $('#tuiguanglianjie').zclip({ 
-        path: 'http://cdn.bootcss.com/zclip/1.1.2/ZeroClipboard.swf', 
-        copy: function(){//复制内容 
-            return $('#fuzhilianjie').val(); 
-        }, 
-        afterCopy: function(){//复制成功 
-            $("<span id='msg'/>").insertAfter($('#copy_input')).text('复制成功'); 
-        } 
-    }); 
+ZeroClipboard.config( { swfPath: "<%=path%>/example/ZeroClipboard.swf" } );
+var clip = new ZeroClipboard( $("#fuzhilianjie") );
+clip.on("copy", function(e){
+   clip.setText($("#tuiguanglianjie").val());
 }); 
+ clip.on("aftercopy", function(e){
+ $("#fuzhi_title").html("复制成功");
+$("#fuzhi_title").show();
+  $("#fuzhi_title").fadeOut();
  
+});   
+
+
  
 
 
@@ -103,7 +110,9 @@ $("#fuzhilianjie").click(function(){
 
 });  
  
+ 
   </script>
+  
      <div class="bd">
    <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">门票数：</label></div>
@@ -128,11 +137,20 @@ $("#fuzhilianjie").click(function(){
                 <input class="weui_input" type="text" readonly="readonly"  id="tuiguanglianjie"  value="<%=client.getTgurl()%>"/> 
                 <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="shengchenglianjie">生成链接</a>
                 <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="fuzhilianjie">复制链接</a>
+				<a href="javascript:;" class="weui_input" id="fuzhi_title"></a>
+				
+				
                       
                 <div id="error_kouling">  </div> 
             </div>
         </div>
    </div>     
+   
+   <div class="hd">
+<div class="bd spacing">
+ <a href="javascript:;" class="weui_btn weui_btn_primary" id="gobacktomain">返回红包界面</a>
+</div>
+</div>
    
    
    <div class="weui_dialog_confirm"  id="duihuanchenggong" >
@@ -146,13 +164,15 @@ $("#fuzhilianjie").click(function(){
     </div>
 </div>
    
-   
-   
+
+  
    
 	<script src="<%=path%>/example/zepto.min.js"></script>
     <script src="<%=path%>/example/router.min.js"></script>
     <script src="<%=path%>/example/example.js"></script>
 	<script src="<%=path%>/example/jquery.form.min.js"></script>
-	<script src="<%=path%>/example/jquery.zclip.min.js"></script>
+	<script src="<%=path%>/example/ZeroClipboard.min.js"></script>
+	
+	
 </body>
 </html>

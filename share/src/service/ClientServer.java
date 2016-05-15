@@ -1,10 +1,10 @@
 package service;
 
-import java.sql.Date;
-
-import util.ScoreConst;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.Client;
+import bean.Imformation;
 import dao.ClientDao;
 import dao.ClientType;
 
@@ -95,5 +95,9 @@ public class ClientServer {
 			  	  
 			  return "http://sdsdslafjdskfjdsl/sdfdsf/dsfsd"; 
 		   }
+		   
+		  
+		   
+		   
 		   
 }

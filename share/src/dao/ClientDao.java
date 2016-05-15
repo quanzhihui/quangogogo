@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import util.MysqlUtil;
 import util.TextUtil;
 import bean.Client;
+import bean.Imformation;
 
 public class ClientDao {
 
@@ -139,6 +142,44 @@ public class ClientDao {
 		}
 	}
 	
+	/*
+	 * 获取读过的口令
+	 */	
+	public static String getMyInfo="select * from viewlog where clientwx=? and authflow=1 order by visitor desc,zan desc ,keng asc";
+	
+	public List<Imformation> getMyInfoByMysql(String clientwx){
+		List<Imformation> list=new ArrayList<Imformation>();
+		
+		try{
+		Connection conn = MysqlUtil.getInstance().getConnection();
+		PreparedStatement  sta=conn.prepareStatement(getMyInfo);
+	
+			ResultSet rs=sta.executeQuery();
+			while(rs.next()){
+				
+				Imformation info=new Imformation();
+				info.setClientId(rs.getInt("clientid"));
+				info.setClientName(rs.getString("clientName"));
+				info.setIntroduct_acount(rs.getInt("introduct_acount"));
+				info.setIntroduct_num(rs.getInt("introduct_num"));
+				info.setKouling(rs.getString("kouling"));
+				info.setSdate(rs.getInt("sdate"));
+				info.setStime(rs.getInt("shour"));
+	
+				info.setZan(rs.getInt("zan"));
+				info.setKeng(rs.getInt("keng"));
+				info.setVisitor(rs.getInt("visitor"));
+				info.setAllowVisit(rs.getInt("allowvisit"));
+				list.add(info);
+				
+			}
+			return list ;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	
 	
 }

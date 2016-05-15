@@ -11,16 +11,28 @@ public class Imformation {
 	private int sdate   ;
 	//这个值不用存储
 	private String outputsdate   ;
-	private int shour   ;
-	private int sminute   ;
+	private long stime   ; 
 	private int zan   ;
 	private int keng   ;
 	private int visitor   ;
 	private int allowVisit;
 	private int authflow;
+	private String tgurl;
 
 	
 	
+	public String getTgurl() {
+		return tgurl;
+	}
+	public void setTgurl(String tgurl) {
+		this.tgurl = tgurl;
+	}
+	public long getStime() {
+		return stime;
+	}
+	public void setStime(long stime) {
+		this.stime = stime;
+	}
 	public String getOutputsdate() {
 		return outputsdate;
 	}
@@ -71,18 +83,7 @@ public class Imformation {
 	public void setSdate(int sdate) {
 		this.sdate = sdate;
 	}
-	public int getShour() {
-		return shour;
-	}
-	public void setShour(int shour) {
-		this.shour = shour;
-	}
-	public int getSminute() {
-		return sminute;
-	}
-	public void setSminute(int sminute) {
-		this.sminute = sminute;
-	}
+
 	public int getZan() {
 		return zan;
 	}

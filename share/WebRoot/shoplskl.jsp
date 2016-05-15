@@ -26,7 +26,7 @@ String clientwx=(String)request.getSession().getAttribute("clientwx");
     <link rel="stylesheet" href="<%=path%>/example/table.css"/> 
     
     
-	<title>发口令页面</title>
+	<title>商家历史口令</title>
 
 </head>
 
