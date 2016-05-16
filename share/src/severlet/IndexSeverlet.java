@@ -29,7 +29,8 @@ public class IndexSeverlet extends HttpServlet {
 	public void init() {
 
 		ShareConst.path = getServletContext().getRealPath("/");
-		
+		ShareConst.projectname=getServletContext().getContextPath();
+		ShareConst.imgPath = ShareConst.path+"img";
 		
 	}
 

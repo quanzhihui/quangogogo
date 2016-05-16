@@ -46,7 +46,8 @@ $("#shangchuan").change(function(){
           contentType: false,  
           processData: false,  
           success: function (returndata) {  
-              alert(returndata);  
+                   $("#file_upload_ui").attr("style",  "background-image:url("+returndata+")");
+
           },  
           error: function (returndata) {  
               alert(returndata);  
@@ -126,15 +127,11 @@ $("#shangchuan").change(function(){
                         <div class="weui_cell_ft">0/2</div>
                     </div>
                     <div class="weui_uploader_bd">
-                        <ul class="weui_uploader_files">
-                          <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
-                                <div class="weui_uploader_status_content">
-                                    <i class="weui_icon_warn"></i>
-                                </div>
-                            </li>
-                            <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
-                                <div class="weui_uploader_status_content">50%</div>
-                            </li>
+                        <ul class="weui_uploader_files"  >
+               
+    <li class="weui_uploader_file"  id="file_upload_ui"  style="background-image:url()"></li>
+                      
+                           
                             
                             
                         </ul>

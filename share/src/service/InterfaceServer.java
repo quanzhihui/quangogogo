@@ -4,18 +4,14 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import util.FileUploadUtil;
 import util.ShareConst;
-
 import dao.ClientType;
 
 /*
@@ -119,16 +115,19 @@ public class InterfaceServer {
 					
 					ServletFileUpload upload=FileUploadUtil.getServletFileUpload();
 					List<FileItem> fileItems = upload.parseRequest(request);  
+					String imgName="";
 					   for (Iterator iter = fileItems.iterator(); iter.hasNext();) {  
 						   FileItem item = (FileItem) iter.next();  
-						   File savedFile = new File(ShareConst.imgPath, fullFile.getName());
-						   fi.write(savedFile);
+						   if(item.getName()==null||"".equals(item.getName())){
+							   continue;
+						   }
+						   imgName=CodeServer.getImageCode()+".png";
+						   File savedFile = new File(ShareConst.imgPath, imgName);
+						   item.write(savedFile);
 					   }
 					
-					
-					
-					
-					response.getWriter().write(String.valueOf(1));
+					   System.out.println("http://"+ShareConst.domain+ShareConst.projectname+"/img/"+imgName);
+					response.getWriter().write("http://"+ShareConst.domain+ShareConst.projectname+"/img/"+imgName);
 				}
 				
 			}

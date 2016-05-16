@@ -17,25 +17,28 @@ public class CodeServer {
 	 * 获取10位邀请码,或6位消息码,或8位推广码（用户推荐让别人登陆）
 	 */
 	public static String getCode(String type){	 
-	        StringBuffer sb = new StringBuffer();  
-	        int length=6;
-	        if("yqm".equals(type)){
-	        	length=10;
-	        }//其余情况都算发消息码
+		
+		return "sdfdsafasdfadsfdsaf";
+//	        StringBuffer sb = new StringBuffer();  
+//	        int length=6;
+//	        if("yqm".equals(type)){
+//	        	length=10;
+//	        }//其余情况都算发消息码
+//	        
+//	        for(int i = 0 ; i < length; ++i){  
+//	            int number = random.nextInt(str.length());//[0,str.length())  
+//	            sb.append(str.charAt(number));  
+//	        }  
+//	        //生成邀请码创建时间
+//	        Date date=new Date(new java.util.Date().getTime());
+//	        String code=sb.toString();
+//	        CodeDao dao=new CodeDao();
+//	        if(dao.createCode(type,code,date)){
+//	        	return code;  
+//	        }else{
+//	        	return null ;
+//	        }
 	        
-	        for(int i = 0 ; i < length; ++i){  
-	            int number = random.nextInt(str.length());//[0,str.length())  
-	            sb.append(str.charAt(number));  
-	        }  
-	        //生成邀请码创建时间
-	        Date date=new Date(new java.util.Date().getTime());
-	        String code=sb.toString();
-	        CodeDao dao=new CodeDao();
-	        if(dao.createCode(type,code,date)){
-	        	return code;  
-	        }else{
-	        	return null ;
-	        }
 	}
 	
 	public static void useCode(String type,String shopid,String yqm ){	
