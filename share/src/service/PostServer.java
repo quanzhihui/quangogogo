@@ -3,6 +3,7 @@ package service;
 import javax.servlet.http.HttpServletRequest;
 
 import bean.Imformation;
+import bean.Shop;
 
 /*
  * 表单提交服务器
@@ -28,6 +29,18 @@ public class PostServer {
 //		return KLInfoServices.postKL(info);	
 		return 2;
 	}
+	
+	
+	/*
+	 * 商家注册
+	 */
+	public static String postShopZC(HttpServletRequest request){
+		request.getParameter("");
+		Shop info =new Shop();
+//		return KLInfoServices.postKL(info);	
+		return "true";
+	}
+	
 	
 	
 }

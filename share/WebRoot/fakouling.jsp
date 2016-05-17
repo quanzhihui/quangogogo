@@ -150,7 +150,7 @@ $("#dialog_klqr").show();
             <div class="weui_cell_bd weui_cell_primary">
                 <input class="weui_input required" type="text" name="hbkl" id="hbkl"  placeholder="请输入红包口令"  onblur="checksingle('hbkl_check')"/>  
                  <input class="weui_input" type="text" id="hbkl_check" readonly="readonly"/>  
-                <div id="error_kouling">  </div> 
+                
             </div>
         </div>
        

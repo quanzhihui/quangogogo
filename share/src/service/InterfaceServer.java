@@ -128,7 +128,19 @@ public class InterfaceServer {
 					
 					   System.out.println("http://"+ShareConst.domain+ShareConst.projectname+"/img/"+imgName);
 					response.getWriter().write("http://"+ShareConst.domain+ShareConst.projectname+"/img/"+imgName);
+				}else if (uri.indexOf("/shop/yqm_registe") != -1) {
+					String yqm=request.getParameter("yqmshuru");
+					
+					if(ShopServer.isRightYzm(yqm)){				
+						response.getWriter().write("true");
+					}else{
+						response.getWriter().write("false");
+					}
+					
 				}
+				 
+				 
+				 
 				
 			}
 			
