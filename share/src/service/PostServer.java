@@ -1,9 +1,7 @@
 package service;
 
 import javax.servlet.http.HttpServletRequest;
-
 import bean.Imformation;
-import bean.Shop;
 
 /*
  * 表单提交服务器
@@ -36,7 +34,7 @@ public class PostServer {
 	 */
 	public static String postShopZC(HttpServletRequest request){
 		request.getParameter("");
-		Shop info =new Shop();
+//		Shop info =new Shop();
 //		return KLInfoServices.postKL(info);	
 		return "true";
 	}

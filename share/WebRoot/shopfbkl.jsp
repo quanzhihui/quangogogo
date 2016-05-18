@@ -34,7 +34,46 @@ $("#dialog_klqr").hide();
 $("#dialog_result_fail").hide();
 $("#hbkl_check").hide();
 $("#ffsj_check").hide();
+$("#hbzje_check").hide();
+$("#hbzsl_check").hide();
+$("#tglj_check").hide();
 $("#dialog_result_fail").hide();
+
+
+
+$("#dialog_yhd_confirm").click(function(){
+
+
+var ajax_option={
+url:"<%=path%>/index/interface/shop/yhd_use",
+type:"post",
+success:function(data){
+if(data=="true"){
+$("#dialog_yhd").hide();
+
+$("#yhd").val($("#yhdshuru").val());
+
+}else {
+$("#yhdshuru_check").val("邀请码无效，请输入正确的邀请码！");
+}}};
+
+
+$("#yqmform").ajaxSubmit(ajax_option);
+
+
+});
+
+
+$("#gmyqd").click(function(){
+
+window.parent.location.href="http://weidian.com/s/254545908?wfr=c";
+
+});
+
+
+
+
+
 
 
 $("#dialog_result_confirm").click(function(){
@@ -78,23 +117,48 @@ $("#dialog_klqr").hide();
 
  function checkform(){
  var canCommit=1;
- var hbkl=$("#hbkl").val();
- if(hbkl==""){
+ 
+ var vals= $("#hbkl").val();
+if(vals==""||vals=="null"){
   $("#hbkl_check").show();
   $("#hbkl_check").val("红包口令不能为空");
-   canCommit=0;
+  canCommit=0;
  }else{
   $("#hbkl_check").hide();
  }
- 
- var ffsj=$("#ffsj").val();
- if(ffsj==""||ffsj.length<14){
+ var vals= $("#ffsj").val();
+ if(vals==""||vals.length<14){
   $("#ffsj_check").show();
   $("#ffsj_check").val("日期格式不正确，请重新输入日期和时间");
-   canCommit=0;
+  canCommit=0;
  }else{
   $("#ffsj_check").hide();
  }
+ var vals= $("#hbzje").val();
+if(vals==""||vals=="null"){
+  $("#hbzje_check").show();
+  $("#hbzje_check").val("红包金额必填");
+  canCommit=0;
+ }else{
+  $("#hbzje_check").hide();
+ }
+ var vals= $("#hbzsl").val();
+if(vals==""||vals=="null"){
+  $("#hbzsl_check").show();
+  $("#hbzsl_check").val("红包数量必填");
+  canCommit=0;
+ }else{
+  $("#hbzsl_check").hide();
+ }
+ var vals= $("#tglj").val();
+if(vals==""||vals=="null"){
+  $("#tglj_check").show();
+  $("#tglj_check").val("推广链接必填");
+  canCommit=0;
+ }else{
+  $("#tglj_check").hide();
+ }
+ 
  if( canCommit==1){
   showConfirm();
  }
@@ -102,27 +166,62 @@ $("#dialog_klqr").hide();
  }
  
  function checksingle(id){
-
- if(id=="hbkl_check"){
  
-  var vals=$("#hbkl").val();
- if(vals==""||vals=="null"){
+switch(id){
+case("hbkl_check"):
+var vals= $("#hbkl").val();
+if(vals==""||vals=="null"){
   $("#hbkl_check").show();
   $("#hbkl_check").val("红包口令不能为空");
  }else{
   $("#hbkl_check").hide();
  }
- }else if(id=="ffsj_check"){
-
-  var vals=$("#ffsj").val();
-  if(vals==""||vals.length<14){
+break;
+ 
+case("ffsj_check"):
+var vals= $("#ffsj").val();
+ if(vals==""||vals.length<14){
   $("#ffsj_check").show();
   $("#ffsj_check").val("日期格式不正确，请重新输入日期和时间");
  }else{
   $("#ffsj_check").hide();
  }
+break;
+ 
+case("hbzje_check"):
+var vals= $("#hbzje").val();
+if(vals==""||vals=="null"){
+  $("#hbzje_check").show();
+  $("#hbzje_check").val("红包金额必填");
+ }else{
+  $("#hbzje_check").hide();
  }
+break; 
+ 
+case("hbzsl_check"):
+var vals= $("#hbzsl").val();
+if(vals==""||vals=="null"){
+  $("#hbzsl_check").show();
+  $("#hbzsl_check").val("红包数量必填");
+ }else{
+  $("#hbzsl_check").hide();
  }
+break;  
+ 
+case("tglj_check"):
+var vals= $("#tglj").val();
+if(vals==""||vals=="null"){
+  $("#tglj_check").show();
+  $("#tglj_check").val("推广链接必填");
+ }else{
+  $("#tglj_check").hide();
+ }
+break;   
+ 
+ }
+ 
+ }
+ 
  
 function showConfirm(){
 
@@ -145,6 +244,17 @@ $("#dialog_klqr").show();
 <form id="koulingform" name="koulingform" method="post" >
 
 <div class="weui_cells weui_cells_form">
+		<div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">推广豆</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input required" type="text" name="hbkl" id="hbkl"  placeholder="请输入推广豆"  onblur="checksingle('tgd_check')"/>  
+                
+                 <input class="weui_input" type="text" id="tgd_check" readonly="readonly"/>  
+                <div id="error_kouling">  </div> 
+            </div>
+        </div>
+
+
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">红包口令</label></div>
             <div class="weui_cell_bd weui_cell_primary">
@@ -162,33 +272,12 @@ $("#dialog_klqr").show();
             </div>
         </div>
 
-      
-        
-
- <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">商家名称</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="sjmc" type="text"   placeholder="请输入商家名称"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div>
 
     <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">允许多少人看（可不填,默认100）</label></div>
+            <div class="weui_cell_hd"><label for="" class="weui_label">红包总金额</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="yxdsrk" type="number"  pattern="[0-9]*" value="weui input error" placeholder="允许多少人看"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div> 
-
-    <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">红包总金额（可不填）</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="hbzje" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入红包总金额"/>
+                <input class="weui_input  " id="hbzje" name="hbzje" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入红包总金额"  onblur="checksingle('hbzje_check')"/>
+             <input class="weui_input" type="text" id="hbzje_check" readonly="readonly"/>  
             </div>
             <div class="weui_cell_ft">
                 <i class="weui_icon_warn"></i>
@@ -196,9 +285,21 @@ $("#dialog_klqr").show();
         </div> 
     
        <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">红包总数量（可不填）</label></div>
+            <div class="weui_cell_hd"><label for="" class="weui_label">红包总数量</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="hbzsl" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入红包总数量"/>
+                <input class="weui_input  " id="hbzsl"  name="hbzsl" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入红包总数量" onblur="checksingle('hbzsl_check')"/>
+                  <input class="weui_input" type="text" id="hbzsl_check" readonly="readonly"/>  
+            </div>
+            <div class="weui_cell_ft">
+                <i class="weui_icon_warn"></i>
+            </div>
+        </div>
+    
+     <div class="weui_cell ">
+            <div class="weui_cell_hd"><label for="" class="weui_label">推广链接</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" id="tglj" name="tglj" type="text"    placeholder="请输入推广链接" onblur="checksingle('tglj_check')" />
+                <input class="weui_input" type="text" id="tglj_check" readonly="readonly"/>  
             </div>
             <div class="weui_cell_ft">
                 <i class="weui_icon_warn"></i>
@@ -248,12 +349,33 @@ $("#dialog_klqr").show();
         <div class="weui_dialog_bd" >很遗憾，口令已经被分享过了，再找个新口令吧O(∩_∩)O</div>
         <div class="weui_dialog_ft">
             <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_result_confirm_fail">返回发口令界面</a>
-            
-            
         </div>
     </div>
 </div>
 
+
+ <div class="weui_dialog_confirm"  id="dialog_yhd" >
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">请输入优惠豆</strong></div>
+        <div class="weui_dialog_bd" >
+        <form id="yqmform"  method="post">
+        <input class="weui_input" type="text" id="yhdshuru"  placeholder="请录入邀请码"   /> 
+          <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="gmyqd">购买优惠豆</a>  
+        	<input class="weui_input" type="text" id="yhdshuru_check" readonly="readonly"  /> 
+        </form>
+        </div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_yhd_confirm" >确定</a>
+          
+            
+        </div>
+    </div>
+</div>          
+
+
+   
+  
 
 	<script src="<%=path%>/example/zepto.min.js"></script>
     <script src="<%=path%>/example/router.min.js"></script>

@@ -137,6 +137,15 @@ public class InterfaceServer {
 						response.getWriter().write("false");
 					}
 					
+				}else if (uri.indexOf("/shop/yhd_use") != -1) {
+					String yhd=request.getParameter("yhdshuru");
+					
+					if(ShopServer.isRightYhd(yhd)){				
+						response.getWriter().write("true1");
+					}else{
+						response.getWriter().write("false");
+					}
+					
 				}
 				 
 				 

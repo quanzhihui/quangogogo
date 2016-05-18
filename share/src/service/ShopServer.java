@@ -30,7 +30,17 @@ public class ShopServer {
 		
 	}
 	
-
+	/*
+	 * 验证是否是靠谱的优惠豆
+	 */
+	public static boolean isRightYhd(String yhd){
+		ShopDao sd=new ShopDao();
+		
+		return true;
+		
+	}
+	
+	
 	/*
 	 * 使用验证码
 	 */
