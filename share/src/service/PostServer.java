@@ -15,7 +15,7 @@ public class PostServer {
 		request.getParameter("");
 		Imformation info =new Imformation();
 //		return KLInfoServices.postKL(info);	
-		return 2;
+		return 1;
 	}
 	
 	/*
@@ -25,7 +25,7 @@ public class PostServer {
 		request.getParameter("");
 		Imformation info =new Imformation();
 //		return KLInfoServices.postKL(info);	
-		return 2;
+		return 1;
 	}
 	
 	

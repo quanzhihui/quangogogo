@@ -137,11 +137,11 @@ public class InterfaceServer {
 						response.getWriter().write("false");
 					}
 					
-				}else if (uri.indexOf("/shop/yhd_use") != -1) {
-					String yhd=request.getParameter("yhdshuru");
+				}else if (uri.indexOf("/shop/tgd_use") != -1) {
+					String tgd=request.getParameter("yhdshuru");
 					
-					if(ShopServer.isRightYhd(yhd)){				
-						response.getWriter().write("true1");
+					if(ShopServer.isRightYhd(tgd)){				
+						response.getWriter().write("true");
 					}else{
 						response.getWriter().write("false");
 					}

@@ -32,6 +32,8 @@ var clientwx=<%=100%>;
 
 $(document).ready(function(){
 
+  document.getElementById("mainframe").src="<%=path%>/index/url/shop/tab/shopmain/lskl";
+
 $("#lskl").click(function(){
  
  $("#lskl").addClass("weui_bar_item_on");
@@ -55,46 +57,7 @@ $("#lskl").click(function(){
   document.getElementById("mainframe").src="<%=path%>/index/url/shop/tab/shopmain/zlwh";
  });
  
- $("#dialog_qiandao").hide();
- 
- $("#qiandao").click(function(){
 
- $.post("<%=path%>/index/interface/client/qiandao",
-  {
-    client:clientwx
-  },
-  function(data,status){
-  if(data=="1"){
-  
-   $("#qiandaotitle").html("签到成功");
-   $("#qiandaoresult").html("签到成功送50优惠豆，快到【我的】里兑换门票吧！");
-  }else{
-   $("#qiandaotitle").html("已签到过");
-   $("#qiandaoresult").html("今日已签到，明天再来吧！");
-  }
-  $("#dialog_qiandao").show();
-  });
-
- });
- 
- $("#dialog_qiandao_confirm").click(function(){
-$("#dialog_qiandao").hide();
- });
- 
- $("#fakouling").click(function(){
-	window.location.href="<%=path%>/index/url/fakouling";
- });
- 
-  $("#wode").click(function(){
-	window.location.href="<%=path%>/index/url/mine/main";
- });
- 
- $("#shangjiarukou").click(function(){
-	window.location.href="<%=path%>/index/url/shop/shopdl";
- });
- 
- 
- 
  });
 
 </script>
@@ -124,17 +87,7 @@ $("#dialog_qiandao").hide();
 
 
 
-<div class="weui_dialog_confirm"  id="dialog_qiandao" >
-    <div class="weui_mask"></div>
-    <div class="weui_dialog">
-        <div class="weui_dialog_hd"><strong class="weui_dialog_title" id="qiandaotitle"></strong></div>
-        <div class="weui_dialog_bd" id="qiandaoresult"></div>
-        <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_qiandao_confirm">确定</a>
-        </div>
-    </div>
-</div>
-
+ 
 
 
 

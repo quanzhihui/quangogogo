@@ -33,7 +33,6 @@ String clientwx=(String)request.getSession().getAttribute("clientwx");
 <body>
 
 
-
 <script type="text/javascript">
 
 var clientid=<%=clientwx%>

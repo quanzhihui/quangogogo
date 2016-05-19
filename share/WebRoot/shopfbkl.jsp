@@ -38,23 +38,29 @@ $("#hbzje_check").hide();
 $("#hbzsl_check").hide();
 $("#tglj_check").hide();
 $("#dialog_result_fail").hide();
+$("#tgdshuru_check").hide();
 
 
 
-$("#dialog_yhd_confirm").click(function(){
+
+
+$("#dialog_tgd_confirm").click(function(){
 
 
 var ajax_option={
-url:"<%=path%>/index/interface/shop/yhd_use",
+url:"<%=path%>/index/interface/shop/tgd_use",
 type:"post",
 success:function(data){
 if(data=="true"){
-$("#dialog_yhd").hide();
+$("#dialog_tgd").hide();
 
-$("#yhd").val($("#yhdshuru").val());
+$("#tgd").val($("#tgdshuru").val());
+
 
 }else {
-$("#yhdshuru_check").val("邀请码无效，请输入正确的邀请码！");
+
+$("#tgdshuru_check").show();
+$("#tgdshuru_check").val("推广豆无效，请输入正确的推广豆！");
 }}};
 
 
@@ -77,11 +83,11 @@ window.parent.location.href="http://weidian.com/s/254545908?wfr=c";
 
 
 $("#dialog_result_confirm").click(function(){
-window.location.href="<%=path%>/index/url/main";
+window.parent.location.href="<%=path%>/index/url/shop/shopmain";
 });
 
 $("#formcancel").click(function(){
-window.location.href="<%=path%>/index/url/main";
+window.parent.location.href="<%=path%>/index/url/shop/shopmain";
 });
 
 $("#dialog_result_confirm_fail").click(function(){
@@ -92,7 +98,7 @@ $("#dialog_result_fail").hide();
 $("#dialog_klqr_confirm").click(function(){
 $("#dialog_klqr").hide();
 var ajax_option={
-url:"<%=path%>/index/post/client_fakouling",
+url:"<%=path%>/index/post/shop_fakouling",
 type:"post",
 success:function(data){
 if(data=="1"){
@@ -247,9 +253,8 @@ $("#dialog_klqr").show();
 		<div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">推广豆</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input required" type="text" name="hbkl" id="hbkl"  placeholder="请输入推广豆"  onblur="checksingle('tgd_check')"/>  
-                
-                 <input class="weui_input" type="text" id="tgd_check" readonly="readonly"/>  
+                <input class="weui_input required" type="text" name="tgd" id="tgd"  placeholder="请输入推广豆" readonly="readonly" />  
+               
                 <div id="error_kouling">  </div> 
             </div>
         </div>
@@ -332,9 +337,9 @@ $("#dialog_klqr").show();
     <div class="weui_mask"></div>
     <div class="weui_dialog">
         <div class="weui_dialog_hd"><strong class="weui_dialog_title">分享成功</strong></div>
-        <div class="weui_dialog_bd" id="success_content">发送成功，管理员正在审核红包口令，审核通过后将给您赠送200优惠豆，感谢您的分享！</div>
+        <div class="weui_dialog_bd" id="success_content">发送成功，管理员正在审核红包口令，感谢您的分享！</div>
         <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_result_confirm">返回发口令界面</a>
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_result_confirm">确定</a>
             
             
         </div>
@@ -354,19 +359,19 @@ $("#dialog_klqr").show();
 </div>
 
 
- <div class="weui_dialog_confirm"  id="dialog_yhd" >
+ <div class="weui_dialog_confirm"  id="dialog_tgd" >
     <div class="weui_mask"></div>
     <div class="weui_dialog">
-        <div class="weui_dialog_hd"><strong class="weui_dialog_title">请输入优惠豆</strong></div>
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">请输入推广豆</strong></div>
         <div class="weui_dialog_bd" >
         <form id="yqmform"  method="post">
-        <input class="weui_input" type="text" id="yhdshuru"  placeholder="请录入邀请码"   /> 
-          <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="gmyqd">购买优惠豆</a>  
-        	<input class="weui_input" type="text" id="yhdshuru_check" readonly="readonly"  /> 
+        <input class="weui_input" type="text" id="tgdshuru"  placeholder="请录入邀请码"   /> 
+          <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="gmyqd">购买推广豆</a>  
+        	<input class="weui_input" type="text" id="tgdshuru_check" readonly="readonly"  /> 
         </form>
         </div>
         <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_yhd_confirm" >确定</a>
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_tgd_confirm" >确定</a>
           
             
         </div>

@@ -12,6 +12,9 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+Object shopusername=request.getSession().getAttribute("");
+ShopBean shopbean=ShopServer.getShopByUserName("");
+
 %>
 <html lang="zh-cmn-Hans">
 <head>
@@ -22,237 +25,276 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="<%=path%>/style/weui.css"/>
     <link rel="stylesheet" href="<%=path%>/example/example.css"/> 
-	<title>发口令页面</title>
+	<title>商家修改页面</title>
 
 </head>
 
 <body>
 <script type="text/javascript">
 $(document).ready(function(){
-$("#dialog_result_success").hide();
-$("#dialog_klqr").hide();
-$("#dialog_result_fail").hide();
-$("#hbkl_check").hide();
-$("#ffsj_check").hide();
-$("#dialog_result_fail").hide();
 
+ 
 
-$("#dialog_result_confirm").click(function(){
-window.location.href="<%=path%>/index/url/main";
+   $("#dialog_zcsb").hide();
+   $("#dialog_xgcg").hide();
+   $("#yqm_check").hide();
+   $("#yhm_check").hide();
+   $("#passwd_check").hide();
+   $("#passwd2_check").hide();
+   $("#gzhmc_check").hide();
+   $("#imgurl_check").hide();
+   $("#sjjj_check").hide();
+   $("#imgurl").hide();
+
+$("#shangchuan").change(function(){
+
+ var formData = new FormData($("#zcform")[0]);  
+     $.ajax({  
+          url: '<%=path%>/index/interface/shop/image' ,  
+          type: 'POST',  
+          data: formData,  
+          async: true,  
+          cache: false,  
+          contentType: false,  
+          processData: false,  
+          success: function (returndata) {  
+                   $("#file_upload_ui").attr("style",  "background-image:url("+returndata+")");
+                   $("#imgurl").val(returndata);
+          },  
+          error: function (returndata) {  
+              alert(returndata);  
+          }  
+     });  
 });
-
-$("#formcancel").click(function(){
-window.location.href="<%=path%>/index/url/main";
-});
-
-$("#dialog_result_confirm_fail").click(function(){
-$("#dialog_result_fail").hide();
-});
-
-
-$("#dialog_klqr_confirm").click(function(){
-$("#dialog_klqr").hide();
-var ajax_option={
-url:"<%=path%>/index/post/client_fakouling",
-type:"post",
-success:function(data){
-if(data=="1"){
-$("#dialog_result_success").show();
-}else if(data=="2"){
-$("#dialog_result_fail").show();
-}
-}
-};
-$("#koulingform").ajaxSubmit(ajax_option);
-});
-
-$("#dialogklqrdeny").click(function(){
-$("#dialog_klqr").hide();
-});
-
-
-
+  
+ 
+ 
+ $("#dialog_xgcg_confirm").click(function(){
+ window.location.href="<%=path%>/index/url/shop/shopdl";
+ });
+ 
+  $("#dialog_yqm_cancel").click(function(){
+ window.location.href="<%=path%>/index/url/shop/shopdl";
+ });
+ 
+  $("#dialog_zcsb_confirm").click(function(){
+   $("#dialog_zcsb").hide();
+ });
+ 
+   $("#formcancel").click(function(){
+      window.parent.location.href="<%=path%>/index/url/main"; 
+ });
+ 
+ 
+ 
+ 
 });  
  
-
-
- function checkform(){
+ 
+  function checkform(){
  var canCommit=1;
- var hbkl=$("#hbkl").val();
- if(hbkl==""){
-  $("#hbkl_check").show();
-  $("#hbkl_check").val("红包口令不能为空");
-   canCommit=0;
+ 
+ var vals= $("#gzhmc").val();
+if(vals==""||vals=="null"){
+  $("#gzhmc_check").show();
+  $("#gzhmc_check").val("名称不能为空");
+  canCommit=0;
  }else{
-  $("#hbkl_check").hide();
+  $("#gzhmc_check").hide();
  }
  
- var ffsj=$("#ffsj").val();
- if(ffsj==""||ffsj.length<14){
-  $("#ffsj_check").show();
-  $("#ffsj_check").val("日期格式不正确，请重新输入日期和时间");
-   canCommit=0;
+ var vals= $("#imgurl").val();
+if(vals==""||vals=="null"){
+  $("#imgurl_check").show();
+  $("#imgurl_check").val("公众号头像不能为空");
+  canCommit=0;
  }else{
-  $("#ffsj_check").hide();
+  $("#imgurl_check").hide();
  }
- if( canCommit==1){
-  showConfirm();
+ 
+ var vals= $("#sjjj").val();
+if(vals==""||vals=="null"){
+  $("#sjjj_check").show();
+  $("#sjjj_check").val("给大家介绍下公众号吧");
+  canCommit=0;
+ }else{
+  $("#sjjj_check").hide();
  }
+ 
+ 
+if( canCommit==1){
+submit();
+ }
+ 
+ 
  
  }
  
  function checksingle(id){
 
- if(id=="hbkl_check"){
+
+switch(id){
  
-  var vals=$("#hbkl").val();
- if(vals==""||vals=="null"){
-  $("#hbkl_check").show();
-  $("#hbkl_check").val("红包口令不能为空");
+case("gzhmc"):
+var vals= $("#gzhmc").val();
+if(vals==""||vals=="null"){
+  $("#gzhmc_check").show();
+  $("#gzhmc_check").val("名称不能为空");
  }else{
-  $("#hbkl_check").hide();
+  $("#gzhmc_check").hide();
  }
- }else if(id=="ffsj_check"){
+break;
 
-  var vals=$("#ffsj").val();
-  if(vals==""||vals.length<14){
-  $("#ffsj_check").show();
-  $("#ffsj_check").val("日期格式不正确，请重新输入日期和时间");
+case("imgurl"):
+var vals= $("#imgurl").val();
+if(vals==""||vals=="null"){
+  $("#imgurl_check").show();
+  $("#imgurl_check").val("公众号头像不能为空");
  }else{
-  $("#ffsj_check").hide();
+  $("#imgurl_check").hide();
  }
+
+break;
+
+case("sjjj"):
+var vals= $("#sjjj").val();
+if(vals==""||vals=="null"){
+  $("#sjjj_check").show();
+  $("#sjjj_check").val("给大家介绍下公众号吧");
+ }else{
+  $("#sjjj_check").hide();
  }
+
+break;
+
+}
+
  }
  
-function showConfirm(){
-
-var kl=$("#hbkl").val();
-var timesplit=$("#ffsj").val().split("T");
-var daysplit=timesplit[0].split("-");
-var year=daysplit[0];
-var month=daysplit[1];;
-var day=daysplit[2];;
-var time=timesplit[1];
-
-$("#klqrcontent").html("红包口令为："+kl+",时间:"+year+"年"+month+"月"+day+"日 "+time);
-$("#dialog_klqr").show();
-} 
  
+ 
+  function submit(){
+ 
+var ajax_option={
+url:"<%=path%>/index/post/shop_zhuce",
+type:"post",
+success:function(data){
+if(data=="true"){
+$("#dialog_xgcg").show();
+$("#xgcgcontent").html("修改成功");
+
+
+}else  {
+$("#dialog_zcsb").show();
+$("#zcsbcontent").html("修改失败,"+data);
+}}};
+
+$("#zcform").ajaxSubmit(ajax_option);
+}
+
+
+
+ 
+ 
+ 
+ 
+ 
+
   
   </script>
   
 
-<form id="koulingform" name="koulingform" method="post" >
+<form id="zcform" name="zcform" method="post"  enctype="multipart/form-data">
 
 <div class="weui_cells weui_cells_form">
-        <div class="weui_cell">
-            <div class="weui_cell_hd"><label class="weui_label">红包口令</label></div>
+   
+
+ 	<div class="weui_cell">
+            <div class="weui_cell_hd"><label for="" class="weui_label">公众号名称</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input required" type="text" name="hbkl" id="hbkl"  placeholder="请输入红包口令"  onblur="checksingle('hbkl_check')"/>  
-                 <input class="weui_input" type="text" id="hbkl_check" readonly="readonly"/>  
-                <div id="error_kouling">  </div> 
+                <input class="weui_input" type="text"  placeholder="点击录入公众号或微店名称" id="gzhmc"  value="<%=shopbean.getShopName() %>" onblur="checksingle('gzhmc')"/>
+                 <input class="weui_input" type="text" id="gzhmc_check" readonly="readonly"/>  
             </div>
-        </div>
-       
-          		<div class="weui_cell">
-            <div class="weui_cell_hd"><label for="" class="weui_label">发放时间</label></div>
+        </div>  
+        
+          <div class="weui_cell">
+            <div class="weui_cell_hd"><label for="" class="weui_label">公众号简介</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="datetime-local"  placeholder="点击录入发放时间" id="ffsj" onblur="checksingle('ffsj_check')"/>
-                 <input class="weui_input" type="text" id="ffsj_check" readonly="readonly"/>  
+                <input class="weui_input" type="text"  placeholder="请录入简介" id="sjjj" value=<%=shopbean.getShopIntroduct() %> onblur="checksingle('sjjj')"/>
+                 <input class="weui_input" type="text" id="sjjj_check" readonly="readonly" />  
+            </div>
+        </div>  
+        
+        
+      
+
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <div class="weui_uploader">
+                    <div class="weui_uploader_hd weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">公众号头像上传</div>
+                        <div class="weui_cell_ft">0/2</div>
+                    </div>
+                    <div class="weui_uploader_bd">
+                        <ul class="weui_uploader_files"  >
+               
+    <li class="weui_uploader_file"  id="file_upload_ui"  style="background-image:url(<%=shopbean.getShopImg()%>)"></li>
+                      
+                           
+                            
+                            
+                        </ul>
+                        <div class="weui_uploader_input_wrp">
+                        
+  							<input class="weui_input" type="text" id="imgurl" name="imgurl" readonly="readonly"  />  
+                            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multipart/form-data id="shangchuan" name="shangchuan" />
+                        	<input class="weui_input" type="text" id="imgurl_check" readonly="readonly"  /> 
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
       
-        
-
- <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">商家名称</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="sjmc" type="text"   placeholder="请输入商家名称"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div>
-
-    <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">允许多少人看（可不填,默认100）</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="yxdsrk" type="number"  pattern="[0-9]*" value="weui input error" placeholder="允许多少人看"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div> 
-
-    <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">红包总金额（可不填）</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="hbzje" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入红包总金额"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div> 
-    
-       <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">红包总数量（可不填）</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="hbzsl" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入红包总数量"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div>
+     
+      
     
     <div class="weui_btn_area">
-         <a class="weui_btn weui_btn_primary"  id="showTooltips" onclick="checkform()">确定</a>
-         <a class="weui_btn weui_btn_primary" id="formcancel"  >取消</a>
+         <a class="weui_btn weui_btn_primary"  id="showTooltips" onclick="checkform()">修改</a>
+         <a class="weui_btn weui_btn_primary" id="formcancel"  >返回红包界面</a>
     </div>
 
 </div>
 </form>
 
 
-<div class="weui_dialog_confirm"  id="dialog_klqr" >
+<div class="weui_dialog_confirm"  id="dialog_xgcg" >
     <div class="weui_mask"></div>
     <div class="weui_dialog">
-        <div class="weui_dialog_hd"><strong class="weui_dialog_title">口令确认</strong></div>
-        <div class="weui_dialog_bd" id="klqrcontent"></div>
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">修改成功</strong></div>
+        <div class="weui_dialog_bd" id="xgcgcontent"></div>
         <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_klqr_confirm" >确定</a>
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialogklqrdeny">取消</a>
-            
-        </div>
-    </div>
-</div>
-
-<div class="weui_dialog_confirm"  id="dialog_result_success" >
-    <div class="weui_mask"></div>
-    <div class="weui_dialog">
-        <div class="weui_dialog_hd"><strong class="weui_dialog_title">分享成功</strong></div>
-        <div class="weui_dialog_bd" id="success_content">发送成功，管理员正在审核红包口令，审核通过后将给您赠送200优惠豆，感谢您的分享！</div>
-        <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_result_confirm">返回发口令界面</a>
-            
-            
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_xgcg_confirm" >确定</a>            
         </div>
     </div>
 </div>
 
 
-<div class="weui_dialog_confirm"  id="dialog_result_fail" >
+<div class="weui_dialog_confirm"  id="dialog_zcsb" >
     <div class="weui_mask"></div>
     <div class="weui_dialog">
-        <div class="weui_dialog_hd"><strong class="weui_dialog_title">分享失败</strong></div>
-        <div class="weui_dialog_bd" >很遗憾，口令已经被分享过了，再找个新口令吧O(∩_∩)O</div>
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">修改失败</strong></div>
+        <div class="weui_dialog_bd" id="zcsbcontent"></div>
         <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_result_confirm_fail">返回发口令界面</a>
-            
-            
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_zcsb_confirm" >确定</a>            
         </div>
     </div>
 </div>
+
+
+                      	 
+               	 
+                      	 
 
 
 	<script src="<%=path%>/example/zepto.min.js"></script>
