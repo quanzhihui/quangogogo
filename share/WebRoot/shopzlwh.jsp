@@ -35,7 +35,7 @@ $(document).ready(function(){
 
  
 
-   $("#dialog_zcsb").hide();
+   $("#dialog_xgsb").hide();
    $("#dialog_xgcg").hide();
    $("#yqm_check").hide();
    $("#yhm_check").hide();
@@ -45,6 +45,9 @@ $(document).ready(function(){
    $("#imgurl_check").hide();
    $("#sjjj_check").hide();
    $("#imgurl").hide();
+   $("#dialog_xgmm").hide();  
+ 
+ 
 
 $("#shangchuan").change(function(){
 
@@ -70,15 +73,17 @@ $("#shangchuan").change(function(){
  
  
  $("#dialog_xgcg_confirm").click(function(){
- window.location.href="<%=path%>/index/url/shop/shopdl";
+ 
+  $("#dialog_xgcg").hide();
+ 
  });
  
   $("#dialog_yqm_cancel").click(function(){
  window.location.href="<%=path%>/index/url/shop/shopdl";
  });
  
-  $("#dialog_zcsb_confirm").click(function(){
-   $("#dialog_zcsb").hide();
+  $("#dialog_xgsb_confirm").click(function(){
+   $("#dialog_xgsb").hide();
  });
  
    $("#formcancel").click(function(){
@@ -86,6 +91,21 @@ $("#shangchuan").change(function(){
  });
  
  
+    $("#xgmm").click(function(){
+   
+    $("#dialog_xgmm").show();
+    
+ });
+ 
+    $("#dialog_xgmm_cancel").click(function(){
+   
+    $("#dialog_xgmm").hide();
+    
+ });
+ 
+ 
+
+
  
  
 });  
@@ -125,7 +145,6 @@ if(vals==""||vals=="null"){
 if( canCommit==1){
 submit();
  }
- 
  
  
  }
@@ -171,8 +190,7 @@ break;
 
  }
  
- 
- 
+
   function submit(){
  
 var ajax_option={
@@ -185,22 +203,123 @@ $("#xgcgcontent").html("修改成功");
 
 
 }else  {
-$("#dialog_zcsb").show();
-$("#zcsbcontent").html("修改失败,"+data);
+$("#dialog_xgsb").show();
+$("#xgsbcontent").html("修改失败,"+data);
 }}};
 
 $("#zcform").ajaxSubmit(ajax_option);
 }
 
 
+ function checksinglemm(id){
 
- 
- 
- 
- 
- 
 
+switch(id){
+ 
+case("ysmmshuru"):
+var vals= $("#ysmmshuru").val();
+if(vals==""||vals=="null"){
+  $("#ysmmshuru_check").show();
+  $("#ysmmshuru_check").val("原密码不能为空");
+ }else if(vals.length<6){
+  $("#ysmmshuru_check").show();
+  $("#ysmmshuru_check").val("密码不能小于6位");
+  canCommit=0;
+ }else{
+  $("#ysmmshuru_check").hide();
+ }
+break;
+
+case("xmmshuru"):
+var vals= $("#xmmshuru").val();
+if(vals==""||vals=="null"){
+  $("#xmmshuru_check").show();
+  $("#xmmshuru_check").val("新密码不能为空");
+ }else{
+  $("#xmmshuru_check").hide();
+ }
+
+break;
+
+case("cfmmshuru"):
+var vals2= $("#xmmshuru").val();
+var vals= $("#cfmmshuru").val();
+if(vals==""||vals!=vals2){
+  $("#cfmmshuru_check").show();
+  $("#cfmmshuru_check").val("两次密码不同，请重新输入");
+ }else{
+  $("#cfmmshuru_check").hide();
+ }
+
+break;
+
+}
+
+ }
+ 
+  function checkform_mm(){
+ var canCommit=1;
+ 
+ var vals= $("#ysmmshuru").val();
+if(vals==""||vals=="null"){
+  $("#ysmmshuru_check").show();
+  $("#ysmmshuru_check").val("原密码不能为空");
+  canCommit=0;
+ }else{
+  $("#ysmmshuru_check").hide();
+ }
+ 
+ var vals= $("#xmmshuru").val();
+if(vals==""||vals=="null"){
+  $("#xmmshuru_check").show();
+  $("#xmmshuru_check").val("新密码不能为空");
+  canCommit=0;
+ }else if(vals.length<6){
+  $("#xmmshuru_check").show();
+  $("#xmmshuru_check").val("密码不能小于6位");
+  canCommit=0;
+ }else{
+  $("#xmmshuru_check").hide();
+ }
+ 
+ var vals2= $("#cfmmshuru").val();
+if(vals2==""||vals!=vals2){
+  $("#cfmmshuru_check").show();
+  $("#cfmmshuru_check").val("两次密码不同，请重新输入");
+  canCommit=0;
+ }else{
+  $("#cfmmshuru_check").hide();
+ }
+ 
+if( canCommit==1){
+submit_mm();
+ }
   
+ }
+
+ 
+  function submit_mm(){
+ 
+var ajax_option={
+url:"<%=path%>/index/post/shop_xgmm",
+type:"post",
+success:function(data){
+if(data=="true"){
+$("#dialog_xgmm").hide();
+$("#dialog_xgcg").show(); 
+
+
+}else  {
+$("#dialog_xgmm").hide();
+$("#dialog_xgcg").show();
+}}};
+
+$("#xgmmform").ajaxSubmit(ajax_option);
+}
+
+
+
+
   </script>
   
 
@@ -246,10 +365,11 @@ $("#zcform").ajaxSubmit(ajax_option);
                         </ul>
                         <div class="weui_uploader_input_wrp">
                         
-  							<input class="weui_input" type="text" id="imgurl" name="imgurl" readonly="readonly"  />  
+  							<input class="weui_input" type="text" id="imgurl" name="imgurl" readonly="readonly" value="<%=shopbean.getShopImg() %>>"  />  
                             <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multipart/form-data id="shangchuan" name="shangchuan" />
-                        	<input class="weui_input" type="text" id="imgurl_check" readonly="readonly"  /> 
+                        
                         </div>
+                        	<input class="weui_input" type="text" id="imgurl_check" readonly="readonly"  /> 
                     </div>
                 </div>
             </div>
@@ -267,6 +387,8 @@ $("#zcform").ajaxSubmit(ajax_option);
 </div>
 </form>
 
+  <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default" id="xgmm">修改密码</a>
+
 
 <div class="weui_dialog_confirm"  id="dialog_xgcg" >
     <div class="weui_mask"></div>
@@ -274,25 +396,50 @@ $("#zcform").ajaxSubmit(ajax_option);
         <div class="weui_dialog_hd"><strong class="weui_dialog_title">修改成功</strong></div>
         <div class="weui_dialog_bd" id="xgcgcontent"></div>
         <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_xgcg_confirm" >确定</a>            
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_xgcg_confirm"   ">确定</a>            
         </div>
     </div>
 </div>
 
 
-<div class="weui_dialog_confirm"  id="dialog_zcsb" >
+<div class="weui_dialog_confirm"  id="dialog_xgsb" >
     <div class="weui_mask"></div>
     <div class="weui_dialog">
         <div class="weui_dialog_hd"><strong class="weui_dialog_title">修改失败</strong></div>
-        <div class="weui_dialog_bd" id="zcsbcontent"></div>
+        <div class="weui_dialog_bd" id="xgsbcontent"></div>
         <div class="weui_dialog_ft">
-            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_zcsb_confirm" >确定</a>            
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_xgsb_confirm" >确定</a>            
         </div>
     </div>
 </div>
 
 
-                      	 
+ <div class="weui_dialog_confirm"  id="dialog_xgmm" >
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">修改密码</strong></div>
+        <div class="weui_dialog_bd" >
+        <form id="xgmmform"  method="post">
+        <input class="weui_input" type="password" id="ysmmshuru"  placeholder="请录入原密码" onblur="checksinglemm('ysmmshuru')"  /> 
+        <input class="weui_input" type="text" id="ysmmshuru_check" readonly="readonly"  /> 
+        	
+        <input class="weui_input" type="password" id="xmmshuru"  placeholder="请录入新密码"   onblur="checksinglemm('xmmshuru')" /> 
+        <input class="weui_input" type="text" id="xmmshuru_check" readonly="readonly"  />  	
+        
+        <input class="weui_input" type="password" id="cfmmshuru"  placeholder="请重复录入新密码" onblur="checksinglemm('cfmmshuru')" /> 
+        <input class="weui_input" type="text" id="cfmmshuru_check" readonly="readonly"  />  	
+        	
+        </form>
+        </div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_xgmm_confirm" onclick="checkform_mm()" >确定</a>
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_xgmm_cancel">取消</a>
+            
+        </div>
+    </div>
+</div>                     	 
+         
+                               	 
                	 
                       	 
 

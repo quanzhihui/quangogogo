@@ -393,8 +393,9 @@ $("#dialog_klqr").hide();
                         
   							<input class="weui_input" type="text" id="imgurl" name="imgurl" readonly="readonly"  />  
                             <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multipart/form-data id="shangchuan" name="shangchuan" />
-                        	<input class="weui_input" type="text" id="imgurl_check" readonly="readonly"  /> 
+                        	
                         </div>
+                        <input class="weui_input" type="text" id="imgurl_check" readonly="readonly"  /> 
                     </div>
                 </div>
             </div>

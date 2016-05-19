@@ -118,28 +118,28 @@ $("#dialog_qiandao").hide();
      
 
 
-<iframe class="weui_panel_bd" height=84% width=90%  src="<%=path%>/index/info/tab/framemain/redu.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
+<iframe class="weui_panel_bd" height=84% width=100%  src="<%=path%>/index/info/tab/framemain/redu.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
 
 
 
     <div class="weui_tabbar">
-        <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
+        <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on"  id="qiandao">
             <div class="weui_tabbar_icon">
                 <img src="<%=path%>/example/images/icon_nav_button.png" alt="">
             </div>
-            <p class="weui_tabbar_label" id="qiandao">签到</p>
+            <p class="weui_tabbar_label">签到</p>
         </a>
-        <a href="javascript:;" class="weui_tabbar_item">
+        <a href="javascript:;" class="weui_tabbar_item" id="fakouling">
             <div class="weui_tabbar_icon">
                 <img src="<%=path%>/example/images/icon_nav_msg.png" alt="">
             </div>
-            <p class="weui_tabbar_label" id="fakouling">发口令</p>
+            <p class="weui_tabbar_label" >发口令</p>
         </a>
-        <a href="javascript:;" class="weui_tabbar_item">
+        <a href="javascript:;" class="weui_tabbar_item" id="wode">
             <div class="weui_tabbar_icon">
                 <img src="<%=path%>/example/images/icon_nav_article.png" alt="">
             </div>
-            <p class="weui_tabbar_label" id="wode">我的</p>
+            <p class="weui_tabbar_label" >我的</p>
         </a>
         <a href="javascript:;" class="weui_tabbar_item" id="shangjiarukou">
             <div class="weui_tabbar_icon">

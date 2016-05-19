@@ -181,9 +181,9 @@ $("#sjdlform").ajaxSubmit(ajax_option);
 <div class="weui_dialog_confirm"  id="dialog_wjma" >
     <div class="weui_mask"></div>
     <div class="weui_dialog">
-        <div class="weui_dialog_hd" id="klqrtitle" ><strong class="weui_dialog_title">请在工作时间联系公众号的微店管理员，微店名称：优惠速递，微店地址：http://weidian.com/s/254545908?wfr=c，联系的时候请说明是忘记密码并报公众号名字，他会尽快往公众号发送临时密码，登陆后重置密码即可。</strong></div>
+        <div class="weui_dialog_hd" id="klqrtitle" ><strong class="weui_dialog_title">请在工作时间联系公众号的微店管理员，微店名称：优惠速递，联系的时候请说明是忘记密码并报公众号名字，他会尽快往公众号发送临时密码，登陆后重置密码即可。</strong></div>
         <div class="weui_dialog_bd" id="klqrcontent">微店名称：优惠速递  </div>
-        <div class="weui_dialog_bd" id="klqrcontent">微店地址： xxx</div>
+        <div class="weui_dialog_bd" id="klqrcontent">微店地址：http://weidian.com/s/254545908</div>
         <div class="weui_dialog_ft">
             <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_wjma_confirm" >确定</a>
           

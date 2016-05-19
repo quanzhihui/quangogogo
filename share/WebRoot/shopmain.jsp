@@ -81,7 +81,7 @@ $("#lskl").click(function(){
      
 
 
-<iframe class="weui_panel_bd" height=84% width=90%  src="<%=path%>/index/info/tab/shopmain/lskl.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
+<iframe class="weui_panel_bd" height=84% width=100%  src="<%=path%>/index/info/tab/shopmain/lskl.jsp"   scrolling="auto" frameborder="0" id="mainframe"> </iframe>
 
 
 

@@ -40,5 +40,14 @@ public class PostServer {
 	}
 	
 	
+	/*
+	 * 修改密码
+	 */
+	public static String postShopXGMM(HttpServletRequest request){
+		request.getParameter("");
+//		Shop info =new Shop();
+//		return KLInfoServices.postKL(info);	
+		return "true";
+	}
 	
 }

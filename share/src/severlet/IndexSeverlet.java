@@ -139,7 +139,12 @@ public class IndexSeverlet extends HttpServlet {
 				response.getWriter().write(String.valueOf(PostServer.postShopKL(request)));
 			}else if(uri.contains("post/shop_zhuce")){
 				response.getWriter().write(PostServer.postShopZC(request));
+			}else if(uri.contains("post/shop_xgmm")){
+				response.getWriter().write(PostServer.postShopZC(request));
 			}
+			
+			
+			
 			
 		}
 		
