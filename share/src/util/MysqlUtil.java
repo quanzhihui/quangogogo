@@ -49,7 +49,7 @@ public class MysqlUtil {
 	    //返回当前连接池的一个对象
 	    public static MysqlUtil getInstance(){
 	        if (instance == null) {
-//	            instance = new MysqlUtil();
+	            instance = new MysqlUtil();
 	        }
 	        return instance;
 	    }

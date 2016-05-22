@@ -38,7 +38,6 @@ public class IndexSeverlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
-
 	}
 
 	
@@ -46,10 +45,12 @@ public class IndexSeverlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Object openid=request.getAttribute("openid");
+		if(openid==null){
+			openid="111";
+		}
 		//设置用户属性
-		request.getSession().setAttribute("clientwx", "100");
-		String code=(String)request.getAttribute("code");
- 		String[] arg=request.getRequestURI().split("/");
+		request.getSession().setAttribute("clientwx", openid);
  		String uri=request.getRequestURI();
  		if(uri.contains("/url/")){
  			 if(uri.contains("/url/shop") ){
@@ -133,7 +134,7 @@ public class IndexSeverlet extends HttpServlet {
 		}else if(uri.contains("post") ){
 			if(uri.contains("post/client_fakouling")){
 				//1代表成功，2代表口令已存在，0代表插库失败
-				response.getWriter().write(String.valueOf(PostServer.postClientKL(request)));
+				response.getWriter().write(PostServer.postClientKL(request));
 				
 			}else if(uri.contains("post/shop_fakouling")){
 				response.getWriter().write(String.valueOf(PostServer.postShopKL(request)));

@@ -1,6 +1,7 @@
 package service;
 
 import bean.ShopBean;
+import dao.CodeDao;
 import dao.ShopDao;
 
 
@@ -16,43 +17,11 @@ public class ShopServer {
 	public static int shopLoging(String username, String password){
 		ShopDao sd=new ShopDao();
 		
-		return 1;
+		return sd.shopLoging(username, password);
 		
 	}
 	
-	
-	/*
-	 * 验证是否是靠谱的验证码
-	 */
-	public static boolean isRightYzm(String yqm){
-		ShopDao sd=new ShopDao();
-		
-		return true;
-		
-	}
-	
-	/*
-	 * 验证是否是靠谱的优惠豆
-	 */
-	public static boolean isRightYhd(String yhd){
-		ShopDao sd=new ShopDao();
-		
-		return true;
-		
-	}
-	
-	
-	/*
-	 * 使用验证码
-	 */
-	public static int shopUseYzm(String username, String password){
-		ShopDao sd=new ShopDao();
-		
-		return 1;
-		
-	}
-	
-	
+
 	/*
 	 * 根据用户名获取商家信息
 	 */

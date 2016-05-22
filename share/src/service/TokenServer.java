@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 import bean.AccessTokenBean;
 
@@ -107,6 +108,31 @@ public class TokenServer {
 	        return result.toString();  
 	    }  
 	
+	 
+	 public static Long getTimeStame(){
+		 
+		 Calendar ca=Calendar.getInstance();
+		 return ca.getTime().getTime();
+		 
+	 }
+	 
+	 
+	 
+
+	 public static String getEncodingAESKey(){
+		 return "Jhs4YsW2c5GWSokxBkSPXyveFgxYzHAvdzCLgp125sD";
+	 }
+	 
+	 
+	 public static String getappId(){
+		 return "wx970b335a565122f2";
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
 //	public static void main(String[] args){
 //		
 //		init();

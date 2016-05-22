@@ -2,9 +2,11 @@ package bean;
 
 public class Imformation {
 	private int imfoId;
-	private int clientId  ;
+	private String clientWx  ;
 	private String clientName   ;
 	private String clientImg;
+	//类型，0位普通用户分享，1为商家
+	private int type  ;
 	private int  introduct_acount   ;
 	private int  introduct_num   ;
 	private String kouling ;
@@ -12,15 +14,33 @@ public class Imformation {
 	//这个值不用存储
 	private String outputsdate   ;
 	private long stime   ; 
-	private int zan   ;
-	private int keng   ;
 	private int visitor   ;
 	private int allowVisit;
 	private int authflow;
 	private String tgurl;
-
+	private String authreason;
 	
 	
+	
+	
+	public String getClientWx() {
+		return clientWx;
+	}
+	public void setClientWx(String clientWx) {
+		this.clientWx = clientWx;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getAuthreason() {
+		return authreason;
+	}
+	public void setAuthreason(String authreason) {
+		this.authreason = authreason;
+	}
 	public String getTgurl() {
 		return tgurl;
 	}
@@ -58,12 +78,6 @@ public class Imformation {
 		this.imfoId = imfoId;
 	}
 	
-	public int getClientId() {
-		return clientId;
-	}
-	public void setClientId(int id) {
-		this.clientId = id;
-	}
 	public String getClientName() {
 		return clientName;
 	}
@@ -84,18 +98,7 @@ public class Imformation {
 		this.sdate = sdate;
 	}
 
-	public int getZan() {
-		return zan;
-	}
-	public void setZan(int zan) {
-		this.zan = zan;
-	}
-	public int getKeng() {
-		return keng;
-	}
-	public void setKeng(int keng) {
-		this.keng = keng;
-	}
+ 
 	public int getVisitor() {
 		return visitor;
 	}

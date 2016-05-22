@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ViewLog {
 
+	
 	String clientWx;
 	int infoId;
 	Date viewdate  ;

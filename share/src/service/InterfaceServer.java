@@ -94,8 +94,6 @@ public class InterfaceServer {
 
 				}
 				
-				
-				
 			}else if(uri.indexOf("/log/") != -1){
 				
 				 if (uri.indexOf("/log/tuiguanclick") != -1) {
@@ -109,8 +107,13 @@ public class InterfaceServer {
 				 if (uri.indexOf("/shop/userlogin") != -1) {
 					String shopname=request.getParameter("shopname");
 					String shoppassword=request.getParameter("shoppassword");
-					request.getSession().setAttribute("shopname",shopname);
-					response.getWriter().write(String.valueOf(ShopServer.shopLoging(shopname, shoppassword)));
+				
+					int status=ShopServer.shopLoging(shopname, shoppassword);
+				//登录成功，设置session值
+					if(status==1){
+						request.getSession().setAttribute("shopname",shopname);
+					}
+					response.getWriter().write(String.valueOf(status));
 				}else if (uri.indexOf("/shop/image") != -1) {
 					
 					ServletFileUpload upload=FileUploadUtil.getServletFileUpload();
@@ -131,7 +134,7 @@ public class InterfaceServer {
 				}else if (uri.indexOf("/shop/yqm_registe") != -1) {
 					String yqm=request.getParameter("yqmshuru");
 					
-					if(ShopServer.isRightYzm(yqm)){				
+					if(CodeServer.isRightYzm(yqm)){				
 						response.getWriter().write("true");
 					}else{
 						response.getWriter().write("false");
@@ -140,7 +143,7 @@ public class InterfaceServer {
 				}else if (uri.indexOf("/shop/tgd_use") != -1) {
 					String tgd=request.getParameter("yhdshuru");
 					
-					if(ShopServer.isRightYhd(tgd)){				
+					if(CodeServer.isRightYhd(tgd)){				
 						response.getWriter().write("true");
 					}else{
 						response.getWriter().write("false");
