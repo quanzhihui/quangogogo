@@ -1,10 +1,10 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import util.MysqlUtil;
 import util.TextUtil;
@@ -12,8 +12,8 @@ import util.TextUtil;
 public class CodeDao {
 
 
-	 String yqm_insert="insert into code_yqm values('NULL',?,NULL,? )";
-	 String tgd_insert="insert into code_tgd values('NULL',?,NULL,1,?,NULL )";
+	 String yqm_insert="insert into code_yqm values(?,?,?,1,?,?)";
+	 String tgd_insert="insert into code_tgd values(?,?,?,1,?,?)";
 
 
 	//初次生成码
@@ -23,19 +23,26 @@ public class CodeDao {
 			try {
 				if("yqm".equals(type)){
 					sta=conn.prepareStatement(yqm_insert);
+					
+					
 				}else if("tgd".equals(type)){
 					sta=conn.prepareStatement(tgd_insert);
+					
 				}else{
 					return false;
 				}
+				sta.setNull(1,java.sql.Types.INTEGER);
+				sta.setString(2, code);
+				sta.setNull(3,java.sql.Types.INTEGER);
+				sta.setLong(4,new Date().getTime());
+				sta.setNull(5,java.sql.Types.INTEGER);	
 				
-				sta.setString(1, code);
-				sta.setDate(2, createDatetime);
-					
 			  return sta.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
+			}finally{
+				MysqlUtil.getInstance().release(conn);
 			}
 		}
 		
@@ -44,7 +51,7 @@ public class CodeDao {
 		String yqm_update="update code_yqm set shopid=? , usedate=? ,isvalid=0 where yqm=?";
 				
 		//使用码注册或发消息
-		public boolean useCode(String type,String shopid,Date useDatetime,String code ){
+		public boolean useCode(String type,String shopid,String code ){
 					Connection conn = MysqlUtil.getInstance().getConnection();
 					PreparedStatement  sta=null;
 					try {
@@ -56,12 +63,14 @@ public class CodeDao {
 							return false;
 						}
 						sta.setString(1, shopid);
-						sta.setDate(2, useDatetime);
+						sta.setLong(2, new Date().getTime());
 						sta.setString(3, code);
 							return sta.execute();
 					} catch (SQLException e) {
 						e.printStackTrace();
 						return false;
+					}finally{
+						MysqlUtil.getInstance().release(conn);
 					}
 				}
 		
@@ -90,6 +99,8 @@ public class CodeDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
+			}finally{
+				MysqlUtil.getInstance().release(conn);
 			}
 		}
 		

@@ -49,6 +49,7 @@ public class IndexSeverlet extends HttpServlet {
 		if(openid==null){
 			openid="111";
 		}
+		String clientwx=openid.toString();
 		//设置用户属性
 		request.getSession().setAttribute("clientwx", openid);
  		String uri=request.getRequestURI();
@@ -119,7 +120,7 @@ public class IndexSeverlet extends HttpServlet {
  			
  			
  		}else if(uri.contains("interface") ){
-			InterfaceServer.getData( request, response);
+			InterfaceServer.getData( clientwx,request, response);
 		}else if(uri.contains("/tab/framemain") ){
 			 if(uri.contains("ontime")){
 				request.setAttribute("type", "ontime");

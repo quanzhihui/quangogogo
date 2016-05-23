@@ -43,6 +43,8 @@ public class ShopDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	
 	}

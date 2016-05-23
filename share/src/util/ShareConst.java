@@ -18,7 +18,7 @@ public class ShareConst {
 	public static int ScoreDuiHuanMenPiao=100;
 	
 	//推广码长度
-	public static int tgmlength=8;
+	public static int tgdlength=8;
 	
 	//邀请码码长度
 	public static int yqmlength=10;

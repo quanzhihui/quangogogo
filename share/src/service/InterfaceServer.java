@@ -30,7 +30,7 @@ public class InterfaceServer {
 	
 	
 	
-	public static void getData(HttpServletRequest request,HttpServletResponse response){
+	public static void getData(String clientwx,HttpServletRequest request,HttpServletResponse response){
 		try {
 			response.setHeader("content-type", "text/html;charset=UTF-8");
 			response.setCharacterEncoding("utf8");
@@ -41,7 +41,7 @@ public class InterfaceServer {
 				infoid =Integer.valueOf(tmpInfoid);
 			}
 		
-			String clientwx = request.getParameter("clientwx");
+		 
 
 			if (uri.indexOf("/client") != -1) {
 				if (uri.indexOf("/client/type") != -1) {
@@ -129,7 +129,7 @@ public class InterfaceServer {
 						   item.write(savedFile);
 					   }
 					
-					   System.out.println("http://"+ShareConst.domain+ShareConst.projectname+"/img/"+imgName);
+					 
 					response.getWriter().write("http://"+ShareConst.domain+ShareConst.projectname+"/img/"+imgName);
 				}else if (uri.indexOf("/shop/yqm_registe") != -1) {
 					String yqm=request.getParameter("yqmshuru");
@@ -150,9 +150,22 @@ public class InterfaceServer {
 					}
 					
 				}
-				 
-				 
-				 
+
+			}else if(uri.indexOf("/code") != -1){
+				//验证是否登录
+				if(request.getSession().getAttribute("adminname")==null){
+					response.getWriter().write("null");
+					return;
+				}
+				
+				 if(uri.indexOf("/code/tgdcreate") != -1){
+					
+						response.getWriter().write( CodeServer.getCode("tgd", ShareConst.tgdlength));
+				}else if(uri.indexOf("/code/yqmcreate") != -1){
+					
+					 response.getWriter().write( CodeServer.getCode("yqm", ShareConst.yqmlength));
+				}
+				
 				
 			}
 			

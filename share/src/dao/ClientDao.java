@@ -46,6 +46,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -74,6 +76,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -90,6 +94,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -109,6 +115,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -125,6 +133,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -143,6 +153,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -153,9 +165,9 @@ public class ClientDao {
 	
 	public List<Imformation> getMyInfoByMysql(String clientwx){
 		List<Imformation> list=new ArrayList<Imformation>();
-		
-		try{
 		Connection conn = MysqlUtil.getInstance().getConnection();
+		try{
+	
 		PreparedStatement  sta=conn.prepareStatement(getMyInfo);
 	
 			ResultSet rs=sta.executeQuery();
@@ -178,6 +190,8 @@ public class ClientDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 

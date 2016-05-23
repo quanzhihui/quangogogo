@@ -67,6 +67,8 @@ public class InfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 	}
 	
@@ -104,6 +106,8 @@ public class InfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 		 
 
@@ -141,6 +145,8 @@ public class InfoDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
+			}finally{
+				MysqlUtil.getInstance().release(conn);
 			}
 		}
 	
@@ -164,6 +170,8 @@ public class InfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			   return false;
+		}finally{
+			MysqlUtil.getInstance().release(conn);
 		}
 			 
 	   }
