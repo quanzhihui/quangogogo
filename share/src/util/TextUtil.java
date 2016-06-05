@@ -75,5 +75,32 @@ public class TextUtil {
 		}
 		   }
 	   
+	   /*
+	    * 发口令类型转化成名称
+	    */
+	   public static String getNameByKlType(int type){
+		   if(ShareConst.fkltype_shop==type){
+			   return "商家";
+			}else{
+				return "个人";
+			}
+			
+		 
+		   }
+	    
+	   /*
+	    * 转化审批类型
+	    */
+	   public static String getNameByAuditType(int type){
+		   if(ShareConst.audit_ty==type){
+			   return "同意";
+			}else if(ShareConst.audit_bh==type){
+				return "驳回";
+			}else{
+				return "待审批";
+			}
+			
+		 
+		   }
 	   
 }

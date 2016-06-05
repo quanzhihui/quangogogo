@@ -38,7 +38,7 @@ $("#dialog_result_fail").hide();
 
 
 $("#dialog_result_confirm").click(function(){
-window.location.href="<%=path%>/index/url/main";
+$("#dialog_result_success").hide();
 });
 
 $("#formcancel").click(function(){
@@ -55,6 +55,7 @@ $("#dialog_klqr").hide();
 var ajax_option={
 url:"<%=path%>/index/post/client_fakouling",
 type:"post",
+clearForm: true,
 success:function(data){
 if(data=="1"){
 $("#dialog_result_success").show();
@@ -157,7 +158,7 @@ $("#dialog_klqr").show();
           		<div class="weui_cell">
             <div class="weui_cell_hd"><label for="" class="weui_label">发放时间</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="datetime-local"  placeholder="点击录入发放时间" id="ffsj" onblur="checksingle('ffsj_check')"/>
+                <input class="weui_input" type="datetime-local"  placeholder="点击录入发放时间" id="ffsj" name="ffsj" onblur="checksingle('ffsj_check')"/>
                  <input class="weui_input" type="text" id="ffsj_check" readonly="readonly"/>  
             </div>
         </div>
@@ -174,16 +175,7 @@ $("#dialog_klqr").show();
                 <i class="weui_icon_warn"></i>
             </div>
         </div>
-
-    <div class="weui_cell ">
-            <div class="weui_cell_hd"><label for="" class="weui_label">允许多少人看（可不填,默认100）</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input  " name="yxdsrk" type="number"  pattern="[0-9]*" value="weui input error" placeholder="允许多少人看"/>
-            </div>
-            <div class="weui_cell_ft">
-                <i class="weui_icon_warn"></i>
-            </div>
-        </div> 
+ 
 
     <div class="weui_cell ">
             <div class="weui_cell_hd"><label for="" class="weui_label">红包总金额（可不填）</label></div>

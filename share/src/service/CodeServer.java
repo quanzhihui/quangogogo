@@ -14,7 +14,7 @@ public class CodeServer {
 	 static String str="abcdefghijklmnopqrstuvwxyz0123456789";  
      
 	/*
-	 * 获取10位邀请码,或6位消息码,或8位推广码（用户推荐让别人登陆）
+	 * 获取 邀请码,或 推广豆,或 推广码（用户推荐让别人登陆）
 	 */
 	public static String getCode(String type,int length){	 
 	        StringBuffer sb = new StringBuffer();  
@@ -32,7 +32,7 @@ public class CodeServer {
 	        	if(dao.createCode(type,code,date)){
 		        	return code;  
 		        }else{
-		        	return null ;
+		        	return "" ;
 		        }
 	        }else{
 	        	return code;
@@ -65,11 +65,11 @@ public class CodeServer {
 	/*
 	 * 使用邀请码
 	 */
-	public static void useYQMCode(String shopid,String yqm ){	
+	public static void useYQMCode(Integer shopid,String yqm ){	
 		//生成邀请码使用时间
-        Date useDatetime=new Date(new java.util.Date().getTime());
+     
         CodeDao dao=new CodeDao();
-        dao.useCode("yqm",shopid, useDatetime, yqm);
+        dao.useCode("yqm",shopid, yqm);
         
 	}
 
@@ -84,11 +84,10 @@ public class CodeServer {
 	/*
 	 * 使用推广豆
 	 */
-	public static void useTGDCode(String shopid,String yqm ){	
+	public static void useTGDCode(Integer shopid,String yqm ){	
 		//生成邀请码使用时间
-        Date useDatetime=new Date(new java.util.Date().getTime());
         CodeDao dao=new CodeDao();
-        dao.useCode("tgd",shopid, useDatetime, yqm);
+        dao.useCode("tgd",shopid, yqm);
 	}
 	
 	

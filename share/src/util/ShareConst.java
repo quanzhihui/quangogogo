@@ -33,6 +33,26 @@ public class ShareConst {
 	public static int fkltype_shop=1;
 	
 	
+	// 用户初始化分数
+	public static int init_user_score=50;
+	
+	// 用户初始化门票
+	public static int init_user_ticket=1;
+	
+	// 用户口令  信息初始化能让多少人能看
+	public static int init_user_dsrk=100;
+	
+	// 商家口令 信息初始化能让多少人能看
+	public static int init_shop_dsrk=3000;
+	
+	
+	// 审批状态
+	public static int audit_ty=1;
+	public static int audit_bh=-1;
+	public static int audit_dsp=0;
+	
+	
+	
 	//获得系统参数
 //	public static final Properties PROPERTIES = new Properties(System.getProperties());
 	

@@ -55,7 +55,7 @@ $("#dialog1_confirm").click(function(){
   {
     client:clientwx,
     type:"ticket",
-    imfomation:infoid
+    infomation:infoid
   },
   function(data,status){
   if(data!="null"){
@@ -65,7 +65,7 @@ $("#dialog1_confirm").click(function(){
   
    $.post("<%=path%>/index/interface/info/gettype",
   {
-    imformationid:infoid
+    informationid:infoid
   },
   function(data,status){
   if(data="0"){
@@ -75,7 +75,7 @@ $("#dialog1_confirm").click(function(){
   
   $.post("<%=path%>/index/interface/info/redirect",
   {
-    imformationid:infoid
+    informationid:infoid
     
   },
   function(data,status){
@@ -122,7 +122,7 @@ $("#dialog1").hide();
       }else{
        t=InfoType.redu;
       }
-      List<Imformation> infolist=KLInfoServices.getInfo(t);
+      List<Information> infolist=KLInfoServices.getInfo(t);
       %>
        <%for(int i=0;i<infolist.size();i++){ %>
        <div class="weui_panel weui_panel_access">
@@ -143,12 +143,12 @@ $("#dialog1").hide();
              		  
                 </div>
             </a>
-            <button class="weui_btn weui_btn_plain_primary"  id="<%=infolist.get(i).getImfoId()%>"> 查看口令 </button> 
+            <button class="weui_btn weui_btn_plain_primary"  id="<%=infolist.get(i).getInfoId()%>"> 查看口令 </button> 
         
         <script>
         $(document).ready(function(){
-	  $("#<%=infolist.get(i).getImfoId()%>").click(function(){
-	  infoid=<%=infolist.get(i).getImfoId()%>;
+	  $("#<%=infolist.get(i).getInfoId()%>").click(function(){
+	  infoid=<%=infolist.get(i).getInfoId()%>;
 	  $("#dialog1").show();
 	  });
 	 

@@ -35,7 +35,7 @@ public class InterfaceServer {
 			response.setHeader("content-type", "text/html;charset=UTF-8");
 			response.setCharacterEncoding("utf8");
 			String uri = request.getRequestURI();
-			String tmpInfoid=request.getParameter("imformationid");
+			String tmpInfoid=request.getParameter("informationid");
 			Integer infoid =0 ;
 			if(tmpInfoid!=null){
 				infoid =Integer.valueOf(tmpInfoid);
@@ -97,7 +97,7 @@ public class InterfaceServer {
 			}else if(uri.indexOf("/log/") != -1){
 				
 				 if (uri.indexOf("/log/tuiguanclick") != -1) {
-					String tgurl=request.getParameter("imformationid");
+					String tgurl=request.getParameter("informationid");
 						LogServer.tgUrlClickLog(clientwx, Integer.valueOf(infoid), tgurl);
 						response.getWriter().write("ok");
 				}
@@ -105,13 +105,13 @@ public class InterfaceServer {
 			}else if(uri.indexOf("/shop/") != -1){
 				
 				 if (uri.indexOf("/shop/userlogin") != -1) {
-					String shopname=request.getParameter("shopname");
+					String shopusername=request.getParameter("shopusername");
 					String shoppassword=request.getParameter("shoppassword");
 				
-					int status=ShopServer.shopLoging(shopname, shoppassword);
+					int status=ShopServer.shopLoging(shopusername, shoppassword);
 				//登录成功，设置session值
 					if(status==1){
-						request.getSession().setAttribute("shopname",shopname);
+						request.getSession().setAttribute("shopusername",shopusername);
 					}
 					response.getWriter().write(String.valueOf(status));
 				}else if (uri.indexOf("/shop/image") != -1) {
@@ -141,7 +141,7 @@ public class InterfaceServer {
 					}
 					
 				}else if (uri.indexOf("/shop/tgd_use") != -1) {
-					String tgd=request.getParameter("yhdshuru");
+					String tgd=request.getParameter("tgdshuru");
 					
 					if(CodeServer.isRightYhd(tgd)){				
 						response.getWriter().write("true");
@@ -159,14 +159,31 @@ public class InterfaceServer {
 				}
 				
 				 if(uri.indexOf("/code/tgdcreate") != -1){
+					String ss= CodeServer.getCode("tgd", ShareConst.tgdlength);
 					
-						response.getWriter().write( CodeServer.getCode("tgd", ShareConst.tgdlength));
+						response.getWriter().write(ss);
 				}else if(uri.indexOf("/code/yqmcreate") != -1){
 					
 					 response.getWriter().write( CodeServer.getCode("yqm", ShareConst.yqmlength));
 				}
 				
 				
+			}else if(uri.indexOf("/admin") != -1){
+				  if(uri.indexOf("/adminxgmm") != -1){
+					  if(request.getSession().getAttribute("adminname")==null ){
+						  response.getWriter().write("-1");
+					  }
+					String shopname=request.getParameter("shopname");
+					String shoppassword=request.getParameter("newpassword");
+					response.getWriter().write(String.valueOf(ShopServer.changeShopPasswd(shopname,shoppassword)));
+				 }if(uri.indexOf("/admin_audit") != -1){
+					  if(request.getSession().getAttribute("adminname")==null ){
+						  response.getWriter().write("-1");
+					  }
+					response.getWriter().write(String.valueOf(KLInfoServices.auditKL(request)));
+				 }
+				  
+				  
 			}
 			
 

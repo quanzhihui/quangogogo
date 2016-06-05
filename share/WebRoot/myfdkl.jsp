@@ -12,8 +12,8 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String shopusername=(String)request.getSession().getAttribute("shopusername");
-List<Information> infoList=  KLInfoServices.getClientInfo(InfoCreateType.shop,shopusername);
+String clientwx=(String)request.getSession().getAttribute("clientwx");
+ List<Information>  infoList=  KLInfoServices.getClientInfo(InfoCreateType.client,clientwx);
 %>
 <html lang="zh-cmn-Hans">
 <head>
@@ -26,16 +26,17 @@ List<Information> infoList=  KLInfoServices.getClientInfo(InfoCreateType.shop,sh
     <link rel="stylesheet" href="<%=path%>/example/table.css"/> 
     
     
-	<title>商家历史口令</title>
+	<title>发口令页面</title>
 
 </head>
 
 <body>
 
 
+
 <script type="text/javascript">
 
-var clientid=<%=shopusername%>
+var clientid=<%=clientwx%>
 
         $(document).ready(function(){
         
@@ -56,7 +57,6 @@ var clientid=<%=shopusername%>
         <th>红包时间</th>        
         <th>红包口令</th>
         <th>审批状态</th>
-        <th>红包领取数</th>
         <th>审批意见</th>
     </tr>
     </thead>
@@ -68,9 +68,7 @@ var clientid=<%=shopusername%>
         <td><%=TextUtil.getOutputDayTimeStamp(infoList.get(i).getStime()) %></td>        
         <td><%=infoList.get(i).getKouling() %></td>
         <td> <%=TextUtil.getNameByAuditType(infoList.get(i).getAuthflow() )%>       </td>
-         <td> <%=infoList.get(i).getVisitor() %>       </td>
         <td> <%=infoList.get(i).getAuthreason() %>       </td>
-      
     </tr>        
    <% }%>
 

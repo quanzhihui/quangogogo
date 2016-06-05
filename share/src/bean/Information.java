@@ -1,7 +1,7 @@
 package bean;
 
-public class Imformation {
-	private int imfoId;
+public class Information {
+	private int infoId;
 	private String clientWx  ;
 	private String clientName   ;
 	private String clientImg;
@@ -71,11 +71,11 @@ public class Imformation {
 	public void setAllowVisit(int allowVisit) {
 		this.allowVisit = allowVisit;
 	}
-	public int getImfoId() {
-		return imfoId;
+	public int getInfoId() {
+		return infoId;
 	}
-	public void setImfoId(int imfoId) {
-		this.imfoId = imfoId;
+	public void setInfoId(int infoId) {
+		this.infoId = infoId;
 	}
 	
 	public String getClientName() {

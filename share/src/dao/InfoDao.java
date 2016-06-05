@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import util.MysqlUtil;
-import bean.Imformation;
+import bean.Information;
 
 public class InfoDao {
 
@@ -18,13 +18,15 @@ public class InfoDao {
 	//首页热度查询
 	 static String reduInfo="select * from information where authflow>0 and stime-?>0  order by visitor desc";
 	//即将开始查询
-	 static String ontimeInfo="select * from information where sdate=? and authflow>0 order by (stime-?) desc limit 20 ";
-	//历史红包查询
-	 static String historyInfo="select * from information where authflow>0 and stime-?<=0 order by stime  desc limit 20";
+	 static String ontimeInfo="select * from information where sdate=? and authflow>0 and stime-?>0  order by (stime-?) desc limit 10 ";
+	//最新红包查询
+	 static String historyInfo="select * from information where authflow>0 and stime-?>0   order by stime  desc limit 10";
+	//未审批查询
+	 static String unauditInfo="select * from information where authflow=0 ";
+	//
 	
-	
-	public List<Imformation> getTopInfoByMysql(InfoType it,int date){
-		List<Imformation> list=new ArrayList<Imformation>();
+	public List<Information> getTopInfoByMysql(InfoType it,int date){
+		List<Information> list=new ArrayList<Information>();
 		Connection conn = MysqlUtil.getInstance().getConnection();
 		PreparedStatement  sta=null;
 		Date time=new Date();
@@ -39,27 +41,34 @@ public class InfoDao {
 				sta=conn.prepareStatement(ontimeInfo);
 				sta.setInt(1, date);
 				sta.setLong(2, time.getTime());
+				sta.setLong(3, time.getTime());
 			break;	
 			case history:
 				sta=conn.prepareStatement(historyInfo);
 				sta.setLong(1, time.getTime());
 			break;	
+			case unaudit:
+				sta=conn.prepareStatement(unauditInfo);
+			break;	
+			
 			}
 			
 			
 			ResultSet rs=sta.executeQuery();
 			while(rs.next()){
 				
-				Imformation info=new Imformation();
+				Information info=new Information();
+				info.setInfoId(rs.getInt("id"));
 				info.setClientWx(rs.getString("clientwx"));
 				info.setClientName(rs.getString("clientName"));
 				info.setIntroduct_acount(rs.getInt("introduct_acount"));
 				info.setIntroduct_num(rs.getInt("introduct_num"));
 				info.setKouling(rs.getString("kouling"));
 				info.setSdate(rs.getInt("sdate"));
-				info.setStime(rs.getInt("stime"));
+				info.setStime(rs.getLong("stime"));
 				info.setVisitor(rs.getInt("visitor"));
 				info.setAllowVisit(rs.getInt("allowvisit"));
+				info.setTgurl (rs.getString("tgurl"));
 				list.add(info);
 				
 			}
@@ -75,11 +84,18 @@ public class InfoDao {
 	/*
 	 * 插入口令
 	 */
-	 static String addInfo="insert into information value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-	public int postKL(Imformation info){
+	 static String addInfoClient="insert into information value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+	 static String addInfoShop="insert into shopinfo value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+	public int postKL(InfoCreateType type,Information info){
 		Connection conn = MysqlUtil.getInstance().getConnection();
 		try {
-			PreparedStatement sta=conn.prepareStatement(addInfo);
+			PreparedStatement sta=null;
+				if(InfoCreateType.client.equals(type)){
+					conn.prepareStatement(addInfoClient);
+				}else if(InfoCreateType.shop.equals(type)){
+					conn.prepareStatement(addInfoShop);
+				}
+				
 			sta.setNull(1, java.sql.Types.INTEGER) ;
 			sta.setString(2,info.getClientWx());
 			sta.setString(3,info.getClientName());
@@ -95,9 +111,9 @@ public class InfoDao {
 			sta.setInt(13,info.getAllowVisit());
 			sta.setInt(14,info.getAuthflow());
 			sta.setString(15,info.getAuthreason());
-			boolean status=sta.execute();
+			
 
-			if(status){
+			if(sta.executeUpdate()>0){
 				return 1;
 			}else{
 				return -1;
@@ -117,7 +133,7 @@ public class InfoDao {
 	//根据id查看信息
 	 static String InfoById="select * from information where  id=? ";
 	
-	 public Imformation getInfoById(int infoid){
+	 public Information getInfoById(int infoid){
 			 
 			Connection conn = MysqlUtil.getInstance().getConnection();
 			PreparedStatement  sta=null;
@@ -128,7 +144,8 @@ public class InfoDao {
 				
 					if(rs.next()){
 					
-					Imformation info=new Imformation();
+					Information info=new Information();
+					info.setInfoId(infoid);
 					info.setClientWx(rs.getString("clientwx"));
 					info.setClientName(rs.getString("clientName"));
 					info.setIntroduct_acount(rs.getInt("introduct_acount"));
@@ -150,7 +167,7 @@ public class InfoDao {
 			}
 		}
 	
-	//根据id查看信息
+	
 	 static String checkKlExist="select 1 from information where kouling=? and stime=?  ";
 	
 	 	/*
@@ -177,8 +194,88 @@ public class InfoDao {
 	   }
 	 
 	 
+		/*
+		 * 插入口令
+		 */
+		 static String auditInfoClient="update information set authflow=? ,authreason=? where id=? ";
+		 static String auditInfoShop="update shopinfo set authflow=? ,authreason=? where id=? ";
+		public int auditKL(InfoCreateType type,int infoId,int auditState,String reason){
+			Connection conn = MysqlUtil.getInstance().getConnection();
+			try {
+				PreparedStatement sta=null;
+				if(InfoCreateType.client.equals(type)){
+					conn.prepareStatement(auditInfoClient);
+				}else if(InfoCreateType.shop.equals(type)){
+					conn.prepareStatement(auditInfoShop);
+				}
+				
+				sta.setInt(1, auditState) ;
+				sta.setString(2,reason);
+				sta.setInt(3,infoId);
+			 
+				return sta.executeUpdate();
+
+				 
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return -1;
+			}finally{
+				MysqlUtil.getInstance().release(conn);
+			}
+			 
+
+		}
 	 
-	 
-	 
+		
+		//根据用户查看信息 
+		 static String InfoByClientwx="select * from information where  clientwx=? ";
+		//根据商家用户名查看信息,shopusername等价于clientwx,shopname等价于clientname ,shopimg等价于clientimg
+		 static String InfoByshopName="select * from shopinfo where  clientwx=? ";
+		
+	
+		 public List<Information> getInfoByClientwx(InfoCreateType type,String name){
+				 
+				Connection conn = MysqlUtil.getInstance().getConnection();
+				PreparedStatement  sta=null;
+				List<Information> list=new ArrayList<Information>();
+				try {
+				if(InfoCreateType.client.equals(type)){
+					sta=conn.prepareStatement(InfoByClientwx);
+					
+				}else if(InfoCreateType.shop.equals(type)){
+					sta=conn.prepareStatement(InfoByshopName);
+				 
+				}
+				sta.setString(1, name);
+					ResultSet rs=sta.executeQuery();
+					
+						while(rs.next()){
+							
+						Information info=new Information();
+						info.setClientWx(rs.getString("clientwx"));
+						info.setClientName(rs.getString("clientName"));
+						info.setIntroduct_acount(rs.getInt("introduct_acount"));
+						info.setIntroduct_num(rs.getInt("introduct_num"));
+						info.setKouling(rs.getString("kouling"));
+						info.setSdate(rs.getInt("sdate"));
+						info.setStime(rs.getLong("stime"));
+						info.setVisitor(rs.getInt("visitor"));
+						info.setAllowVisit(rs.getInt("allowvisit"));
+						info.setAuthreason(rs.getString("authreason")); 
+						info.setTgurl(rs.getString("tgurl"));
+						list.add(info);
+						
+						}
+						
+						 return list;
+						
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}finally{
+					MysqlUtil.getInstance().release(conn);
+				}
+			}
 	 
 }

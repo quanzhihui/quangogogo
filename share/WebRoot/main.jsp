@@ -118,10 +118,10 @@ $("#dialog_qiandao").hide();
                 热度红包
             </div>
             <div class="weui_navbar_item"   id='ontime'>
-                最新红包
+                即将开抢
             </div>
             <div class="weui_navbar_item"   id='history'>
-                往期红包
+                最新红包
             </div>
         </div>
       

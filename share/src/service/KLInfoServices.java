@@ -1,11 +1,14 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import util.TextUtil;
-import bean.Imformation;
-import dao.ClientType;
+import bean.Information;
+import dao.InfoCreateType;
 import dao.InfoDao;
 import dao.InfoType;
 
@@ -14,35 +17,21 @@ public class KLInfoServices {
 /*
  * 获取口令信息
  */
-   public static List<Imformation> getInfo(InfoType it ){
+   public static List<Information> getInfo(InfoType it ){
 	   	InfoDao idao =new InfoDao();
 		return idao.getTopInfoByMysql(it,TextUtil.getCurrentDay()) ;
-//	   	//调试信息
-//			List<Imformation> list=new ArrayList<Imformation>();
-//			Imformation info=new Imformation();
-//			info.setImfoId(123123);
-//			info.setAllowVisit(100);
-//			info.setClientImg("http://www.5068.com/u/faceimg/20140815125220.jpg");
-//			info.setClientName("用户甲"+it.toString());
-//			info.setKouling(it.toString());
-//			info.setIntroduct_acount(1000);
-//			info.setIntroduct_num(100);
-//			info.setOutputsdate(TextUtil.getOutputDay("20160215"));
-//			info.setStime(10);
-//			list.add(info);
-//			Imformation info2=new Imformation();
-//			info2.setImfoId(2323);
-//			info2.setAllowVisit(100);
-//			info2.setClientImg("http://www.5068.com/u/faceimg/20140815125220.jpg");
-//			info2.setClientName("用户乙"+it.toString());
-//			info2.setKouling(it.toString());
-//			info2.setIntroduct_acount(1000);
-//			info2.setIntroduct_num(100);
-//			info2.setOutputsdate(TextUtil.getOutputDay("20160215"));
-//			info.setStime(10);
-//			list.add(info2);
-//			return list;
+
 	}
+   
+   /*
+    * 用户查看自己发的口令
+    */
+      public static List<Information> getClientInfo(InfoCreateType type,String clientwx){
+   	   	InfoDao idao =new InfoDao();
+   		return idao.getInfoByClientwx(type,clientwx) ;
+
+   	}  
+   
    
    /*
     * 用门票看口令,返回口令
@@ -82,11 +71,21 @@ public class KLInfoServices {
 	/*
 	 * 根据id获取推广页面
 	 */
-  	public static int postKL(Imformation info){
+  	public static int postKL(Information info){
 	  InfoDao id=new InfoDao();
 	  return id.postKL(info);
 
   	}
+  	
+	/*
+	 * 根据id获取整个口令信息
+	 */
+  	public static Information getKlByinfoId(Integer infoid){
+	  InfoDao id=new InfoDao();
+	  return id.getInfoById(infoid);
+
+  	}
+  	
   
   	/*
   	 * 查看口令是否已经发过了
@@ -96,8 +95,38 @@ public class KLInfoServices {
 		 return id.checkKlExist(kl, time); 
    }
   
+	/*
+  	 * 审批口令信息
+  	 */
+	public static int auditKL(HttpServletRequest request){
+		Enumeration<String> names=request.getParameterNames();
+		 InfoDao id=new InfoDao(); 
+		  
+		while(names.hasMoreElements()){
+			String name=names.nextElement();
+			if(name.startsWith("isaudit_")){
+				int auditstatus=Integer.valueOf(request.getParameter(name));
+				if(auditstatus==0) {
+					continue;	
+				}
+				String infoidString=name.replaceAll("isaudit_", "");
+				String reason=request.getParameter("auditreason_"+infoidString);
+				int infoid=Integer.valueOf(infoidString);
+				//审批
+				if(id.auditKL(infoid, auditstatus,reason==null?"无意见":reason)<0){
+					return -1;
+				}
+			}
+			
+			
+		}
+		return 1;	 
+   }
   
   
+	
+ 	
+	
   
   
 }

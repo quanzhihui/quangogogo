@@ -20,6 +20,7 @@ public class CodeDao {
 		public boolean createCode(String type,String code,Date createDatetime ){
 			Connection conn = MysqlUtil.getInstance().getConnection();
 			PreparedStatement  sta=null;
+			 
 			try {
 				if("yqm".equals(type)){
 					sta=conn.prepareStatement(yqm_insert);
@@ -36,22 +37,25 @@ public class CodeDao {
 				sta.setNull(3,java.sql.Types.INTEGER);
 				sta.setLong(4,new Date().getTime());
 				sta.setNull(5,java.sql.Types.INTEGER);	
-				
-			  return sta.execute();
+				if(sta.executeUpdate()>0){
+					return true;
+				}
+			   
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return false;
+				 
 			}finally{
 				MysqlUtil.getInstance().release(conn);
 			}
+			return false;
 		}
 		
 		
-		String tgd_update="update code_tgd set shopid=? , usedate=? ,isvalid=0  where tgd=? ";	
-		String yqm_update="update code_yqm set shopid=? , usedate=? ,isvalid=0 where yqm=?";
+		String tgd_update="update code_tgd set shopid=? , usetime=? ,isvalid=0  where tgd=? ";	
+		String yqm_update="update code_yqm set shopid=? , usetime=? ,isvalid=0 where yqm=?";
 				
 		//使用码注册或发消息
-		public boolean useCode(String type,String shopid,String code ){
+		public boolean useCode(String type,Integer shopid,String code ){
 					Connection conn = MysqlUtil.getInstance().getConnection();
 					PreparedStatement  sta=null;
 					try {
@@ -62,7 +66,7 @@ public class CodeDao {
 						}else{
 							return false;
 						}
-						sta.setString(1, shopid);
+						sta.setInt(1, shopid);
 						sta.setLong(2, new Date().getTime());
 						sta.setString(3, code);
 							return sta.execute();

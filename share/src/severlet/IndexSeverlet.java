@@ -2,14 +2,19 @@ package severlet;
 
 import java.io.IOException;
 
+import javassist.compiler.ast.CondExpr;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.ClientServer;
+import service.CodeServer;
 import service.InterfaceServer;
 import service.PostServer;
+import service.ShopServer;
 import util.ShareConst;
 
 
@@ -52,14 +57,23 @@ public class IndexSeverlet extends HttpServlet {
 		String clientwx=openid.toString();
 		//设置用户属性
 		request.getSession().setAttribute("clientwx", openid);
+		
+		//如果是第一次来则记录用户
+		ClientServer.clientRegist(clientwx);
+		
  		String uri=request.getRequestURI();
  		if(uri.contains("/url/")){
  			 if(uri.contains("/url/shop") ){
  				 //登录、注册页面不用验证权限，其他页面都需要
  				 if(uri.contains("/shop/shopdl") ){
- 	 				RequestDispatcher dispatcher = request.getRequestDispatcher("/shopdl.jsp");
- 	 				dispatcher.forward(request, response);	
- 	 				return;
+ 					if(request.getSession().getAttribute("shopusername")==null){
+ 						RequestDispatcher dispatcher = request.getRequestDispatcher("/shopdl.jsp");
+ 	 	 				dispatcher.forward(request, response);	
+ 	 	 				return;
+ 					}else{
+ 						RequestDispatcher dispatcher = request.getRequestDispatcher("/shopmain.jsp");
+ 	 	 				dispatcher.forward(request, response);	
+ 					}
  	 			}else if(uri.contains("/shop/shopzc")){
  	 				RequestDispatcher dispatcher = request.getRequestDispatcher("/shopzc.jsp");
  	 				dispatcher.forward(request, response);
@@ -68,7 +82,7 @@ public class IndexSeverlet extends HttpServlet {
  				 
  				 
  				 //验证权限
- 				if(request.getSession().getAttribute("shopname")==null||"".equals(request.getSession().getAttribute("shopname"))){
+ 				if(request.getSession().getAttribute("shopusername")==null||"".equals(request.getSession().getAttribute("shopname"))){
  					RequestDispatcher dispatcher = request.getRequestDispatcher("/shopdl.jsp");
 	 	 			dispatcher.forward(request, response);		
 	 	 			return;
@@ -113,6 +127,9 @@ public class IndexSeverlet extends HttpServlet {
  			}else if(uri.contains("/tab/mineframe/mykgdkl") ){
  				RequestDispatcher dispatcher = request.getRequestDispatcher("/mykgdkl.jsp");
  				dispatcher.forward(request, response);	
+ 			}else if(uri.contains("/tab/mineframe/fdkl") ){
+ 				RequestDispatcher dispatcher = request.getRequestDispatcher("/myfdkl.jsp");
+ 				dispatcher.forward(request, response);	
  			}
  			
  			
@@ -132,17 +149,19 @@ public class IndexSeverlet extends HttpServlet {
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/framemain.jsp");
 			dispatcher.forward(request, response);	
+			
 		}else if(uri.contains("post") ){
 			if(uri.contains("post/client_fakouling")){
 				//1代表成功，2代表口令已存在，0代表插库失败
-				response.getWriter().write(PostServer.postClientKL(request));
+				
+				response.getWriter().write(String.valueOf(PostServer.postClientKL(request)));
 				
 			}else if(uri.contains("post/shop_fakouling")){
 				response.getWriter().write(String.valueOf(PostServer.postShopKL(request)));
 			}else if(uri.contains("post/shop_zhuce")){
-				response.getWriter().write(PostServer.postShopZC(request));
-			}else if(uri.contains("post/shop_xgmm")){
-				response.getWriter().write(PostServer.postShopZC(request));
+				int a=PostServer.postShopZC(request);
+				System.out.println(a);
+				response.getWriter().write(String.valueOf(a));
 			}
 			
 			

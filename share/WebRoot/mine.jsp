@@ -35,16 +35,24 @@ $(document).ready(function(){
  $("#wdjf").click(function(){
  $("#wdjf").addClass("weui_bar_item_on");
  $("#kgdkl").removeClass("weui_bar_item_on");
+ $("#fdkl").removeClass("weui_bar_item_on");
   document.getElementById("mineframe").src="<%=path%>/index/info/url/tab/mineframe/myjifen";
  });
  
  $("#kgdkl").click(function(){
  $("#kgdkl").addClass("weui_bar_item_on");
  $("#wdjf").removeClass("weui_bar_item_on");
+  $("#fdkl").removeClass("weui_bar_item_on");
   document.getElementById("mineframe").src="<%=path%>/index/info/url/tab/mineframe/mykgdkl";
  });
  
+ $("#fdkl").click(function(){
+ $("#fdkl").addClass("weui_bar_item_on");
+ $("#kgdkl").removeClass("weui_bar_item_on");
+ $("#wdjf").removeClass("weui_bar_item_on");
  
+  document.getElementById("mineframe").src="<%=path%>/index/info/url/tab/mineframe/fdkl";
+ });
 
  
  
@@ -62,7 +70,9 @@ $(document).ready(function(){
             <div class="weui_navbar_item"   id='kgdkl'>
                 看过的口令
             </div>
-
+      <div class="weui_navbar_item"   id='fdkl'>
+               我发的口令
+            </div>
         </div>
       
     </div>

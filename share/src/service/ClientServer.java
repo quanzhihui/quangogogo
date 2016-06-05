@@ -94,8 +94,25 @@ public class ClientServer {
 			   return idao.getclientInfo(clientwx).getTgurl(); 
 		   }
 		   
-		  
 		   
+		  /*
+		   * 用户注册
+		   */
+		  
+		   public static boolean clientRegist(String clientwx){
+			   ClientDao idao =new ClientDao();
+			    if(idao.getclientInfo(clientwx)==null){
+				  Client client =new Client();
+				  client.setClientWxid(clientwx);
+				  client.setClientImg("fdsfds");
+				  client.setClientName("张三");
+				  client.setScore(ShareConst.init_user_score);
+				  client.setTicket( ShareConst.init_user_ticket);
+				  return idao.clientRegist(client);
+			    } 
+			    
+			    return true;    
+		   }
 		   
 		   
 }

@@ -69,6 +69,7 @@ $("#dialog_zccg").hide();
 $("#shangchuan").change(function(){
 
  var formData = new FormData($("#zcform")[0]);  
+      
      $.ajax({  
           url: '<%=path%>/index/interface/shop/image' ,  
           type: 'POST',  
@@ -285,22 +286,26 @@ break;
  
  
   function submit(){
+
  
 var ajax_option={
 url:"<%=path%>/index/post/shop_zhuce",
 type:"post",
 success:function(data){
-if(data=="true"){
+if(data=="1"){
 $("#dialog_zccg").show();
 $("#zccgcontent").html("注册成功");
-
 
 }else  {
 $("#dialog_zcsb").show();
 $("#zcsbcontent").html("注册失败,"+data);
-}}};
+}
+
+}};
 
 $("#zcform").ajaxSubmit(ajax_option);
+
+
 }
 
 $("#dialogklqrdeny").click(function(){
@@ -315,13 +320,13 @@ $("#dialog_klqr").hide();
   </script>
   
 
-<form id="zcform" name="zcform" method="post"  enctype="multipart/form-data">
+<form id="zcform"  method="post"    >
 
 <div class="weui_cells weui_cells_form">
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">邀请码</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input required" type="text" name="yqm" id="yqm"   readonly="readonly"/>  
+                <input class="weui_input required" type="text" id="yqm"  name="yqm"   />  
                  <input class="weui_input" type="text" id="yqm_check" readonly="readonly"/>  
             </div>
         </div>
@@ -331,7 +336,7 @@ $("#dialog_klqr").hide();
         <div class="weui_cell">
             <div class="weui_cell_hd"><label for="" class="weui_label">用户名</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text"  placeholder="点击录入用户名" id="yhm" onblur="checksingle('yhm')"/>
+                <input class="weui_input" type="text"  placeholder="点击录入用户名" id="shopusername" name="shopusername" onblur="checksingle('yhm')"/>
                  <input class="weui_input" type="text" id="yhm_check" readonly="readonly"/>  
             </div>
         </div>
@@ -340,7 +345,7 @@ $("#dialog_klqr").hide();
       <div class="weui_cell">
             <div class="weui_cell_hd"><label for="" class="weui_label">密码</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="password"  placeholder="点击录入密码" id="passwd" onblur="checksingle('passwd')"/>
+                <input class="weui_input" type="password"  placeholder="点击录入密码" id="passwd" name="shoppassword" onblur="checksingle('passwd')"/>
                  <input class="weui_input" type="text" id="passwd_check" readonly="readonly"/>  
             </div>
         </div>
@@ -357,7 +362,7 @@ $("#dialog_klqr").hide();
  	<div class="weui_cell">
             <div class="weui_cell_hd"><label for="" class="weui_label">公众号名称</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text"  placeholder="点击录入公众号或微店名称" id="gzhmc" onblur="checksingle('gzhmc')"/>
+                <input class="weui_input" type="text"  placeholder="点击录入公众号或微店名称" id="gzhmc" name="gzhmc" onblur="checksingle('gzhmc')"/>
                  <input class="weui_input" type="text" id="gzhmc_check" readonly="readonly"/>  
             </div>
         </div>  
@@ -365,7 +370,7 @@ $("#dialog_klqr").hide();
           <div class="weui_cell">
             <div class="weui_cell_hd"><label for="" class="weui_label">公众号简介</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text"  placeholder="请录入简介" id="sjjj" onblur="checksingle('sjjj')"/>
+                <input class="weui_input" type="text"  placeholder="请录入简介" id="sjjj" name="sjjj" onblur="checksingle('sjjj')"/>
                  <input class="weui_input" type="text" id="sjjj_check" readonly="readonly" />  
             </div>
         </div>  
@@ -445,7 +450,7 @@ $("#dialog_klqr").hide();
         <div class="weui_dialog_hd"><strong class="weui_dialog_title">请输入邀请码</strong></div>
         <div class="weui_dialog_bd" >
         <form id="yqmform"  method="post">
-        <input class="weui_input" type="text" id="yqmshuru"  placeholder="请录入邀请码"   /> 
+        <input class="weui_input" type="text" id="yqmshuru" name="yqmshuru" placeholder="请录入邀请码"   /> 
         	<input class="weui_input" type="text" id="yqmshuru_check" readonly="readonly"  /> 
         </form>
         </div>

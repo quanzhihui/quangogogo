@@ -9,9 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 import util.MysqlUtil;
+import util.ShareConst;
 import util.TextUtil;
 import bean.Client;
-import bean.Imformation;
+import bean.Information;
 
 public class ClientDao {
 
@@ -163,8 +164,8 @@ public class ClientDao {
 	 */	
 	public static String getMyInfo="select * from viewlog where clientwx=? and authflow=1 order by visitor desc,zan desc ,keng asc";
 	
-	public List<Imformation> getMyInfoByMysql(String clientwx){
-		List<Imformation> list=new ArrayList<Imformation>();
+	public List<Information> getMyInfoByMysql(String clientwx){
+		List<Information> list=new ArrayList<Information>();
 		Connection conn = MysqlUtil.getInstance().getConnection();
 		try{
 	
@@ -173,7 +174,7 @@ public class ClientDao {
 			ResultSet rs=sta.executeQuery();
 			while(rs.next()){
 				
-				Imformation info=new Imformation();
+				Information info=new Information();
 				info.setClientWx(rs.getString("clientwx"));
 				info.setClientName(rs.getString("clientName"));
 				info.setIntroduct_acount(rs.getInt("introduct_acount"));
@@ -195,6 +196,37 @@ public class ClientDao {
 		}
 	}
 
+	  /*
+	   * 用户注册
+	   */
+	static  String client_insert="insert into client values(?,?,?,?,?,?,?)";
+	
+	  public  boolean clientRegist(Client client){
+			Connection conn = MysqlUtil.getInstance().getConnection();
+			
+			 
+			try {
+				PreparedStatement  sta=conn.prepareStatement(client_insert);
+				sta.setNull(1,java.sql.Types.INTEGER);
+				sta.setString(2, client.getClientWxid());
+				sta.setString(3,client.getClientName());
+				sta.setString(4,client.getClientImg());
+				sta.setInt (5,client.getTicket());	
+				sta.setInt (6,client.getScore());	
+				sta.setNull(7,java.sql.Types.VARCHAR);
+				
+				if(sta.executeUpdate()>0){
+					return true;
+				}
+			   
+			} catch (SQLException e) {
+				e.printStackTrace();
+				 
+			}finally{
+				MysqlUtil.getInstance().release(conn);
+			}
+			return false;
+		}
 	
 	
 }

@@ -61,13 +61,13 @@ window.location.href="<%=path%>/index/url/shop/shopzc";
 
  function checkform(){
  var canCommit=1;
- var shopname=$("#shopname").val();
- if(shopname==""){
-  $("#shopname_check").show();
-  $("#shopname_check").val("用户名不能为空");
+ var shopusername=$("#shopusername").val();
+ if(shopusername==""){
+  $("#shopusername_check").show();
+  $("#shopusername_check").val("用户名不能为空");
    canCommit=0;
  }else{
-  $("#shopname_check").hide();
+  $("#shopusername_check").hide();
  }
  
  var shoppassword=$("#shoppassword").val();
@@ -86,14 +86,14 @@ window.location.href="<%=path%>/index/url/shop/shopzc";
  
  function checksingle(id){
 
- if(id=="shopname_check"){
+ if(id=="shopusername_check"){
  
-  var vals=$("#shopname").val();
+  var vals=$("#shopusername").val();
  if(vals==""||vals=="null"){
-  $("#shopname_check").show();
-  $("#shopname_check").val("用户名不能为空");
+  $("#shopusername_check").show();
+  $("#shopusername_check").val("用户名不能为空");
  }else{
-  $("#shopname_check").hide();
+  $("#shopusername_check").hide();
  }
  }else if(id=="shoppassword_check"){
 
@@ -138,8 +138,8 @@ $("#sjdlform").ajaxSubmit(ajax_option);
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">商家用户名</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input required" type="text" name="shopname" id="shopname"  placeholder="请输入商户名"  onblur="checksingle('shopname_check')"/>  
-                 <input class="weui_input" type="text" id="shopname_check" readonly="readonly"/>  
+                <input class="weui_input required" type="text" name="shopusername" id="shopusername"  placeholder="请输入商户名"  onblur="checksingle('shopusername_check')"/>  
+                 <input class="weui_input" type="text" id="shopusername_check" readonly="readonly"/>  
                 <div id="error_kouling">  </div> 
             </div>
         </div>
@@ -154,7 +154,7 @@ $("#sjdlform").ajaxSubmit(ajax_option);
 
     <div class="weui_btn_area">
          <a class="weui_btn weui_btn_primary"  id="showTooltips" onclick="checkform()">确定</a>
-         <a class="weui_btn weui_btn_primary" id="formcancel"  >取消</a>
+         <a class="weui_btn weui_btn_primary" id="formcancel"  >返回主界面</a>
     </div>
       
 </div>

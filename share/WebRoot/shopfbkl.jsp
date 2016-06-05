@@ -272,7 +272,7 @@ $("#dialog_klqr").show();
           		<div class="weui_cell">
             <div class="weui_cell_hd"><label for="" class="weui_label">发放时间</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="datetime-local"  placeholder="点击录入发放时间" id="ffsj" onblur="checksingle('ffsj_check')"/>
+                <input class="weui_input" type="datetime-local"  placeholder="点击录入发放时间" id="ffsj" name="ffsj" onblur="checksingle('ffsj_check')"/>
                  <input class="weui_input" type="text" id="ffsj_check" readonly="readonly"/>  
             </div>
         </div>
@@ -365,7 +365,7 @@ $("#dialog_klqr").show();
         <div class="weui_dialog_hd"><strong class="weui_dialog_title">请输入推广豆</strong></div>
         <div class="weui_dialog_bd" >
         <form id="yqmform"  method="post">
-        <input class="weui_input" type="text" id="tgdshuru"  placeholder="请录入邀请码"   /> 
+        <input class="weui_input" type="text" id="tgdshuru" name="tgdshuru" placeholder="请输入推广豆"   /> 
           <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="gmyqd">购买推广豆</a>  
         	<input class="weui_input" type="text" id="tgdshuru_check" readonly="readonly"  /> 
         </form>
