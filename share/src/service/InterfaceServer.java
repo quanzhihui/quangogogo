@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import util.FileUploadUtil;
 import util.ShareConst;
 import dao.ClientType;
+import dao.InfoCreateType;
 
 /*
  * 专用于取接口服务
@@ -175,12 +176,17 @@ public class InterfaceServer {
 					  }
 					String shopname=request.getParameter("shopname");
 					String shoppassword=request.getParameter("newpassword");
+				
+					
 					response.getWriter().write(String.valueOf(ShopServer.changeShopPasswd(shopname,shoppassword)));
 				 }if(uri.indexOf("/admin_audit") != -1){
 					  if(request.getSession().getAttribute("adminname")==null ){
 						  response.getWriter().write("-1");
-					  }
-					response.getWriter().write(String.valueOf(KLInfoServices.auditKL(request)));
+					}
+					
+					response.getWriter().write(
+							String.valueOf(KLInfoServices.auditKL(request)));
+					
 				 }
 				  
 				  

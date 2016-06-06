@@ -225,7 +225,7 @@ $("#auditform").ajaxSubmit(ajax_option);
             
       </td>
        <td><input name="auditreason_<%=infoList.get(i).getInfoId()%>"    > </td>
-      
+       <td><input name="kltype_<%=infoList.get(i).getInfoId()%>" value=<%=infoList.get(i).getType() %>  > </td>
     </tr>        
    <% }%>
 

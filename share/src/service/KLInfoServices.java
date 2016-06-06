@@ -71,9 +71,9 @@ public class KLInfoServices {
 	/*
 	 * 根据id获取推广页面
 	 */
-  	public static int postKL(Information info){
+  	public static int postKL(InfoCreateType type,Information info){
 	  InfoDao id=new InfoDao();
-	  return id.postKL(info);
+	  return id.postKL(type,info);
 
   	}
   	
@@ -111,9 +111,22 @@ public class KLInfoServices {
 				}
 				String infoidString=name.replaceAll("isaudit_", "");
 				String reason=request.getParameter("auditreason_"+infoidString);
+				
+				InfoCreateType kltype=null;
+				if(request.getParameter("kltype"+infoidString)==null){
+					return -1;
+				}else if("0".equals(request.getParameter("kltype"+infoidString))){
+					kltype=InfoCreateType.client;
+				}else if("0".equals(request.getParameter("kltype"+infoidString))){
+					kltype=InfoCreateType.shop;
+				}else{
+					return -1;
+				}
+				 
+				
 				int infoid=Integer.valueOf(infoidString);
 				//审批
-				if(id.auditKL(infoid, auditstatus,reason==null?"无意见":reason)<0){
+				if(id.auditKL(kltype,infoid, auditstatus,reason==null?"无意见":reason)<0){
 					return -1;
 				}
 			}

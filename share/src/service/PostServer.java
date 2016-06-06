@@ -12,6 +12,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import dao.InfoCreateType;
+
 import util.FileUploadUtil;
 import util.ShareConst;
 import util.TextUtil;
@@ -80,7 +82,7 @@ public class PostServer {
 		info.setAuthflow(0);
 		
 		
-		return KLInfoServices.postKL(info);
+		return KLInfoServices.postKL(InfoCreateType.client,info);
 		
 		 
 	}
@@ -144,7 +146,7 @@ public class PostServer {
 		info.setAuthflow(0);
 		
 		
-		return KLInfoServices.postKL(info);
+		return KLInfoServices.postKL(InfoCreateType.shop,info);
 
 		 
 	}
