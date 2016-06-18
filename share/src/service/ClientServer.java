@@ -1,5 +1,6 @@
 package service;
 
+import util.ShareCache;
 import util.ShareConst;
 import bean.Client;
 import dao.ClientDao;
@@ -96,23 +97,38 @@ public class ClientServer {
 		   
 		   
 		  /*
-		   * 用户注册
+		   * 是否新用户，不是新用户则注册,新用户返回true,老用户返回false
 		   */
 		  
-		   public static boolean clientRegist(String clientwx){
-			   ClientDao idao =new ClientDao();
-			    if(idao.getclientInfo(clientwx)==null){
-				  Client client =new Client();
-				  client.setClientWxid(clientwx);
-				  client.setClientImg("fdsfds");
-				  client.setClientName("张三");
-				  client.setScore(ShareConst.init_user_score);
-				  client.setTicket( ShareConst.init_user_ticket);
-				  return idao.clientRegist(client);
-			    } 
-			    
-			    return true;    
-		   }
+	public static boolean clientRegist(String clientwx) {
+
+		if (!ShareCache.userSet.contains(clientwx)) {
+			ClientDao idao = new ClientDao();
+			if (idao.getclientInfo(clientwx) == null) {
+				Client client = new Client();
+				client.setClientWxid(clientwx);
+				client.setScore(ShareConst.init_user_score);
+				client.setTicket(ShareConst.init_user_ticket);
+				if (idao.clientRegist(client)) {
+					ShareCache.userSet.add(clientwx);
+					return true;
+				}
+
+			}else{
+				//数据库有，内存没有，进行同步
+ 				ShareCache.userSet.add(clientwx);
+			}
+		}
+		return false;
+	}
 		   
+		   	  /*
+			   * 用户增加名字
+			   */
+			  
+			   public static boolean addClientName(String clientwx,String name){
+				   ClientDao idao =new ClientDao();
+				   return   idao.addClientName(clientwx, name);
+			   }
 		   
 }

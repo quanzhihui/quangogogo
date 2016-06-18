@@ -61,6 +61,8 @@ public class InfoDao {
 				info.setInfoId(rs.getInt("id"));
 				info.setClientWx(rs.getString("clientwx"));
 				info.setClientName(rs.getString("clientName"));
+				info.setClientImg(rs.getString("clientimg"));
+				info.setType(Integer.valueOf(rs.getString("type")));
 				info.setIntroduct_acount(rs.getInt("introduct_acount"));
 				info.setIntroduct_num(rs.getInt("introduct_num"));
 				info.setKouling(rs.getString("kouling"));
@@ -91,9 +93,9 @@ public class InfoDao {
 		try {
 			PreparedStatement sta=null;
 				if(InfoCreateType.client.equals(type)){
-					conn.prepareStatement(addInfoClient);
+					sta=conn.prepareStatement(addInfoClient);
 				}else if(InfoCreateType.shop.equals(type)){
-					conn.prepareStatement(addInfoShop);
+					sta=conn.prepareStatement(addInfoShop);
 				}
 				
 			sta.setNull(1, java.sql.Types.INTEGER) ;
@@ -152,7 +154,7 @@ public class InfoDao {
 					info.setIntroduct_num(rs.getInt("introduct_num"));
 					info.setKouling(rs.getString("kouling"));
 					info.setSdate(rs.getInt("sdate"));
-					info.setStime(rs.getInt("stime"));
+					info.setStime(rs.getLong("stime"));
 					info.setVisitor(rs.getInt("visitor"));
 					info.setAllowVisit(rs.getInt("allowvisit"));
 					info.setAuthreason(rs.getString("authreason")); 
@@ -204,16 +206,16 @@ public class InfoDao {
 			try {
 				PreparedStatement sta=null;
 				if(InfoCreateType.client.equals(type)){
-					conn.prepareStatement(auditInfoClient);
+					sta=conn.prepareStatement(auditInfoClient);
 				}else if(InfoCreateType.shop.equals(type)){
-					conn.prepareStatement(auditInfoShop);
+					sta=conn.prepareStatement(auditInfoShop);
 				}
 				
 				sta.setInt(1, auditState) ;
 				sta.setString(2,reason);
 				sta.setInt(3,infoId);
-			 
-				return sta.executeUpdate();
+			 int ss=sta.executeUpdate();
+				return ss;
 
 				 
 			

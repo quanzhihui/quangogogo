@@ -1,6 +1,7 @@
 package util;
 
-import java.util.Properties;
+import service.TokenServer;
+
 
 public class ShareConst {
 
@@ -51,8 +52,10 @@ public class ShareConst {
 	public static int audit_bh=-1;
 	public static int audit_dsp=0;
 	
+	//系统参数
 	
-	
+	public static String wxurl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+TokenServer.getappId()+"&redirect_uri=https%3a%2f%2fwww.o2ohappy.com%2fshare%2findex%2furl%2fmain&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+		
 	//获得系统参数
 //	public static final Properties PROPERTIES = new Properties(System.getProperties());
 	

@@ -37,11 +37,13 @@ public class ClientDao {
 			Client cli=new Client();
 			ResultSet rs=sta.executeQuery();
 			if(rs.next()){
+			cli.setClientid(rs.getInt("clientid"));
 			cli.setScore(rs.getInt("score"));
 			cli.setTicket(rs.getInt("ticket"));
 			cli.setTgurl(rs.getString("tgurl"));
 			cli.setClientName(rs.getString("clientname"));
-			cli.setClientImg(rs.getString("clientimg"));		
+			cli.setClientImg(rs.getString("clientimg"));
+			cli.setClientWxid(rs.getString("clientwx"));
 			return cli;
 			}else return null;
 		} catch (SQLException e) {
@@ -228,5 +230,29 @@ public class ClientDao {
 			return false;
 		}
 	
+	  /*
+	   * 用户修改名字
+	   */
+	static  String client_nameupdate="update client set clientname=? where clientwx=? ";
+	
+	  public  boolean addClientName(String clientwx,String name){
+			Connection conn = MysqlUtil.getInstance().getConnection();
+			try {
+				PreparedStatement  sta=conn.prepareStatement(client_nameupdate);
+				sta.setString(1,name);
+				sta.setString(2,clientwx);
+				
+				if(sta.executeUpdate()>0){
+					return true;
+				}
+			   
+			} catch (SQLException e) {
+				e.printStackTrace();
+				 
+			}finally{
+				MysqlUtil.getInstance().release(conn);
+			}
+			return false;
+		}
 	
 }

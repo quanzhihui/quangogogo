@@ -10,7 +10,7 @@ public class ViewLog {
 	Date viewdate  ;
 	String kouling;
 	int sdate ;
-	int stime ;
+	long stime ;
 	String tgurl;
 	
 	
@@ -21,10 +21,10 @@ public class ViewLog {
 	public void setTgurl(String tgurl) {
 		this.tgurl = tgurl;
 	}
-	public int getStime() {
+	public long getStime() {
 		return stime;
 	}
-	public void setStime(int stime) {
+	public void setStime(long stime) {
 		this.stime = stime;
 	}
 	public String getClientWx() {

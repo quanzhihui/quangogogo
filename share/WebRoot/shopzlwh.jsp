@@ -13,7 +13,11 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 Object shopusername=request.getSession().getAttribute("");
-ShopBean shopbean=ShopServer.getShopByUserName("");
+ShopBean shopbean=null;
+if(shopusername!=null){
+ shopbean=ShopServer.getShopByName(shopusername.toString());
+}
+
 
 %>
 <html lang="zh-cmn-Hans">

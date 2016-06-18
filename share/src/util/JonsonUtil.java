@@ -1,6 +1,6 @@
 package util;
 
-import bean.AccessTokenBean;
+import bean.Wxbean_AccessTokenBean;
 import net.sf.json.JSONObject;
 
 public class JonsonUtil {
@@ -15,7 +15,7 @@ public class JonsonUtil {
 public static void main(String[] args){
 		
 	String s="{access_token:'sdfs';expires_in:'dsds'}";
-	System.out.println(jiexi(s,AccessTokenBean.class));
+	System.out.println(jiexi(s,Wxbean_AccessTokenBean.class));
 	
 	}
 }

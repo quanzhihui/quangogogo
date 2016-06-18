@@ -35,6 +35,14 @@ $("#dialog_result_fail").hide();
 $("#hbkl_check").hide();
 $("#ffsj_check").hide();
 $("#dialog_result_fail").hide();
+<%
+String clientwx=request.getSession().getAttribute("clientwx").toString();
+Client client=ClientServer.getClientInfo(clientwx);
+if(client!=null&&client.getClientName()!=null&&!"".equals(client.getClientName())){%>
+$("#dialog_clientname").hide();
+<%}%>
+
+
 
 
 $("#dialog_result_confirm").click(function(){
@@ -66,6 +74,23 @@ $("#dialog_result_fail").show();
 };
 $("#koulingform").ajaxSubmit(ajax_option);
 });
+
+
+
+$("#dialog_yhnc_confirm").click(function(){
+$("#dialog_clientname").hide();
+var ajax_option={
+url:"<%=path%>/index/post/client_addname",
+type:"post",
+clearForm: true,
+success:function(data){
+
+}
+};
+$("#clientnameform").ajaxSubmit(ajax_option);
+});
+
+
 
 $("#dialogklqrdeny").click(function(){
 $("#dialog_klqr").hide();
@@ -241,6 +266,23 @@ $("#dialog_klqr").show();
         <div class="weui_dialog_ft">
             <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_result_confirm_fail">返回发口令界面</a>
             
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="weui_dialog_confirm"  id="dialog_clientname" >
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">请录入用户昵称</strong></div>
+        <div class="weui_dialog_bd" id=""></div>
+        <form id="clientnameform" name="clientnameform" method="post" >
+         <input class="weui_input" type="text"  placeholder="点击录入昵称" id="yhnccontent" name="yhnccontent" />
+       </form>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_yhnc_confirm" >确定</a>
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialogyhncdeny">取消</a>
             
         </div>
     </div>

@@ -113,11 +113,11 @@ public class KLInfoServices {
 				String reason=request.getParameter("auditreason_"+infoidString);
 				
 				InfoCreateType kltype=null;
-				if(request.getParameter("kltype"+infoidString)==null){
+				if(request.getParameter("kltype_"+infoidString)==null){
 					return -1;
-				}else if("0".equals(request.getParameter("kltype"+infoidString))){
+				}else if("0".equals(request.getParameter("kltype_"+infoidString))){
 					kltype=InfoCreateType.client;
-				}else if("0".equals(request.getParameter("kltype"+infoidString))){
+				}else if("1".equals(request.getParameter("kltype_"+infoidString))){
 					kltype=InfoCreateType.shop;
 				}else{
 					return -1;
@@ -129,7 +129,7 @@ public class KLInfoServices {
 				if(id.auditKL(kltype,infoid, auditstatus,reason==null?"无意见":reason)<0){
 					return -1;
 				}
-			}
+			} 
 			
 			
 		}

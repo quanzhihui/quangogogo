@@ -188,7 +188,7 @@ $("#auditform").ajaxSubmit(ajax_option);
     
     %>
     <tr>
-     	<td><%=TextUtil.getNameByAuditType(infoList.get(i).getType())%></td>     
+     	<td><%=TextUtil.getNameByKlType(infoList.get(i).getType())%>   <input  style="display:none;" name="kltype_<%=infoList.get(i).getInfoId()%>" value=<%=infoList.get(i).getType() %>  > </td>     
         <td><%=TextUtil.getOutputDayTimeStamp(infoList.get(i).getStime()) %></td>        
         <td><%=infoList.get(i).getKouling() %></td>
         <td>
@@ -225,7 +225,7 @@ $("#auditform").ajaxSubmit(ajax_option);
             
       </td>
        <td><input name="auditreason_<%=infoList.get(i).getInfoId()%>"    > </td>
-       <td><input name="kltype_<%=infoList.get(i).getInfoId()%>" value=<%=infoList.get(i).getType() %>  > </td>
+    
     </tr>        
    <% }%>
 

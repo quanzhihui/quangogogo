@@ -1,8 +1,10 @@
 package severlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-
-import javassist.compiler.ast.CondExpr;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Wxbean_clientwx;
+
 import service.ClientServer;
-import service.CodeServer;
 import service.InterfaceServer;
 import service.PostServer;
-import service.ShopServer;
+import service.TokenServer;
+import util.JonsonUtil;
 import util.ShareConst;
 
 
@@ -45,18 +49,83 @@ public class IndexSeverlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	//如果直接访问页面，则需要跳转到微信验证页面，从而获取openid
+	
+	private boolean hasClientWx(HttpServletRequest request){
+		if(request.getSession().getAttribute("clientwx")!=null){
+			return true;
+		}else if(request.getParameter("code")!=null){
+			String code=request.getParameter("code");
+			if(code==null) return false;
+			StringBuilder getOpenidUrl=new StringBuilder() ;
+			getOpenidUrl
+			.append("https://api.weixin.qq.com/sns/oauth2/access_token?appid=")
+			.append(TokenServer.getappId())
+			.append("&")
+			.append("secret=")
+			.append(TokenServer.getAccess_token())
+			.append("&")
+			.append("code=")
+			.append(code)
+			.append("&")
+			.append("grant_type=authorization_code");
+			BufferedReader in=null;
+			try{
+				 URL realUrl = new URL(getOpenidUrl.toString());
+				 URLConnection connection = realUrl.openConnection();
+				 connection.connect();
+				  in = new BufferedReader(new InputStreamReader(
+		                    connection.getInputStream()));
+				 
+				 StringBuilder json=new StringBuilder();
+				 String line=null;
+				 while ((line = in.readLine()) != null) {
+					 json.append(line);
+		            }
+				 Object temp=JonsonUtil.jiexi(json.toString(), Wxbean_clientwx.class);
+				
+				 if(temp!=null){
+					 Wxbean_clientwx wxbean=(Wxbean_clientwx)temp;
+					 request.getSession().setAttribute("clientwx", wxbean.getOpenid());
+					 return true;
+				 }else{
+					 return false;
+				 }
+				 
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}finally{
+				try {
+					in.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}else{
+			//说明是从某一个页面来，需要跳转到微信授权页面
+			return false;
+		}
+			 
+	}
 	
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Object openid=request.getAttribute("openid");
-		if(openid==null){
-			openid="111";
+		if(!hasClientWx(request)){
+			RequestDispatcher dispatcher = request.getRequestDispatcher(ShareConst.wxurl);
+			dispatcher.forward(request, response);	
 		}
+		Object openid=request.getSession().getAttribute("clientwx");
 		String clientwx=openid.toString();
+//		String clientwx="2323";
+//		request.getSession().setAttribute("clientwx",clientwx);
+		System.out.println(clientwx);
 		//设置用户属性
-		request.getSession().setAttribute("clientwx", openid);
+		
 		
 		//如果是第一次来则记录用户
 		ClientServer.clientRegist(clientwx);
@@ -159,9 +228,9 @@ public class IndexSeverlet extends HttpServlet {
 			}else if(uri.contains("post/shop_fakouling")){
 				response.getWriter().write(String.valueOf(PostServer.postShopKL(request)));
 			}else if(uri.contains("post/shop_zhuce")){
-				int a=PostServer.postShopZC(request);
-				System.out.println(a);
-				response.getWriter().write(String.valueOf(a));
+				response.getWriter().write(String.valueOf(PostServer.postShopZC(request)));
+			}else if(uri.contains("post/client_addname")){
+				response.getWriter().write(String.valueOf(ClientServer.addClientName(clientwx, request.getParameter("yhnccontent"))));
 			}
 			
 			

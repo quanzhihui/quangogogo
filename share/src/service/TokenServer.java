@@ -9,7 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 
-import bean.AccessTokenBean;
+import bean.Wxbean_AccessTokenBean;
 
 import util.JonsonUtil;
 
@@ -63,9 +63,9 @@ public class TokenServer {
 			InputStream inputStream = urlConnection.getInputStream(); 
 			String responseStr = convertToString(inputStream);  
 			
-			Object bean=JonsonUtil.jiexi(responseStr, AccessTokenBean.class);
+			Object bean=JonsonUtil.jiexi(responseStr, Wxbean_AccessTokenBean.class);
 			if(bean!=null){
-				AccessTokenBean atb=(AccessTokenBean)bean;
+				Wxbean_AccessTokenBean atb=(Wxbean_AccessTokenBean)bean;
 				System.out.println(atb.getAccess_token());
 				access_token=atb.getAccess_token();
 				

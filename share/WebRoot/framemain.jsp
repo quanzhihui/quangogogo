@@ -55,7 +55,7 @@ $("#dialog1_confirm").click(function(){
   {
     client:clientwx,
     type:"ticket",
-    infomation:infoid
+    informationid:infoid
   },
   function(data,status){
   if(data!="null"){
