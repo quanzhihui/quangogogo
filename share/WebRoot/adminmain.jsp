@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <html lang="zh-cmn-Hans">
 <head>
-	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="<%=basePath%>example/jquery.min.js"></script>
      <link rel="stylesheet" href="<%=path%>/example/table.css"/> 
     <% List<Information> infoList = KLInfoServices.getInfo(InfoType.unaudit);%>
     <meta charset="UTF-8">

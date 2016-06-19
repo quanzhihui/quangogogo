@@ -71,10 +71,8 @@ public class InterfaceServer {
 					
 				}else if (uri.indexOf("/client/trans") != -1) {	
 					response.getWriter().write(String.valueOf(ClientServer.transTicket(clientwx)));
-				}else if (uri.indexOf("/client/gettuiguang") != -1) {
-					
-					response.getWriter().write(ClientServer.getTGurl(clientwx));
-					
+				}else if (uri.indexOf("/client/gettuiguang") != -1) {	 
+						response.getWriter().write(ClientServer.getTGurl(clientwx));
 				}
 				
 			} else if (uri.indexOf("/info") != -1) {

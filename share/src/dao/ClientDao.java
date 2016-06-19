@@ -255,4 +255,30 @@ public class ClientDao {
 			return false;
 		}
 	
+	  /*
+	   * 用户修改推广url
+	   */
+	static  String client_tgurlupdate="update client set  tgurl=? where clientwx=? ";
+	
+	  public  boolean addClientTgurl(String tgurl,String name){
+			Connection conn = MysqlUtil.getInstance().getConnection();
+			try {
+				PreparedStatement  sta=conn.prepareStatement(client_tgurlupdate);
+				sta.setString(1,tgurl);
+				sta.setString(2,name);
+				
+				if(sta.executeUpdate()>0){
+					return true;
+				}
+			   
+			} catch (SQLException e) {
+				e.printStackTrace();
+				 
+			}finally{
+				MysqlUtil.getInstance().release(conn);
+			}
+			return false;
+		}  
+	  
+	  
 }

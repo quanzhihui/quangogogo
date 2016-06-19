@@ -92,7 +92,12 @@ public class ClientServer {
 		    */
 		   public static String getTGurl(String clientwx){
 			   ClientDao idao =new ClientDao();
-			   return idao.getclientInfo(clientwx).getTgurl(); 
+			   String tgurl=idao.getclientInfo(clientwx).getTgurl();
+			   if(tgurl==null){
+				   tgurl="http://"+ShareConst.domain+"/share/index/url/main/?tj="+CodeServer.getCode(null, ShareConst.yqmlength);
+				   idao.addClientTgurl(tgurl, clientwx);
+			   }
+			   return tgurl; 
 		   }
 		   
 		   

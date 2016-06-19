@@ -11,12 +11,12 @@
 
 <%
 String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path ;
 %>
 <html lang="zh-cmn-Hans">
 <head>
-	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="<%=basePath%>/example/jquery.min.js"></script>
+	 
 	
 	
     <meta charset="UTF-8">
@@ -35,14 +35,7 @@ var clientwx=<%=100%>;
 
 $(document).ready(function(){
 
-wx.config({
- debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-    appId: '', // 必填，公众号的唯一标识
-    timestamp:<%=TokenServer.getTimeStame()%> , // 必填，生成签名的时间戳
-    nonceStr: '', // 必填，生成签名的随机串
-    signature: '',// 必填，签名，见附录1
-    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-});
+
 
 $("#redu").click(function(){
  

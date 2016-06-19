@@ -6,7 +6,7 @@ import service.TokenServer;
 public class ShareConst {
 
 	//域名
-	public static String domain="127.0.0.1:8080";
+	public static String domain="www.o2ohappy.com";
 	//工程名
 	public static String projectname="";
 	//全局路径

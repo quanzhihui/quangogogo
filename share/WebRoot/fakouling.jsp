@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <html lang="zh-cmn-Hans">
 <head>
-	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="<%=path%>/jquery.min.js"></script>
 
     
     <meta charset="UTF-8">
@@ -48,6 +48,12 @@ $("#dialog_clientname").hide();
 $("#dialog_result_confirm").click(function(){
 $("#dialog_result_success").hide();
 });
+
+$("#dialogyhncdeny").click(function(){
+window.location.href="<%=path%>/index/url/main";
+});
+
+
 
 $("#formcancel").click(function(){
 window.location.href="<%=path%>/index/url/main";

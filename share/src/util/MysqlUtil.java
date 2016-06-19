@@ -134,6 +134,13 @@ public class MysqlUtil {
 		            this.password = "quan";
 		            this.url = "jdbc:mysql://127.0.0.1:3306/share?autoReconnect=true";
 		            this.poolSize =10;
+		    	
+//	    	    this.driverClassName ="com.mysql.jdbc.Driver";
+//	            this.username ="root";
+//	            this.password = "Qzh-1986!";
+//	            this.url = "jdbc:mysql://localhost:3306/share?autoReconnect=true";
+//	            this.poolSize =10;
+		    	
 		    }
 	
 	

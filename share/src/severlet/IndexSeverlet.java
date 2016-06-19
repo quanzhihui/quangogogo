@@ -115,14 +115,14 @@ public class IndexSeverlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if(!hasClientWx(request)){
-			RequestDispatcher dispatcher = request.getRequestDispatcher(ShareConst.wxurl);
-			dispatcher.forward(request, response);	
-		}
-		Object openid=request.getSession().getAttribute("clientwx");
-		String clientwx=openid.toString();
-//		String clientwx="2323";
-//		request.getSession().setAttribute("clientwx",clientwx);
+//		if(!hasClientWx(request)){
+//			RequestDispatcher dispatcher = request.getRequestDispatcher(ShareConst.wxurl);
+//			dispatcher.forward(request, response);	
+//		}
+//		Object openid=request.getSession().getAttribute("clientwx");
+//		String clientwx=openid.toString();
+		String clientwx="2323";
+		request.getSession().setAttribute("clientwx",clientwx);
 		System.out.println(clientwx);
 		//设置用户属性
 		
