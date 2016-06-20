@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-public class TestSeverlet extends HttpServlet {
+public class WxSeverlet extends HttpServlet {
 
 	
 	/**
@@ -38,14 +38,22 @@ public class TestSeverlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String echostr =request.getParameter("echostr");
-		if(echostr!=null){
-			response.getWriter().write(echostr);
-			System.out.println("it is weixin");
-			 
-		}else{
-			System.out.println("it is not weixin");
+		
+		String uri=request.getRequestURI();
+		
+		if(uri.contains("/wx/wxtokentest")){
+			String echostr =request.getParameter("echostr");
+			if(echostr!=null){
+				response.getWriter().write(echostr);
+				System.out.println("it is weixin");
+			}else{
+				System.out.println("it is not weixin");
+			}
+		}else if(uri.contains("/wx/autoanswer")){
+			
+			response.getWriter().write("success");
 		}
+		
 	
 	
 	}

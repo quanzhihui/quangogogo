@@ -36,7 +36,7 @@ public class IndexSeverlet extends HttpServlet {
 
 	@Override
 	public void init() {
-
+		TokenServer.init();
 		ShareConst.path = getServletContext().getRealPath("/");
 		ShareConst.projectname=getServletContext().getContextPath();
 		ShareConst.imgPath = ShareConst.path+"img";
@@ -55,7 +55,9 @@ public class IndexSeverlet extends HttpServlet {
 		if(request.getSession().getAttribute("clientwx")!=null){
 			return true;
 		}else if(request.getParameter("code")!=null){
+			
 			String code=request.getParameter("code");
+			System.out.println(code);
 			if(code==null) return false;
 			StringBuilder getOpenidUrl=new StringBuilder() ;
 			getOpenidUrl
@@ -63,12 +65,13 @@ public class IndexSeverlet extends HttpServlet {
 			.append(TokenServer.getappId())
 			.append("&")
 			.append("secret=")
-			.append(TokenServer.getAccess_token())
+			.append(TokenServer.getSecret())
 			.append("&")
 			.append("code=")
 			.append(code)
 			.append("&")
 			.append("grant_type=authorization_code");
+			System.out.println(getOpenidUrl.toString());
 			BufferedReader in=null;
 			try{
 				 URL realUrl = new URL(getOpenidUrl.toString());
@@ -106,6 +109,7 @@ public class IndexSeverlet extends HttpServlet {
 			}
 		}else{
 			//说明是从某一个页面来，需要跳转到微信授权页面
+			System.out.println("cjbd");
 			return false;
 		}
 			 
@@ -115,14 +119,15 @@ public class IndexSeverlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		if(!hasClientWx(request)){
-//			RequestDispatcher dispatcher = request.getRequestDispatcher(ShareConst.wxurl);
-//			dispatcher.forward(request, response);	
-//		}
-//		Object openid=request.getSession().getAttribute("clientwx");
-//		String clientwx=openid.toString();
-		String clientwx="2323";
-		request.getSession().setAttribute("clientwx",clientwx);
+		if(!hasClientWx(request)){
+			System.out.println(ShareConst.wxurl);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(ShareConst.wxurl);
+			dispatcher.forward(request, response);	
+		}
+		Object openid=request.getSession().getAttribute("clientwx");
+		String clientwx=openid.toString();
+//		String clientwx="2323";
+//		request.getSession().setAttribute("clientwx",clientwx);
 		System.out.println(clientwx);
 		//设置用户属性
 		

@@ -128,7 +128,9 @@ public class TokenServer {
 		 return "wx970b335a565122f2";
 	 }
 	 
-	 
+	 public static String getSecret(){
+		 return "6470ea3ed90dc5e213fd43048d50bc7c";
+	 }
 	 
 	 
 	 

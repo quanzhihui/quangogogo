@@ -28,9 +28,6 @@
     <url-pattern>/admin/*</url-pattern>
   </servlet-mapping>
   
-  
-  
-  
   <servlet>
     <servlet-name>ImgSeverlet</servlet-name>
     <servlet-class>severlet.ImgSeverlet</servlet-class>
@@ -45,6 +42,27 @@
     <url-pattern>/img/*</url-pattern>
   </servlet-mapping>
   
+  
+  
+  
+    
+    
+      <servlet>
+    <servlet-name>WxSeverlet</servlet-name>
+    <servlet-class>severlet.WxSeverlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WxSeverlet</servlet-name>
+    <url-pattern>/wx</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WxSeverlet</servlet-name>
+    <url-pattern>/wx/*</url-pattern>
+  </servlet-mapping>
+  
+    
+    
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
