@@ -169,6 +169,8 @@ $("#dialog_qiandao").hide();
 
 
 
+
+
 	<script src="<%=path%>/example/zepto.min.js"></script>
     <script src="<%=path%>/example/router.min.js"></script>
     <script src="<%=path%>/example/example.js"></script>
