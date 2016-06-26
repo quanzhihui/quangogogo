@@ -68,7 +68,7 @@ $("#dialog1_confirm").click(function(){
     informationid:infoid
   },
   function(data,status){
-  if(data="0"){
+  if(data=="1"){
   
   $("#shoptiaozhuan").html("口令已经放到【我的】中，先去发口令的商家那看看有什么好东东吧。");
   $("#dialog3_confirm").click(function(){
@@ -87,7 +87,7 @@ $("#dialog1_confirm").click(function(){
   
   
   }else{
-  $("#shoptiaozhuan").html("口令已经放到【我的】中。");
+  $("#shoptiaozhuan").html("口令已经放到【我的】中，可以随时查看。");
   $("#dialog3_confirm").click(function(){
   
 $("#dialog3").hide();

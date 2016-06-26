@@ -78,7 +78,7 @@ public class InterfaceServer {
 			} else if (uri.indexOf("/info") != -1) {
 				if (uri.indexOf("/info/useticket") != -1) {
 
-					response.getWriter().write(
+					response.getWriter().write("红包口令为："+
 							KLInfoServices.useTicket(infoid, clientwx));
 
 				} else if (uri.indexOf("info/redirect") != -1) {
@@ -88,9 +88,12 @@ public class InterfaceServer {
 						response.getWriter().write(
 								KLInfoServices.getInfoRedirectUrl(infoid));
 					} else {
-						response.getWriter().write("/share/index/");
+						response.getWriter().write("/share/index/url/main");
 					}
 
+				} else if (uri.indexOf("info/gettype") != -1) {
+					response.getWriter().write(
+							KLInfoServices.getKlByinfoId(infoid).getType()+"");								
 				}
 				
 			}else if(uri.indexOf("/log/") != -1){

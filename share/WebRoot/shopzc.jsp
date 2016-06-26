@@ -31,6 +31,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $(document).ready(function(){
 
 
+ $("#formcancel").click(function(){
+ window.location.href="<%=path%>/index/url/main";
+ });
+
+
+
 $("#dialog_yqm_confirm").click(function(){
 
 
@@ -320,7 +326,7 @@ $("#dialog_klqr").hide();
   </script>
   
 
-<form id="zcform"  method="post"    >
+<form id="zcform"  method="post" enctype="multipart/form-data"  >
 
 <div class="weui_cells weui_cells_form">
         <div class="weui_cell">

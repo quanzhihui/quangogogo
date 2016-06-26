@@ -11,6 +11,11 @@ public class ShareConst {
 	public static String projectname="";
 	//全局路径
 	public static String path="";
+	//基础路径
+	public static String basePath="";
+	
+	
+	
 	//图片存储路径	
 	public static String imgPath=path+"/img";
 	//签到获奖励积分

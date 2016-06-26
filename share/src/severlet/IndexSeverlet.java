@@ -144,35 +144,41 @@ public class IndexSeverlet extends HttpServlet {
 		String clientwx=null;
 		String shopname=null;
 		//从cookie中读取用户名
-		if (request.getCookies() != null) {
-			for (int i = 0; i < request.getCookies().length; i++) {
-				if ("yuv".equals(request.getCookies()[i].getName())) {
-					clientwx = request.getCookies()[i].getValue();
-					//如果是未登录的，直接跳出，不再写入session
-					if("unknown".equals(clientwx)) break;
-					
-					request.getSession().setAttribute("clientwx",
-							request.getCookies()[i].getValue());
-					hasLogin = true;
-				}else if ("shopusername".equals(request.getCookies()[i].getName())) {
-				request.getSession().setAttribute("shopusername",
-						request.getCookies()[i].getValue());
-			}
-				
-//				else if ("ypwd".equals(request.getCookies()[i].getName())) {
-//					request.getSession().setAttribute("pwd",
+//		if (request.getCookies() != null) {
+//			for (int i = 0; i < request.getCookies().length; i++) {
+//				if ("yuv".equals(request.getCookies()[i].getName())) {
+//					clientwx = request.getCookies()[i].getValue();
+//					//如果是未登录的，直接跳出，不再写入session
+//					if("unknown".equals(clientwx)) break;
+//					
+//					request.getSession().setAttribute("clientwx",
 //							request.getCookies()[i].getValue());
-//				}
+//					hasLogin = true;
+//				}else if ("shopusername".equals(request.getCookies()[i].getName())) {
+//				request.getSession().setAttribute("shopusername",
+//						request.getCookies()[i].getValue());
+//			}
+//				
+////				else if ("ypwd".equals(request.getCookies()[i].getName())) {
+////					request.getSession().setAttribute("pwd",
+////							request.getCookies()[i].getValue());
+////				}
+//
+//			}
+//		} 
 
-			}
-		} 
-
+		if(clientwx==null){
+			clientwx="dddd";
+			request.getSession().setAttribute("clientwx","dddd");
+				
+		}
+		
 		System.out.println(clientwx);
 		//设置用户属性
 		
 		
 		//如果是第一次来则记录用户
-//		ClientServer.clientRegist(clientwx);
+		ClientServer.clientRegist(clientwx);
 		
  		String uri=request.getRequestURI();
  		if(uri.contains("/url/")){
@@ -221,11 +227,11 @@ public class IndexSeverlet extends HttpServlet {
   				
   			}
 
- 			if((request.getSession().getAttribute("yuv")==null||"".equals(request.getSession().getAttribute("yuv")))&&!uri.contains("/url/main")){
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/userdl.jsp");
- 	 			dispatcher.forward(request, response);		
- 	 			return;
-				}
+// 			if((request.getSession().getAttribute("yuv")==null||"".equals(request.getSession().getAttribute("yuv")))&&!uri.contains("/url/main")){
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/userdl.jsp");
+// 	 			dispatcher.forward(request, response);		
+// 	 			return;
+//				}
  			
  			 if(uri.contains("/url/main") ){
  				RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");

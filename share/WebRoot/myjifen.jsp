@@ -23,21 +23,16 @@ Client client=ClientServer.getClientInfo(clientwx);
     <script src="http://cdn.bootcss.com/zclip/1.1.2/ZeroClipboard.swf"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <link rel="stylesheet" href="<%=path%>/style/weui.css"/>
-    <link rel="stylesheet" href="<%=path%>/example/example.css"/> 
+    <link rel="stylesheet" href="<%=basePath%>/style/weui.css"/>
+    <link rel="stylesheet" href="<%=basePath%>/example/example.css"/> 
 	<title>我的积分</title>
 
 </head>
 
 <body ontouchstart>
 <script type="text/javascript">
-var clientwx=<%=client.getClientWxid()%>;
 
-
-
-
-
-
+ 
 $(document).ready(function(){
 
 
@@ -51,12 +46,19 @@ $(document).ready(function(){
    $("#dhmpbutton").click(function(){
  $.post("<%=path%>/index/interface/client/trans",
   {
-    clientwx:clientwx
+    clientwx:'<%=client.getClientWxid()%>'
   },
   function(data,status){
+   var array=data.split(";");
+   if(array[1]>0){
+     $("#mps").val(array[2]);
+     $("#dhmp").val(array[0]);
+   }
+     
+   
     $("#duihuanchenggong").show();
     $("#duihuanchenggong_title").html("兑换成功");
-    $("#duihuanjieguo").html("每100分可兑换一张门票，您已成功兑换"+data+"张门票！");
+    $("#duihuanjieguo").html("每100优惠豆可兑换一张门票，您已成功兑换"+array[1]+"张门票！");
   });
  });
  
@@ -77,7 +79,7 @@ $(document).ready(function(){
    
     $.post("<%=path%>/index/interface/client/gettuiguang",
   {
-    clientwx:clientwx
+    clientwx:'<%=client.getClientWxid()%>'
   },
   function(data,status){
   
@@ -167,11 +169,11 @@ $("#fuzhi_title").show();
 
   
    
-	<script src="<%=path%>/example/zepto.min.js"></script>
-    <script src="<%=path%>/example/router.min.js"></script>
-    <script src="<%=path%>/example/example.js"></script>
-	<script src="<%=path%>/example/jquery.form.min.js"></script>
-	<script src="<%=path%>/example/ZeroClipboard.min.js"></script>
+	<script src="<%=basePath%>/example/zepto.min.js"></script>
+    <script src="<%=basePath%>/example/router.min.js"></script>
+    <script src="<%=basePath%>/example/example.js"></script>
+	<script src="<%=basePath%>/example/jquery.form.min.js"></script>
+	<script src="<%=basePath%>/example/ZeroClipboard.min.js"></script>
 	
 	
 </body>

@@ -36,7 +36,7 @@ String clientwx=(String)request.getSession().getAttribute("clientwx");
 
 <script type="text/javascript">
 
-var clientid=<%=clientwx%>
+var clientid='<%=clientwx%>';
 
         $(document).ready(function(){
         

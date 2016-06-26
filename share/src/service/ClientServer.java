@@ -73,18 +73,20 @@ public class ClientServer {
 		   /*
 		    * 分数兑换门票
 		    */
-		   public static int transTicket(String clientwx){
+		   public static String transTicket(String clientwx){
 			   
 			  ClientDao idao =new ClientDao();
-			  int score=idao.getclientInfo(ClientType.score, clientwx);
-			  int gainTicket=score/ShareConst.ScoreDuiHuanMenPiao;
+			  Integer score=idao.getclientInfo(ClientType.score, clientwx);
+			  Integer nowTicket=0;
+			  Integer gainTicket=score/ShareConst.ScoreDuiHuanMenPiao;
 			  if(gainTicket>0){
 				  //修改分数
-				  idao.addclientTicket(clientwx,-gainTicket*ShareConst.ScoreDuiHuanMenPiao);
+				  score=idao.addclientScore(clientwx,-gainTicket*ShareConst.ScoreDuiHuanMenPiao);
+				  nowTicket=idao.addclientTicket(clientwx, gainTicket);
 				  //返回修改的门票
-				  return   idao.addclientTicket(clientwx, gainTicket); 
+				  return  score.toString()+";"+gainTicket.toString()+";"+nowTicket; 
 			  }
-			 return 0;
+			 return "0;0;0";
 		   }
 	   
 		   /*

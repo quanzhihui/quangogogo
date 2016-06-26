@@ -53,7 +53,7 @@ public class LogDao {
 			vl.setViewdate(new Date(rs.getLong("viewdate")));
 			vl.setKouling(rs.getString("kouling"));
 			vl.setSdate(rs.getInt("sdate"));
-			vl.setStime(rs.getInt("stime"));
+			vl.setStime(rs.getLong("stime"));
 			vl.setTgurl(rs.getString("tgurl"));
 			list.add(vl);
 			}
