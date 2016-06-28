@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Wxbean_ClientBean;
 import bean.Wxbean_clientwx;
 
 import service.ClientServer;
@@ -20,6 +21,7 @@ import service.InterfaceServer;
 import service.PostServer;
 import service.TokenServer;
 import util.JonsonUtil;
+import util.ShareCache;
 import util.ShareConst;
 
 
@@ -38,6 +40,7 @@ public class IndexSeverlet extends HttpServlet {
 	@Override
 	public void init() {
 		TokenServer.init();
+		ClientServer.init();
 		ShareConst.path = getServletContext().getRealPath("/");
 		ShareConst.projectname=getServletContext().getContextPath();
 		ShareConst.imgPath = ShareConst.path+"img";
@@ -50,98 +53,170 @@ public class IndexSeverlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	//如果直接访问页面，则需要跳转到微信验证页面，从而获取openid
+	//如果直接访问页面，则需要跳转到微信验证页面，从而获取openid和access_token
 	
-//	private boolean hasClientWx(HttpServletRequest request){
-//		if(request.getSession().getAttribute("clientwx")!=null){
-//			return true;
-//		}else if(request.getParameter("code")!=null){
-//			
-//			String code=request.getParameter("code");
-//			
-//			if(code==null) return false;
-//			StringBuilder getOpenidUrl=new StringBuilder() ;
-//			getOpenidUrl
-//			.append("https://api.weixin.qq.com/sns/oauth2/access_token?appid=")
-//			.append(TokenServer.getappId())
-//			.append("&")
-//			.append("secret=")
-//			.append(TokenServer.getSecret())
-//			.append("&")
-//			.append("code=")
-//			.append(code)
-//			.append("&")
-//			.append("grant_type=authorization_code");
-//			System.out.println(getOpenidUrl.toString());
-//			BufferedReader in=null;
-//			try{
-//				 URL realUrl = new URL(getOpenidUrl.toString());
-//				 URLConnection connection = realUrl.openConnection();
-//				 connection.connect();
-//				  in = new BufferedReader(new InputStreamReader(
-//		                    connection.getInputStream()));
-//				 
-//				 StringBuilder json=new StringBuilder();
-//				 String line=null;
-//				 while ((line = in.readLine()) != null) {
-//					 json.append(line);
-//		            }
-//				 Object temp=JonsonUtil.jiexi(json.toString(), Wxbean_clientwx.class);
-//				
-//				 if(temp!=null){
-//					 Wxbean_clientwx wxbean=(Wxbean_clientwx)temp;
-//					 request.getSession().setAttribute("clientwx", wxbean.getOpenid());
-//					 return true;
-//				 }else{
-//					 return false;
-//				 }
-//				 
-//			}catch(Exception e){
-//				e.printStackTrace();
-//				return false;
-//			}finally{
-//				try {
-//					in.close();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					return false;
-//				}
-//			}
-//		}else{
-//			//说明是从某一个页面来，需要跳转到微信授权页面
-//			System.out.println("cjbd");
-//			return false;
-//		}
-//			 
-//	}
-	
-	private void writeCookie( HttpServletResponse response,String username){
-
-		Cookie uck=new Cookie("yuv",username);
-		uck.setMaxAge(99999999);
-		uck.setDomain("www.o2ohappy.com");
-//		Cookie pck=new Cookie("ypwd",pwd);
-//		pck.setMaxAge(99999999);
-//		pck.setDomain("www.o2ohappy.com");
-		response.addCookie(uck);
-//		response.addCookie(pck);
+	private boolean hasClientWx(HttpServletRequest request){
+		if(request.getSession().getAttribute("clientwx")!=null){
+			return true;
+		}else if(request.getParameter("code")!=null){
+			
+			String code=request.getParameter("code");
+			
+			if(code==null) return false;
+			StringBuilder getOpenidUrl=new StringBuilder() ;
+			getOpenidUrl
+			.append("https://api.weixin.qq.com/sns/oauth2/access_token?appid=")
+			.append(TokenServer.getappId())
+			.append("&")
+			.append("secret=")
+			.append(TokenServer.getSecret())
+			.append("&")
+			.append("code=")
+			.append(code)
+			.append("&")
+			.append("grant_type=authorization_code");
+			System.out.println(getOpenidUrl.toString());
+			BufferedReader in=null;
+			try{
+				 URL realUrl = new URL(getOpenidUrl.toString());
+				 URLConnection connection = realUrl.openConnection();
+				 connection.connect();
+				  in = new BufferedReader(new InputStreamReader(
+		                    connection.getInputStream()));
+				 
+				 StringBuilder json=new StringBuilder();
+				 String line=null;
+				 while ((line = in.readLine()) != null) {
+					 json.append(line);
+		            }
+				 Object temp=JonsonUtil.jiexi(json.toString(), Wxbean_clientwx.class);
+				
+				 if(temp!=null){
+					 Wxbean_clientwx wxbean=(Wxbean_clientwx)temp;
+					 request.getSession().setAttribute("clientwx", wxbean.getOpenid());
+					
+					 return getClientInfoByWX(wxbean.getOpenid(),wxbean.getAccess_token());
+					 
+				 
+				 }else{
+					 return false;
+				 }
+				 
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}finally{
+				try {
+					in.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}else{
+			//说明是从某一个页面来，需要跳转到微信授权页面
+			System.out.println("cjbd");
+			return false;
+		}
+			 
 	}
+	//用openid和access_token获取用户信息
+	private boolean getClientInfoByWX(String openid,String access_token){
+		if(!isTokenValid(access_token)){
+			//刷新
+		}
+		//如果内存里有，之前访问过，就不再调取用户信息
+		if(ShareCache.userMap.containsKey(openid)){
+			return true;
+		}
+		
+		BufferedReader in=null;
+		StringBuilder getClientUrl=new StringBuilder() ;
+	    getClientUrl
+		.append("https://api.weixin.qq.com/sns/userinfo?access_token=")
+		.append(access_token)
+		.append("&")
+		.append("openid=")
+		.append(openid)
+		.append("&lang=zh_CN");
+		 
+		System.out.println(getClientUrl.toString());
+		
+		
+		try{
+			 URL realUrl = new URL(getClientUrl.toString());
+			 URLConnection connection = realUrl.openConnection();
+			 connection.connect();
+			  in = new BufferedReader(new InputStreamReader(
+	                    connection.getInputStream()));
+			 
+			 StringBuilder json=new StringBuilder();
+			 String line=null;
+			 while ((line = in.readLine()) != null) {
+				 json.append(line);
+	            }
+			 Object temp=JonsonUtil.jiexi(json.toString(), Wxbean_ClientBean.class);
+			
+			 if(temp!=null){
+				 Wxbean_ClientBean wxbean=(Wxbean_ClientBean)temp;
+				//如果是第一次来则记录用户
+					ClientServer.clientRegist(openid,wxbean);
+				 return true;
+			 }else{
+				 return false;
+			 }
+			 
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			try {
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+	
+	//看客户token是否过期
+	private boolean isTokenValid(String access_token){
+//		https://api.weixin.qq.com/sns/auth?access_token=ACCESS_TOKEN&openid=OPENID 
+		return true;
+	}
+	
+	
+//	private void writeCookie( HttpServletResponse response,String username){
+//
+//		Cookie uck=new Cookie("yuv",username);
+//		uck.setMaxAge(99999999);
+//		uck.setDomain("www.o2ohappy.com");
+////		Cookie pck=new Cookie("ypwd",pwd);
+////		pck.setMaxAge(99999999);
+////		pck.setDomain("www.o2ohappy.com");
+//		response.addCookie(uck);
+////		response.addCookie(pck);
+//	}
 	
 	
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		if(!hasClientWx(request)){
-//			System.out.println(ShareConst.wxurl);
-//			RequestDispatcher dispatcher = request.getRequestDispatcher(ShareConst.wxurl);
-//			dispatcher.forward(request, response);	
-//		}
-//		Object openid=request.getSession().getAttribute("clientwx");
-//		String clientwx=openid.toString();
-		boolean hasLogin=false;
+		if(!hasClientWx(request)){
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/fail.jsp");
+			dispatcher.forward(request, response);	
+			return;
+		}
+		Object openid=request.getSession().getAttribute("clientwx");
 		String clientwx=null;
+		if(openid!=null){
+			clientwx=openid.toString()	;
+		}
+		
+		boolean hasLogin=false;
 		String shopname=null;
 		//从cookie中读取用户名
 //		if (request.getCookies() != null) {
@@ -177,8 +252,7 @@ public class IndexSeverlet extends HttpServlet {
 		//设置用户属性
 		
 		
-		//如果是第一次来则记录用户
-		ClientServer.clientRegist(clientwx);
+		
 		
  		String uri=request.getRequestURI();
  		if(uri.contains("/url/")){

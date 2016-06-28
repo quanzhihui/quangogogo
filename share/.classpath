@@ -14,6 +14,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.apache.commons.fileupload.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.apache.commons.io.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.jar"/>
 	<classpathentry kind="con" path="com.genuitec.runtime.library/com.genuitec.generic_6.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>

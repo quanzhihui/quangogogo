@@ -1,12 +1,14 @@
 package util;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+
+import bean.Client;
 
 public class ShareCache {
 
 	
-	public static Set<String> userSet=new HashSet<String>();
+	public static Map<String,Client> userMap=new HashMap<String,Client>();
 	
 	
 }

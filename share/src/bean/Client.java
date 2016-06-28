@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.List;
+
 public class Client {
 
 
@@ -13,8 +15,17 @@ public class Client {
 	private int ticket ;
 	//推广链接
 	private String tgurl ;
-	
-	
+	//性别
+	 String  sex ;
+	 //省份
+	 String  province;
+	 //城市
+	 String  city;
+	 //国家
+	 String  country;
+	 //用户特权列表	 
+	 List<String>  privilege;
+	 String  unionid;
 	
 	public String getTgurl() {
 		return tgurl;
@@ -57,6 +68,42 @@ public class Client {
 	}
 	public void setClientImg(String clientImg) {
 		this.clientImg = clientImg;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public List<String> getPrivilege() {
+		return privilege;
+	}
+	public void setPrivilege(List<String> privilege) {
+		this.privilege = privilege;
+	}
+	public String getUnionid() {
+		return unionid;
+	}
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
 	}
 
 }

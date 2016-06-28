@@ -12,6 +12,7 @@ import java.util.Calendar;
 import bean.Wxbean_AccessTokenBean;
 
 import util.JonsonUtil;
+import util.ShareConst;
 
 
 //access_token中控服务
@@ -21,7 +22,7 @@ public class TokenServer {
 	public static void init(){
 		
 		try {
-			url= new URL("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx970b335a565122f2&secret=6470ea3ed90dc5e213fd43048d50bc7c");
+			url= new URL("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+TokenServer.getappId()+"&secret="+TokenServer.getSecret());
 			
 			new RefreshThread().start();
 			
@@ -120,16 +121,16 @@ public class TokenServer {
 	 
 
 	 public static String getEncodingAESKey(){
-		 return "Jhs4YsW2c5GWSokxBkSPXyveFgxYzHAvdzCLgp125sD";
+		 return "tvYlQWyPcZp63pRkjBogUfR3QaC19fIp4eZXtAc0l77";
 	 }
 	 
 	 
 	 public static String getappId(){
-		 return "wx970b335a565122f2";
+		 return "wxb99d4d4ba2f634c9";
 	 }
 	 
 	 public static String getSecret(){
-		 return "6470ea3ed90dc5e213fd43048d50bc7c";
+		 return "ac83a7b9df779952be32c5d9a2519443";
 	 }
 	 
 	 

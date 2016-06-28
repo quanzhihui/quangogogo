@@ -1,13 +1,27 @@
 package service;
 
+import java.util.List;
+import java.util.Map;
+
 import util.ShareCache;
 import util.ShareConst;
 import bean.Client;
+import bean.Wxbean_ClientBean;
 import dao.ClientDao;
 import dao.ClientType;
 
 public class ClientServer {
 
+	//系统重启的时候，将数据库中的客户信息加载到内存中，避免大量查库
+	public static void init(){
+		 ClientDao idao =new ClientDao();
+		 List<Client> list=idao.getAllClientInfo();
+		 Map<String ,Client> map= ShareCache.userMap;
+		 for(Client c:list){
+			 map.put(c.getClientWxid(), c);
+		 }
+	}
+	
 	
 	 /*
 	  * 获取客户信息
@@ -107,23 +121,34 @@ public class ClientServer {
 		   * 是否新用户，不是新用户则注册,新用户返回true,老用户返回false
 		   */
 		  
-	public static boolean clientRegist(String clientwx) {
+	public static boolean clientRegist(String clientwx,Wxbean_ClientBean bean) {
 
-		if (!ShareCache.userSet.contains(clientwx)) {
+		if (!ShareCache.userMap.containsKey(clientwx)) {
 			ClientDao idao = new ClientDao();
-			if (idao.getclientInfo(clientwx) == null) {
-				Client client = new Client();
+			Client client=idao.getclientInfo(clientwx);
+			if ( client== null) {
+				client = new Client();
 				client.setClientWxid(clientwx);
+				client.setClientImg(bean.getHeadimgurl());
+				client.setClientName(bean.getNickname());
 				client.setScore(ShareConst.init_user_score);
 				client.setTicket(ShareConst.init_user_ticket);
+				
+				client.setSex(bean.getSex());
+				client.setCountry(bean.getCountry());
+				client.setProvince(bean.getProvince());
+				client.setCity(bean.getCity());
+				client.setPrivilege(bean.getPrivilege());
+				client.setUnionid(bean.getUnionid());
 				if (idao.clientRegist(client)) {
-					ShareCache.userSet.add(clientwx);
+					ShareCache.userMap.put(clientwx,client);
 					return true;
 				}
 
 			}else{
 				//数据库有，内存没有，进行同步
- 				ShareCache.userSet.add(clientwx);
+				
+ 				ShareCache.userMap.put(clientwx,client);
 			}
 		}
 		return false;

@@ -204,8 +204,8 @@ public class InfoDao {
 		public int auditKL(InfoCreateType type,int infoId,int auditState,String reason){
 			Connection conn = MysqlUtil.getInstance().getConnection();
 			try {
-				PreparedStatement sta=null;
-				if(InfoCreateType.client.equals(type)){
+				PreparedStatement sta=null ;
+				if(InfoCreateType.client.equals(type ) ){
 					sta=conn.prepareStatement(auditInfoClient);
 				}else if(InfoCreateType.shop.equals(type)){
 					sta=conn.prepareStatement(auditInfoShop);

@@ -130,9 +130,9 @@ public class MysqlUtil {
 		    private void readConfig(){
 
 //		    	    this.driverClassName ="com.mysql.jdbc.Driver";
-//		            this.username ="root";
-//		            this.password = "quan";
-//		            this.url = "jdbc:mysql://127.0.0.1:3306/share?autoReconnect=true";
+//		            this.username ="focuspv";
+//		            this.password = "focuspv";
+//		            this.url = "jdbc:mysql://10.10.90.174:3306/share?autoReconnect=true";
 //		            this.poolSize =10;
 		    	
 	    	    this.driverClassName ="com.mysql.jdbc.Driver";

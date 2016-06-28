@@ -35,7 +35,7 @@ $("#xgmmform_check").hide();
  $("#tgd_create").click(function(){
  
  var ajax_option={
-url:"<%=path%>/index/interface/code/tgdcreate",
+url:"<%=path%>/admin/interface/code/tgdcreate",
 type:"post",
 success:function(data){
 //1成功，-1失败
@@ -51,7 +51,7 @@ $("#tgdform").ajaxSubmit(ajax_option);
  $("#yqm_create").click(function(){
 
  var ajax_option={
-url:"<%=path%>/index/interface/code/yqmcreate",
+url:"<%=path%>/admin/interface/code/yqmcreate",
 type:"post",
 success:function(data){
 
@@ -77,7 +77,7 @@ return;
 }
 
  var ajax_option={
-url:"<%=path%>/index/interface/adminxgmm",
+url:"<%=path%>/admin/interface/adminxgmm",
 type:"post",
 success:function(data){
 //1成功，-1失败
@@ -99,7 +99,7 @@ $("#xgmmform").ajaxSubmit(ajax_option);
 
 
  var ajax_option={
-url:"<%=path%>/index/interface/admin_audit",
+url:"<%=path%>/admin/interface/admin_audit",
 type:"post",
 success:function(data){
 //1成功，-1失败
@@ -199,7 +199,7 @@ $("#auditform").ajaxSubmit(ajax_option);
 	  $("#<%=infoList.get(i).getInfoId()%>").click(function(){
 	  infoid="<%=infoList.get(i).getInfoId()%>";
 	  tgurl="<%=infoList.get(i).getTgurl()%>";
-	   $.post("<%=path%>/index/interface/log/tuiguanclick",
+	   $.post("<%=path%>/admin/interface/log/tuiguanclick",
   {
     clientwx:clientid,
     tgurl:tgurl,

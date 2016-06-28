@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.AdminServer;
+import service.InterfaceServer;
 import service.ShopServer;
 
 
@@ -77,6 +78,8 @@ public class AdminSeverlet extends HttpServlet {
 	 				RequestDispatcher dispatcher = request.getRequestDispatcher("/adminmain.jsp");
 	 	 			dispatcher.forward(request, response);	
 	 	 			return ;
+	 			}else if(uri.contains("/admin/interface") ){
+	 				InterfaceServer.getData( null,request, response);
 	 			}
 				
 				

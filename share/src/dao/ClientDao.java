@@ -55,6 +55,40 @@ public class ClientDao {
 	}
 	
 	
+	//所有信息查询
+		public static String allClientinfo="select * from client ";
+		
+		
+		//门票加积分查询
+		public  List<Client> getAllClientInfo(){
+			Connection conn = MysqlUtil.getInstance().getConnection();
+			PreparedStatement  sta=null;
+			try {
+				
+				sta=conn.prepareStatement(allClientinfo);
+				List<Client> list=new ArrayList<Client>();
+				Client cli=new Client();
+				ResultSet rs=sta.executeQuery();
+				while(rs.next()){
+				cli.setClientid(rs.getInt("clientid"));
+				cli.setScore(rs.getInt("score"));
+				cli.setTicket(rs.getInt("ticket"));
+				cli.setTgurl(rs.getString("tgurl"));
+				cli.setClientName(rs.getString("clientname"));
+				cli.setClientImg(rs.getString("clientimg"));
+				cli.setClientWxid(rs.getString("clientwx"));
+				list.add(cli) ;
+				}
+				return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}finally{
+				MysqlUtil.getInstance().release(conn);
+			}
+		}
+	
+	
 	//单查门票或积分
 	public int getclientInfo(ClientType ct,String clientwx ){
 		Connection conn = MysqlUtil.getInstance().getConnection();
@@ -201,7 +235,7 @@ public class ClientDao {
 	  /*
 	   * 用户注册
 	   */
-	static  String client_insert="insert into client values(?,?,?,?,?,?,?)";
+	static  String client_insert="insert into client values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	  public  boolean clientRegist(Client client){
 			Connection conn = MysqlUtil.getInstance().getConnection();
@@ -216,7 +250,18 @@ public class ClientDao {
 				sta.setInt (5,client.getTicket());	
 				sta.setInt (6,client.getScore());	
 				sta.setNull(7,java.sql.Types.VARCHAR);
-				
+				sta.setString(8,client.getSex());
+				sta.setString(9,client.getProvince());
+				sta.setString(10,client.getCity());
+				sta.setString(11,client.getCountry());
+				StringBuilder privileges=new StringBuilder() ;
+				if(client.getPrivilege().size()!=0){
+					for(int i=0;i<client.getPrivilege().size();i++){
+						privileges.append(client.getPrivilege().get(i)).append(";");
+					}
+				}
+				sta.setString(12,privileges.toString());
+				sta.setString(13, client.getUnionid());
 				if(sta.executeUpdate()>0){
 					return true;
 				}
