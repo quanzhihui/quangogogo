@@ -280,4 +280,35 @@ public class InfoDao {
 				}
 			}
 	 
+		 /*
+			 * 修改访客数量
+			 */
+			 static String addInfoVisitorClient="update information set visitor=visitor +1  where id=? ";
+			 static String addInfoVisitorShop="update shopinfo set visitor=visitor +1  where id=? ";
+			public int updateVistor(InfoCreateType type,int infoId){
+				Connection conn = MysqlUtil.getInstance().getConnection();
+				try {
+					PreparedStatement sta=null ;
+					if(InfoCreateType.client.equals(type ) ){
+						sta=conn.prepareStatement(addInfoVisitorClient);
+					}else if(InfoCreateType.shop.equals(type)){
+						sta=conn.prepareStatement(addInfoVisitorShop);
+					}
+					
+					sta.setInt(1, infoId) ;
+					return sta.executeUpdate();
+
+					 
+				
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return -1;
+				}finally{
+					MysqlUtil.getInstance().release(conn);
+				}
+				 
+
+			}
+		 
+		 
 }

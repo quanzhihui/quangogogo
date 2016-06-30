@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 	var clientwx=<%=100%>;
 	var infoid;
+	var type;
 //默认关闭
 $(document).ready(function(){
 $("#dialog1").hide();
@@ -54,21 +55,20 @@ $("#dialog1_confirm").click(function(){
 	 $.post("<%=path%>/index/interface/info/useticket",
   {
     client:clientwx,
-    type:"ticket",
+    type:type,
     informationid:infoid
   },
   function(data,status){
   if(data!="null"){
+  dataArray=data.split(";");
+  
   $("#dialog3").show();
-  $("#hongbaokouling").html(data);
   
+  $("#hongbaokouling").html(dataArray[0]);
+ var left= dataArray[3]-dataArray[2];
+  $("#fk"+infoid).html("已有 "+dataArray[2]+"人看过，目前还有"+left+"人能看");
   
-   $.post("<%=path%>/index/interface/info/gettype",
-  {
-    informationid:infoid
-  },
-  function(data,status){
-  if(data=="1"){
+  if(dataArray[1]=="1"){
   
   $("#shoptiaozhuan").html("口令已经放到【我的】中，先去发口令的商家那看看有什么好东东吧。");
   $("#dialog3_confirm").click(function(){
@@ -97,7 +97,7 @@ $("#dialog1").hide();
 
   }
   
-  });  
+ 
   
   }else{
   $("#dialog2").show();
@@ -139,16 +139,17 @@ $("#dialog1").hide();
                     <p class="weui_media_desc">预计红包金额：<%=infolist.get(i).getIntroduct_acount() %></p>
                     <p class="weui_media_desc">预计红包数量：<%=infolist.get(i).getIntroduct_num() %></p>
                     <p class="weui_media_desc">预计时间：<%=TextUtil.getOutputDayTimeStamp(infolist.get(i).getStime()) %> </p>
-             		<p class="weui_media_desc">已有<%=infolist.get(i).getVisitor() %>人看过，目前还有<%=infolist.get(i).getAllowVisit()-infolist.get(i).getVisitor() %>人能看</p>
+             		<p class="weui_media_desc" id="fk<%=infolist.get(i).getInfoId()%>">已有<%=infolist.get(i).getVisitor() %>人看过，目前还有<%=infolist.get(i).getAllowVisit()-infolist.get(i).getVisitor() %>人能看</p>
              		  
                 </div>
             </a>
-            <button class="weui_btn weui_btn_plain_primary"  id="<%=infolist.get(i).getInfoId()%>"> 查看口令 </button> 
+            <button class="weui_btn weui_btn_plain_primary"  style="width:50%;"  id="<%=infolist.get(i).getInfoId()%>"> 查看口令 </button> 
         
         <script>
         $(document).ready(function(){
 	  $("#<%=infolist.get(i).getInfoId()%>").click(function(){
 	  infoid=<%=infolist.get(i).getInfoId()%>;
+	  type=<%=infolist.get(i).getType()%>;
 	  $("#dialog1").show();
 	  });
 	 

@@ -77,9 +77,24 @@ public class InterfaceServer {
 				
 			} else if (uri.indexOf("/info") != -1) {
 				if (uri.indexOf("/info/useticket") != -1) {
+					String type=request.getParameter("type");
+					if (String.valueOf(ShareConst.fkltype_shop).equals(type)) {
 
-					response.getWriter().write("红包口令为："+
-							KLInfoServices.useTicket(infoid, clientwx));
+						response.getWriter().write(
+								"红包口令为："
+										+ KLInfoServices.useTicket(
+												InfoCreateType.shop, infoid,
+												clientwx));
+
+					} else {
+						response.getWriter().write(
+								"红包口令为："
+										+ KLInfoServices.useTicket(
+												InfoCreateType.client, infoid,
+												clientwx));
+
+					}
+					
 
 				} else if (uri.indexOf("info/redirect") != -1) {
 

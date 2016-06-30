@@ -210,6 +210,10 @@ public class IndexSeverlet extends HttpServlet {
 			dispatcher.forward(request, response);	
 			return;
 		}
+		
+		response.setHeader("content-type", "text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf8");
+		
 		Object openid=request.getSession().getAttribute("clientwx");
 		String clientwx=null;
 		if(openid!=null){

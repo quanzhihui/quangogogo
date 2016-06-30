@@ -48,6 +48,7 @@ public class ClientServer {
 			   ClientDao idao =new ClientDao();
 			  int ticketnum=idao.getclientInfo(ClientType.ticket, clientwx);
 			  if(ticketnum-num>=0) {
+				 
 				  return  idao.addclientTicket(clientwx, -num);
 			  }else{
 				  return -1;
