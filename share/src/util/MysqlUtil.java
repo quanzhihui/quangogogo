@@ -129,17 +129,17 @@ public class MysqlUtil {
 		    //读取设置连接池的属性文件
 		    private void readConfig(){
 
-//		    	    this.driverClassName ="com.mysql.jdbc.Driver";
-//		            this.username ="focuspv";
-//		            this.password = "focuspv";
-//		            this.url = "jdbc:mysql://10.10.90.174:3306/share?autoReconnect=true";
-//		            this.poolSize =10;
+		    	    this.driverClassName ="com.mysql.jdbc.Driver";
+		            this.username ="focuspv";
+		            this.password = "focuspv";
+		            this.url = "jdbc:mysql://10.10.90.174:3306/share?autoReconnect=true";
+		            this.poolSize =10;
 		    	
-	    	    this.driverClassName ="com.mysql.jdbc.Driver";
-	            this.username ="root";
-	            this.password = "Qzh-1986!";
-	            this.url = "jdbc:mysql://localhost:3306/share?autoReconnect=true";
-	            this.poolSize =10;
+//	    	    this.driverClassName ="com.mysql.jdbc.Driver";
+//	            this.username ="root";
+//	            this.password = "Qzh-1986!";
+//	            this.url = "jdbc:mysql://localhost:3306/share?autoReconnect=true";
+//	            this.poolSize =10;
 		    	
 		    }
 	

@@ -80,9 +80,9 @@ public class TextUtil {
 	    */
 	   public static String getNameByKlType(int type){
 		   if(ShareConst.fkltype_shop==type){
-			   return "商家";
+			   return "商家红包";
 			}else{
-				return "个人";
+				return "个人红包";
 			}
 			
 		 

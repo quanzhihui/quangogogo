@@ -205,11 +205,11 @@ public class IndexSeverlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if(!hasClientWx(request)){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/fail.jsp");
-			dispatcher.forward(request, response);	
-			return;
-		}
+//		if(!hasClientWx(request)){
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/fail.jsp");
+//			dispatcher.forward(request, response);	
+//			return;
+//		}
 		
 		response.setHeader("content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf8");
