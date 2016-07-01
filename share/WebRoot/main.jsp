@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="<%=basePath%>/style/weui.css"/>
     <link rel="stylesheet" href="<%=basePath%>/example/example.css"/> 
-	<title>红包分享页面</title>
+	<title>红包分享社区</title>
     
 
 </head>

@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.validator.xml.GetterType"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="service.*"%>
@@ -18,14 +19,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=basePath%>example/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <link rel="stylesheet" href="<%=path%>/style/weui.css"/>
-    <link rel="stylesheet" href="<%=path%>/example/example.css"/> 
-	<title>红包分享页面</title>
+    <link rel="stylesheet" href="<%=basePath%>/style/weui.css"/>
+    <link rel="stylesheet" href="<%=basePath%>/example/example.css"/> 
+    <link rel="stylesheet" href="<%=basePath%>/example/index.css"/> 
+      <link rel="stylesheet" href="<%=basePath%>/example/index.css"/> 
+	<title>红包分享社区</title>
 </head>
 <body ontouchstart>
 
 <script>
-	var clientwx=<%=100%>;
+	var clientwx=<%=request.getSession().getAttribute("clientwx")%>;
 	var infoid;
 	var type;
 //默认关闭
@@ -52,7 +55,7 @@ $("#dialog1").hide();
 	 
 $("#dialog1_confirm").click(function(){
 	
-	 $.post("<%=path%>/index/interface/info/useticket",
+	 $.post("<%=basePath%>/index/interface/info/useticket",
   {
     client:clientwx,
     type:type,
@@ -73,7 +76,7 @@ $("#dialog1_confirm").click(function(){
   $("#shoptiaozhuan").html("口令已经放到【我的】中，先去发口令的商家那看看有什么好东东吧。");
   $("#dialog3_confirm").click(function(){
   
-  $.post("<%=path%>/index/interface/info/redirect",
+  $.post("<%=basePath%>/index/interface/info/redirect",
   {
     informationid:infoid
     
@@ -111,10 +114,19 @@ $("#dialog1").hide();
 
 </script>
 
-<div class="bd">
+<div class="main">
     
+    
+
+
       
-      <% 
+      
+	<!--资讯列表-->
+	<div class="news">
+		
+		<!--资讯列表-->
+		<div class="newslist">
+		  <% 
       String type=request.getAttribute("type").toString();
       InfoType t=null;
       if(type!=null&&!"".equals(type)){
@@ -124,47 +136,66 @@ $("#dialog1").hide();
       }
       List<Information> infolist=KLInfoServices.getInfo(t);
       %>
-       <%for(int i=0;i<infolist.size();i++){ %>
-       <div class="weui_panel weui_panel_access">
-       
-       
-        <div class="weui_panel_bd">
-            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-              
-                 <div class="weui_cell_hd"><img src="<%=infolist.get(i).getClientImg()%>" alt="" style="width:20px;margin-right:5px;display:block"></div>
-           		 <div class="weui_cell_hd"><%=infolist.get(i).getClientName() %></div>
-                
-               	 <div class="weui_media_bd">
-                   
-                    <p class="weui_media_desc">预计红包金额：<%=infolist.get(i).getIntroduct_acount() %></p>
-                    <p class="weui_media_desc">预计红包数量：<%=infolist.get(i).getIntroduct_num() %></p>
-                    <p class="weui_media_desc">预计时间：<%=TextUtil.getOutputDayTimeStamp(infolist.get(i).getStime()) %> </p>
-             		<p class="weui_media_desc" id="fk<%=infolist.get(i).getInfoId()%>">已有<%=infolist.get(i).getVisitor() %>人看过，目前还有<%=infolist.get(i).getAllowVisit()-infolist.get(i).getVisitor() %>人能看</p>
-             		  
-                </div>
-            </a>
-            <button class="weui_btn weui_btn_plain_primary"  style="width:50%;"  id="<%=infolist.get(i).getInfoId()%>"> 查看口令 </button> 
-        
-        <script>
-        $(document).ready(function(){
-	  $("#<%=infolist.get(i).getInfoId()%>").click(function(){
-	  infoid=<%=infolist.get(i).getInfoId()%>;
-	  type=<%=infolist.get(i).getType()%>;
-	  $("#dialog1").show();
-	  });
-	 
-	});
-        </script>
-        
-        </div>
-         
-        
-        
-        
-    </div>
-   
+		 <% for(int i=0;i<infolist.size();i++){ %>
+		
+			<div class="qtao">
+				<div class="mg">
+					<div class="mgl"><img src="<%=infolist.get(i).getClientImg()%>" width="100%" /></div>
+					<div class="mgr">
+						<h3><%=TextUtil.getNameByKlType(infolist.get(i).getType())%></h3>
+						<div class="what">
+							<div class="time">
+								<div class="tub"><img src="images/time.gif" /></div>
+								<div class="shij">2014-10-25</div>
+								<div class="clearBoth"></div>
+							</div>
+							<div class="time hit">
+								<div class="tub"><img src="images/hit.gif" /></div>
+								<div class="shij">1022</div>
+								<div class="clearBoth"></div>
+							</div>
+							<div class="clearBoth"></div>
+						</div>
+						<div class="jianj">	预计有<%=infolist.get(i).getIntroduct_num() %>个红包，价值<%=infolist.get(i).getIntroduct_acount() %>元
+						</div>
+						<div class="ydu">
+							<div class="anniu"><a href="#"><img src="images/ydu.gif" /></a></div>
+							<div class="clearBoth"></div>
+						</div>
+					</div>
+					<div class="clearBoth"></div>
+				</div>
+			</div>
+			 
+	
     <%} %>
-  </div>
+    
+    
+
+		</div>
+	</div>
+	<!--底部-->
+	<div class="bottom">
+		<div class="bottom-top">
+			<div class="linker">
+				<a class="abq" href="#"><img src="images/xlweibo.gif" /></a>
+				<a class="abq" href="#"><img src="images/txweibo.gif" /></a>
+				<a class="abq" href="#"><img src="images/weixin.gif" /></a>
+				<div class="liuy">
+					<a href="message.html">
+						<div class="tubiao"><img src="images/liuy.gif" /></div>
+						<div class="wenzi">在线留言</div>
+						<div class="clearBoth"></div>
+					</a>
+				</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+		<div class="bottom-bot">Powered By 居家吧</div>
+	</div>
+</div>
+   
+
 
 
 
