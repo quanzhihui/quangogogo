@@ -1,4 +1,3 @@
-<%@page import="org.hibernate.validator.xml.GetterType"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="service.*"%>
@@ -12,11 +11,11 @@
 
 <%
 String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path ;
 %>
 <html lang="zh-cmn-Hans">
 <head>
-	<script src="<%=basePath%>example/jquery.min.js"></script>
+	<script src="<%=basePath%>/example/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="<%=basePath%>/style/weui.css"/>
@@ -28,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body ontouchstart>
 
 <script>
-	var clientwx=<%=request.getSession().getAttribute("clientwx")%>;
+	var clientwx= '<%=request.getSession().getAttribute("clientwx")%>';
 	var infoid;
 	var type;
 //默认关闭
@@ -140,18 +139,21 @@ $("#dialog1").hide();
 		
 			<div class="qtao">
 				<div class="mg">
-					<div class="mgl"><img src="<%=infolist.get(i).getClientImg()%>" width="100%" /></div>
+					<div class="mgl"><img src="<%=infolist.get(i).getClientImg()%>" width="100%" />
+					 	<h3><%=infolist.get(i).getClientName()%></h3>
+					</div>
+					
 					<div class="mgr">
 						<h3><%=TextUtil.getNameByKlType(infolist.get(i).getType())%></h3>
 						<div class="what">
 							<div class="time">
-								<div class="tub"><img src="images/time.gif" /></div>
-								<div class="shij">2014-10-25</div>
+								<div class="tub"><img src="<%=basePath%>/example/images/time.gif" /></div>
+								<div class="shij"><%=TextUtil.getOutputDayTimeStamp(infolist.get(i).getStime())%></div>
 								<div class="clearBoth"></div>
 							</div>
 							<div class="time hit">
-								<div class="tub"><img src="images/hit.gif" /></div>
-								<div class="shij">1022</div>
+								<div class="tub"><img src="<%=basePath%>/example/images/hit.gif" /></div>
+								<div class="shij"><%=infolist.get(i).getVisitor()%></div>
 								<div class="clearBoth"></div>
 							</div>
 							<div class="clearBoth"></div>
@@ -159,7 +161,7 @@ $("#dialog1").hide();
 						<div class="jianj">	预计有<%=infolist.get(i).getIntroduct_num() %>个红包，价值<%=infolist.get(i).getIntroduct_acount() %>元
 						</div>
 						<div class="ydu">
-							<div class="anniu"><a href="#"><img src="images/ydu.gif" /></a></div>
+							<div  ><a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">查看口令</a></div>
 							<div class="clearBoth"></div>
 						</div>
 					</div>
@@ -174,26 +176,7 @@ $("#dialog1").hide();
 
 		</div>
 	</div>
-	<!--底部-->
-	<div class="bottom">
-		<div class="bottom-top">
-			<div class="linker">
-				<a class="abq" href="#"><img src="images/xlweibo.gif" /></a>
-				<a class="abq" href="#"><img src="images/txweibo.gif" /></a>
-				<a class="abq" href="#"><img src="images/weixin.gif" /></a>
-				<div class="liuy">
-					<a href="message.html">
-						<div class="tubiao"><img src="images/liuy.gif" /></div>
-						<div class="wenzi">在线留言</div>
-						<div class="clearBoth"></div>
-					</a>
-				</div>
-				<div class="clearBoth"></div>
-			</div>
-		</div>
-		<div class="bottom-bot">Powered By 居家吧</div>
-	</div>
-</div>
+ 
    
 
 
@@ -238,7 +221,7 @@ $("#dialog1").hide();
     </div>
 </div>
 
-
+</div>
 
 
 

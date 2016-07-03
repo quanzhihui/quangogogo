@@ -105,8 +105,8 @@ $("#dialog_qiandao").hide();
 </script>
 
 <div class="bd" style="height: 8%;">
-    <div class="weui_tab">
-        <div class="weui_navbar">
+    <div class="weui_tab" style = "background-color:#F7F1F1";>
+        <div class="weui_navbar"   >
             <div class="weui_navbar_item  weui_bar_item_on"  id='redu'>
                 热度红包
             </div>
