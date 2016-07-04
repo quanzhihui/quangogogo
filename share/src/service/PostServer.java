@@ -1,6 +1,7 @@
 package service;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -59,22 +60,26 @@ public class PostServer {
 		
 		clientwx=request.getSession().getAttribute("clientwx").toString();
 		
-		Client client=ClientServer.getClientInfo(clientwx);
-		if(client==null){
-			return -1;
-			}
+		if(ShareConst.ispublic){
+			Client client=ClientServer.getClientInfo(clientwx);
+			if(client==null){
+				return -1;
+				}
+			info.setClientWx(clientwx);
+			info.setClientName(client.getClientName());
+			info.setClientImg(client.getClientImg());
+		}
 		
-		
-		info.setClientWx(clientwx);
-		info.setClientName(client.getClientName());
-		info.setClientImg(client.getClientImg());
 		info.setType(ShareConst.fkltype_user);
 		info.setIntroduct_acount(request.getParameter("hbzje")==null?0:Integer.valueOf(request.getParameter("hbzje")));
 		info.setIntroduct_num(request.getParameter("hbzsl")==null?0:Integer.valueOf(request.getParameter("hbzsl")));
 		info.setTgurl("");
-		info.setKouling(hbkl);
-		
-		
+		try {
+			info.setKouling(new String(hbkl.getBytes(),"utf8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		info.setSdate(TextUtil.getTimeByString(kldate));
 		info.setStime(kldate.getTime());
 		info.setVisitor(0);

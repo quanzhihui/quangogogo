@@ -1,5 +1,6 @@
 package service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -131,7 +132,12 @@ public class ClientServer {
 				client = new Client();
 				client.setClientWxid(clientwx);
 				client.setClientImg(bean.getHeadimgurl());
-				client.setClientName(bean.getNickname());
+				try {
+					client.setClientName(new String(bean.getNickname().getBytes(),"utf8"));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				client.setScore(ShareConst.init_user_score);
 				client.setTicket(ShareConst.init_user_ticket);
 				

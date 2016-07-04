@@ -14,6 +14,8 @@ public class ShareConst {
 	//基础路径
 	public static String basePath="";
 	
+	//是否测试模式
+	public static boolean ispublic=false;
 	
 	
 	//图片存储路径	

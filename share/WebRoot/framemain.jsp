@@ -67,8 +67,9 @@ $("#dialog1_confirm").click(function(){
   $("#dialog3").show();
   
   $("#hongbaokouling").html(dataArray[0]);
- var left= dataArray[3]-dataArray[2];
-  $("#fk"+infoid).html("已有 "+dataArray[2]+"人看过，目前还有"+left+"人能看");
+ 
+  $("#hbsl"+infoid).html(dataArray[2]);
+  $("#vistor").html(dataArray[2]);
   
   if(dataArray[1]=="1"){
   
@@ -113,7 +114,7 @@ $("#dialog1").hide();
 
 </script>
 
-<div class="main">
+<div class="main" >
     
     
 
@@ -121,7 +122,7 @@ $("#dialog1").hide();
       
       
 	<!--资讯列表-->
-	<div class="news">
+	<div class="news"  >
 		
 		<!--资讯列表-->
 		<div class="newslist">
@@ -137,38 +138,48 @@ $("#dialog1").hide();
       %>
 		 <% for(int i=0;i<infolist.size();i++){ %>
 		
-			<div class="qtao">
-				<div class="mg">
-					<div class="mgl"><img src="<%=infolist.get(i).getClientImg()%>" width="100%" />
-					 	<h3><%=infolist.get(i).getClientName()%></h3>
+			<div class="qtao" >
+				<div class="mg" >
+					<div class="mgl"><img src="<%=infolist.get(i).getClientImg()%>" width="10%" />
+					 	<h3 align="center"><%=infolist.get(i).getClientName()%></h3>
 					</div>
 					
 					<div class="mgr">
-						<h3><%=TextUtil.getNameByKlType(infolist.get(i).getType())%></h3>
+						<h3 align="center"><%=TextUtil.getNameByKlType(infolist.get(i).getType())%></h3>
 						<div class="what">
 							<div class="time">
 								<div class="tub"><img src="<%=basePath%>/example/images/time.gif" /></div>
 								<div class="shij"><%=TextUtil.getOutputDayTimeStamp(infolist.get(i).getStime())%></div>
 								<div class="clearBoth"></div>
 							</div>
-							<div class="time hit">
+							<div class="time">
 								<div class="tub"><img src="<%=basePath%>/example/images/hit.gif" /></div>
-								<div class="shij"><%=infolist.get(i).getVisitor()%></div>
+								<div class="shij" id="hbsl<%=infolist.get(i).getInfoId()%>"><%=infolist.get(i).getVisitor()%></div>
 								<div class="clearBoth"></div>
 							</div>
 							<div class="clearBoth"></div>
 						</div>
-						<div class="jianj">	预计有<%=infolist.get(i).getIntroduct_num() %>个红包，价值<%=infolist.get(i).getIntroduct_acount() %>元
+						<div class="jianj" >预计有<a><%=infolist.get(i).getIntroduct_num() %></a>个红包，价值<a id="hbje<%=infolist.get(i).getInfoId()%>"><%=infolist.get(i).getIntroduct_acount() %>元</a>
 						</div>
+						
 						<div class="ydu">
-							<div  ><a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">查看口令</a></div>
+							<div align="right" ><button  class="weui_btn weui_btn_mini weui_btn_primary" id="<%=infolist.get(i).getInfoId()%>" >查看口令</button></div>
 							<div class="clearBoth"></div>
 						</div>
 					</div>
 					<div class="clearBoth"></div>
 				</div>
 			</div>
-			 
+			  <script>
+        $(document).ready(function(){
+	  $("#<%=infolist.get(i).getInfoId()%>").click(function(){
+	  infoid=<%=infolist.get(i).getInfoId()%>;
+	  type=<%=infolist.get(i).getType()%>;
+	  $("#dialog1").show();
+	  });
+	 
+	});
+        </script>
 	
     <%} %>
     

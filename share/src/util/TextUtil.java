@@ -31,7 +31,7 @@ public class TextUtil {
 	   
 	  
 	   
-	   static  SimpleDateFormat dayformat_timestamp = new  SimpleDateFormat("yyyy年MM月dd日 HH:mm"); 
+	   static  SimpleDateFormat dayformat_timestamp = new  SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 	   /*
 	    * 格式化日期（时间戳）
 	    */

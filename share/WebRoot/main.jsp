@@ -104,7 +104,7 @@ $("#dialog_qiandao").hide();
 
 </script>
 
-<div class="bd" style="height: 8%;">
+<div class="bd" style="height:8%;"  >
     <div class="weui_tab" style = "background-color:#F7F1F1";>
         <div class="weui_navbar"   >
             <div class="weui_navbar_item  weui_bar_item_on"  id='redu'>
@@ -123,7 +123,7 @@ $("#dialog_qiandao").hide();
      
 
 
-<iframe class="weui_panel_bd" height=84% width=100%  src="<%=path%>/index/info/tab/framemain/redu.jsp"   scrolling="yes" frameborder="0" id="mainframe"> </iframe>
+<iframe class="weui_panel_bd"  height=80% width=100%  src="<%=path%>/index/info/tab/framemain/redu.jsp"   scrolling="yes" frameborder="1" id="mainframe"> </iframe>
 
 
 

@@ -33,8 +33,8 @@ public class InterfaceServer {
 	
 	public static void getData(String clientwx,HttpServletRequest request,HttpServletResponse response){
 		try {
-			response.setHeader("content-type", "text/html;charset=UTF-8");
-			response.setCharacterEncoding("utf8");
+//			response.setHeader("content-type", "text/html;charset=UTF-8");
+//			response.setCharacterEncoding("utf8");
 			String uri = request.getRequestURI();
 			String tmpInfoid=request.getParameter("informationid");
 			Integer infoid =0 ;
@@ -80,16 +80,12 @@ public class InterfaceServer {
 					String type=request.getParameter("type");
 					if (String.valueOf(ShareConst.fkltype_shop).equals(type)) {
 
-						response.getWriter().write(
-								"红包口令为："
-										+ KLInfoServices.useTicket(
+						response.getWriter().write(KLInfoServices.useTicket(
 												InfoCreateType.shop, infoid,
 												clientwx));
 
 					} else {
-						response.getWriter().write(
-								"红包口令为："
-										+ KLInfoServices.useTicket(
+						response.getWriter().write(KLInfoServices.useTicket(
 												InfoCreateType.client, infoid,
 												clientwx));
 
@@ -176,12 +172,12 @@ public class InterfaceServer {
 				}
 				
 				 if(uri.indexOf("/code/tgdcreate") != -1){
-					String ss= CodeServer.getCode("tgd", ShareConst.tgdlength);
-					
-						response.getWriter().write(ss);
+						response.getWriter().write(CodeServer.getCode("tgd", ShareConst.tgdlength));
+						 return ;
 				}else if(uri.indexOf("/code/yqmcreate") != -1){
 					
 					 response.getWriter().write( CodeServer.getCode("yqm", ShareConst.yqmlength));
+					 return ;
 				}
 				
 				
