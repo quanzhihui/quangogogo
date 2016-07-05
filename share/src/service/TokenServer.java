@@ -8,11 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
-
-import bean.Wxbean_AccessTokenBean;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import util.JonsonUtil;
-import util.ShareConst;
+import bean.Wxbean_AccessTokenBean;
+import bean.Wxbean_jsapi;
 
 
 //access_token中控服务
@@ -52,7 +53,12 @@ public class TokenServer {
 	
 	
 	private static String access_token=null;
+	private static String jsapiTicket=null;
 	static URL url =null;
+	static URL jsapiurl =null;
+	
+	//
+	private static String noncestr="youhuisudiniubiniubi";
 	
 	//刷新中控服务
 	public static void refreshAccess_token(){
@@ -72,6 +78,23 @@ public class TokenServer {
 				
 			}
 			
+			//刷新签名
+			jsapiurl= new URL("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+TokenServer.getAccess_token()+"&type=jsapi");
+		    urlConnection = (HttpURLConnection)jsapiurl.openConnection();  
+			urlConnection.setRequestMethod("GET");  
+			urlConnection.connect();
+		    inputStream = urlConnection.getInputStream(); 
+		    responseStr = convertToString(inputStream);  
+			
+			 bean=JonsonUtil.jiexi(responseStr, Wxbean_jsapi.class);
+			if(bean!=null){
+				Wxbean_jsapi jsapi=(Wxbean_jsapi)bean;
+				System.out.println(jsapi.getTicket());
+				jsapiTicket=jsapi.getTicket();
+			}
+			
+//			Date d=new Date();
+//			long timestatmp=d.getTime();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,6 +103,34 @@ public class TokenServer {
 		
 	}
 	
+	/*
+	 * 获取签名，用于wx.config
+	 */
+	public static String getSignName(String url) {
+
+		StringBuilder bd = new StringBuilder();
+		bd.append("jsapi_ticket=").append(jsapiTicket).append("&noncestr=")
+				.append(noncestr).append("&timestamp=")
+				.append(Calendar.getInstance().getTimeInMillis())
+				.append("&url=").append(url);
+		MessageDigest mDigest;
+		try {
+			mDigest = MessageDigest.getInstance("SHA1");
+			byte[] result = mDigest.digest(bd.toString().getBytes());
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < result.length; i++) {
+				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16)
+						.substring(1));
+			}
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+
 	
 	public static String getAccess_token(){
 		return access_token;

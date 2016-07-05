@@ -141,9 +141,6 @@ public class IndexSeverlet extends HttpServlet {
 		.append(openid)
 		.append("&lang=zh_CN");
 		 
-		System.out.println(getClientUrl.toString());
-		
-		
 		try{
 			 URL realUrl = new URL(getClientUrl.toString());
 			 URLConnection connection = realUrl.openConnection();
@@ -218,9 +215,6 @@ public class IndexSeverlet extends HttpServlet {
 		if(openid!=null){
 			clientwx=openid.toString()	;
 		}
-		
-		boolean hasLogin=false;
-		String shopname=null;
 		//从cookie中读取用户名
 //		if (request.getCookies() != null) {
 //			for (int i = 0; i < request.getCookies().length; i++) {
@@ -244,20 +238,17 @@ public class IndexSeverlet extends HttpServlet {
 //
 //			}
 //		} 
-
+		String uri=request.getRequestURI();
 		if(clientwx==null){
-			clientwx="dddd";
-			request.getSession().setAttribute("clientwx","dddd");
+			clientwx="test";
+			request.getSession().setAttribute("clientwx","test");
 				
+		}else{
+			request.setAttribute("signname", TokenServer.getSignName(uri));	
 		}
 		
-		System.out.println(clientwx);
-		//设置用户属性
-		
-		
-		
-		
- 		String uri=request.getRequestURI();
+	 
+ 		
  		if(uri.contains("/url/")){
  			 if(uri.contains("/url/shop") ){
  				 //登录、注册页面不用验证权限，其他页面都需要
