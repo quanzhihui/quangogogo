@@ -36,9 +36,9 @@ public class KLInfoServices {
    /*
     * 用门票看口令,返回口令
     */
-   public static String useTicket(InfoCreateType type,int infoid,String clientwx){
+   public static String useTicket(InfoCreateType type,int infoid,String clientwx,int costTicket){
 	   
-	   if(ClientServer.useTicket(clientwx, 1)>0){
+	   if(ClientServer.useTicket(clientwx, costTicket)>0){
 		   LogServer.writeViewLog(clientwx,infoid,new Date());
 		    //修改表单信息，访客增加1
 		 	InfoDao idao =new InfoDao();

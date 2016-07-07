@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import util.JonsonUtil;
 import bean.Wxbean_AccessTokenBean;
 import bean.Wxbean_jsapi;
@@ -60,6 +62,10 @@ public class TokenServer {
 	//
 	private static String noncestr="youhuisudiniubiniubi";
 	
+	public static String getNoncestr() {
+		return noncestr;
+	}
+
 	//刷新中控服务
 	public static void refreshAccess_token(){
 		try {
@@ -106,13 +112,16 @@ public class TokenServer {
 	/*
 	 * 获取签名，用于wx.config
 	 */
-	public static String getSignName(String url) {
-
+	public static String getSignName(HttpServletRequest request,String url) {
+		
+		String time=Long.valueOf(Calendar.getInstance().getTimeInMillis()/1000).toString();
+		request.getSession().setAttribute("wxtime", time);
 		StringBuilder bd = new StringBuilder();
 		bd.append("jsapi_ticket=").append(jsapiTicket).append("&noncestr=")
 				.append(noncestr).append("&timestamp=")
-				.append(Calendar.getInstance().getTimeInMillis())
+				.append(time)
 				.append("&url=").append(url);
+		System.out.println(bd.toString());
 		MessageDigest mDigest;
 		try {
 			mDigest = MessageDigest.getInstance("SHA1");
@@ -122,6 +131,7 @@ public class TokenServer {
 				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16)
 						.substring(1));
 			}
+			System.out.println(sb.toString());
 			return sb.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -161,12 +171,12 @@ public class TokenServer {
 	    }  
 	
 	 
-	 public static Long getTimeStame(){
-		 
-		 Calendar ca=Calendar.getInstance();
-		 return ca.getTime().getTime();
-		 
-	 }
+//	 public static Long getTimeStamp(){
+//		 
+//		 Calendar ca=Calendar.getInstance();
+//		 return ca.getTime().getTime();
+//		 
+//	 }
 	 
 	 
 	 

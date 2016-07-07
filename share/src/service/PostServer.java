@@ -73,6 +73,7 @@ public class PostServer {
 		info.setType(ShareConst.fkltype_user);
 		info.setIntroduct_acount(request.getParameter("hbzje")==null?0:Integer.valueOf(request.getParameter("hbzje")));
 		info.setIntroduct_num(request.getParameter("hbzsl")==null?0:Integer.valueOf(request.getParameter("hbzsl")));
+		info.setCostticket(request.getParameter("xhmps")==null?0:Integer.valueOf(request.getParameter("xhmps")));
 		info.setTgurl("");
 		try {
 			info.setKouling(new String(hbkl.getBytes(),"utf8"));
@@ -143,7 +144,12 @@ public class PostServer {
 		info.setIntroduct_acount(request.getParameter("hbzje")==null?0:Integer.valueOf(request.getParameter("hbzje")));
 		info.setIntroduct_num(request.getParameter("hbzsl")==null?0:Integer.valueOf(request.getParameter("hbzsl")));
 		info.setTgurl(request.getParameter("tglj")==null?"": request.getParameter("tglj").toString() );
-		info.setKouling(hbkl);
+		try {
+			info.setKouling(new String(hbkl.getBytes(),"utf8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		info.setSdate(TextUtil.getTimeByString(kldate));
 		info.setStime(kldate.getTime());
 		info.setVisitor(0);

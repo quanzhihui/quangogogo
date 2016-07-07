@@ -7,13 +7,13 @@ wx.config({
     timestamp: time, // 必填，生成签名的时间戳
     nonceStr: nstr, // 必填，生成签名的随机串
     signature: sign,// 必填，签名，见附录1
-    jsApiList: [onMenuShareTimeline,onMenuShareAppMessage,onMenuShareQQ,onMenuShareWeibo,onMenuShareQZone] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 });
 
 var tt='快到红包社区抢99元分享大红包';
 var lk='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb99d4d4ba2f634c9&redirect_uri=http%3a%2f%2fwww.o2ohappy.com%2fshare%2findex%2furl%2fmain&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect' ;// 分享链接;
 var img='';
-var des='最做好的红包分享社区'
+var des='最做好的红包分享社区';
 wx.onMenuShareTimeline({
     title:tt , // 分享标题
     link: lk,

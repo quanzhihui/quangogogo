@@ -19,10 +19,16 @@ public class Information {
 	private int authflow;
 	private String tgurl;
 	private String authreason;
+	private int costticket;
 	
 	
 	
-	
+	public int getCostticket() {
+		return costticket;
+	}
+	public void setCostticket(int costticket) {
+		this.costticket = costticket;
+	}
 	public String getClientWx() {
 		return clientWx;
 	}

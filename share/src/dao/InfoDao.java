@@ -71,6 +71,7 @@ public class InfoDao {
 				info.setVisitor(rs.getInt("visitor"));
 				info.setAllowVisit(rs.getInt("allowvisit"));
 				info.setTgurl (rs.getString("tgurl"));
+				info.setCostticket(rs.getInt("costticket"));
 				list.add(info);
 				
 			}
@@ -113,7 +114,7 @@ public class InfoDao {
 			sta.setInt(13,info.getAllowVisit());
 			sta.setInt(14,info.getAuthflow());
 			sta.setString(15,info.getAuthreason());
-			
+			sta.setInt(16,info.getCostticket());
 
 			if(sta.executeUpdate()>0){
 				return 1;
@@ -158,6 +159,7 @@ public class InfoDao {
 					info.setVisitor(rs.getInt("visitor"));
 					info.setAllowVisit(rs.getInt("allowvisit"));
 					info.setAuthreason(rs.getString("authreason")); 
+					info.setCostticket(rs.getInt("costticket"));
 					return info ;
 					}else return null;
 					
@@ -266,6 +268,7 @@ public class InfoDao {
 						info.setAllowVisit(rs.getInt("allowvisit"));
 						info.setAuthreason(rs.getString("authreason")); 
 						info.setTgurl(rs.getString("tgurl"));
+						info.setCostticket(rs.getInt("costticket"));
 						list.add(info);
 						
 						}

@@ -238,18 +238,24 @@ public class IndexSeverlet extends HttpServlet {
 //
 //			}
 //		} 
-		String uri=request.getRequestURI();
-		if(clientwx==null){
-			clientwx="test";
-			request.getSession().setAttribute("clientwx","test");
-				
-		}else{
-			request.setAttribute("signname", TokenServer.getSignName(uri));	
-		}
+		
 		
 	 
- 		
+		String uri=request.getRequestURI();
  		if(uri.contains("/url/")){
+ 			
+			if (clientwx == null) {
+				clientwx = "test";
+				request.getSession().setAttribute("clientwx", "test");
+
+			} else {
+				request.getSession().setAttribute(
+						"signname",
+						TokenServer.getSignName(request, request.getScheme()
+								+ "://" + request.getServerName() + ":"
+								+ request.getServerPort() + uri));
+			}
+ 			
  			 if(uri.contains("/url/shop") ){
  				 //登录、注册页面不用验证权限，其他页面都需要
  				 if(uri.contains("/shop/shopdl") ){

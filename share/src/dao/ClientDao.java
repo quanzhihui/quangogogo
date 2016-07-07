@@ -220,6 +220,7 @@ public class ClientDao {
 				info.setStime(rs.getInt("shour"));
 				info.setVisitor(rs.getInt("visitor"));
 				info.setAllowVisit(rs.getInt("allowvisit"));
+				info.setCostticket(rs.getInt("costticket"));
 				list.add(info);
 				
 			}

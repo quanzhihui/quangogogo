@@ -16,14 +16,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="zh-cmn-Hans">
 <head>
 	<script src="<%=basePath%>/example/jquery.min.js"></script>
-	 
-	
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="<%=basePath%>/example/wx.js"></script>	
 	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="<%=basePath%>/style/weui.css"/>
     <link rel="stylesheet" href="<%=basePath%>/example/example.css"/> 
-	<title>红包分享社区</title>
+ 
+ 
+    
+	<title>抢红包社区</title>
     
 
 </head>
@@ -31,7 +34,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body >
 
 <script>
-var clientwx=<%=100%>;
+var clientwx='<%=request.getSession().getAttribute("clientwx")%>';
+var appid='<%=TokenServer.getappId()%>';
+var time='<%=request.getSession().getAttribute("wxtime")%>';
+var nstr='<%=TokenServer.getNoncestr()%>';
+var sign='<%=request.getSession().getAttribute("signname")%>';
+onload(appid,time,nstr,sign);
+
 
 $(document).ready(function(){
 

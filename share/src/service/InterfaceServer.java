@@ -78,16 +78,17 @@ public class InterfaceServer {
 			} else if (uri.indexOf("/info") != -1) {
 				if (uri.indexOf("/info/useticket") != -1) {
 					String type=request.getParameter("type");
+					Integer costTicket=Integer.valueOf(request.getParameter("xhmpsl")==null?"0":request.getParameter("xhmpsl"));
 					if (String.valueOf(ShareConst.fkltype_shop).equals(type)) {
 
 						response.getWriter().write(KLInfoServices.useTicket(
 												InfoCreateType.shop, infoid,
-												clientwx));
+												clientwx,costTicket));
 
 					} else {
 						response.getWriter().write(KLInfoServices.useTicket(
 												InfoCreateType.client, infoid,
-												clientwx));
+												clientwx,costTicket));
 
 					}
 					

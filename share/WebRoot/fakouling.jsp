@@ -37,9 +37,6 @@ $("#ffsj_check").hide();
 $("#dialog_result_fail").hide();
  
 
-
-
-
 $("#dialog_result_confirm").click(function(){
 $("#dialog_result_success").hide();
 });
@@ -175,10 +172,7 @@ $("#dialog_klqr").show();
                  <input class="weui_input" type="text" id="ffsj_check" readonly="readonly"/>  
             </div>
         </div>
-
-      
         
-
  <div class="weui_cell ">
             <div class="weui_cell_hd"><label for="" class="weui_label">商家名称</label></div>
             <div class="weui_cell_bd weui_cell_primary">
@@ -189,6 +183,15 @@ $("#dialog_klqr").show();
             </div>
         </div>
  
+       <div class="weui_cell ">
+            <div class="weui_cell_hd"><label for="" class="weui_label">消耗门票（可不填）</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input  " name="xhmps" type="number"  pattern="[0-9]*" value="weui input error" placeholder="请输入消耗红包数"/>
+            </div>
+            <div class="weui_cell_ft">
+                <i class="weui_icon_warn"></i>
+            </div>
+        </div>
 
     <div class="weui_cell ">
             <div class="weui_cell_hd"><label for="" class="weui_label">红包总金额（可不填）</label></div>

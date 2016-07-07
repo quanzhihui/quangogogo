@@ -27,9 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body ontouchstart>
 
 <script>
-	var clientwx= '<%=request.getSession().getAttribute("clientwx")%>';
+	var clientwx='<%=request.getSession().getAttribute("clientwx")%>';
 	var infoid;
 	var type;
+	var costticket;
 //默认关闭
 $(document).ready(function(){
 $("#dialog1").hide();
@@ -58,7 +59,8 @@ $("#dialog1_confirm").click(function(){
   {
     client:clientwx,
     type:type,
-    informationid:infoid
+    informationid:infoid,
+    xhmpsl:costticket
   },
   function(data,status){
   if(data!="null"){
@@ -173,8 +175,10 @@ $("#dialog1").hide();
 			  <script>
         $(document).ready(function(){
 	  $("#<%=infolist.get(i).getInfoId()%>").click(function(){
-	  infoid=<%=infolist.get(i).getInfoId()%>;
-	  type=<%=infolist.get(i).getType()%>;
+	  infoid='<%=infolist.get(i).getInfoId()%>';
+	  type='<%=infolist.get(i).getType()%>';
+	  costticket='<%=infolist.get(i).getCostticket()%>';
+	   $("#costcontent").html(" 查看口令将消耗 "+costticket+"张门票，是否确定使用？");
 	  $("#dialog1").show();
 	  });
 	 
@@ -199,7 +203,7 @@ $("#dialog1").hide();
     <div class="weui_mask"></div>
     <div class="weui_dialog">
         <div class="weui_dialog_hd"><strong class="weui_dialog_title">门票使用</strong></div>
-        <div class="weui_dialog_bd">查看口令将消耗一张门票，是否确定使用？</div>
+        <div class="weui_dialog_bd" id="costcontent" ></div>
         <div class="weui_dialog_ft">
             <a href="javascript:;" class="weui_btn_dialog default" id="dialog1_cancel">取消</a>
             <a href="javascript:;" class="weui_btn_dialog primary" id="dialog1_confirm">确定</a>

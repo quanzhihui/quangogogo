@@ -7,7 +7,7 @@ public class JonsonUtil {
 
 	//解析json串
 	public static Object jiexi(String json,Class<?> beanClass){
-		if(json==null||"".equals(json)||json.contains("errcode")) return null;
+		if(json==null||"".equals(json)||(json.contains("errcode"))&&!json.contains("errcode\":0")) return null;
 		 JSONObject jsonObject = JSONObject.fromObject( json );
 		 return JSONObject.toBean(jsonObject,beanClass );
 	}
