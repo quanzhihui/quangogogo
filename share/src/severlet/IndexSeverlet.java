@@ -249,11 +249,15 @@ public class IndexSeverlet extends HttpServlet {
 				request.getSession().setAttribute("clientwx", "test");
 
 			} else {
+				
+				StringBuffer bf=request.getRequestURL();
+				if(request.getQueryString()!=null){
+					bf.append("?").append(request.getQueryString());
+				}
+			 
 				request.getSession().setAttribute(
 						"signname",
-						TokenServer.getSignName(request, request.getScheme()
-								+ "://" + request.getServerName() + ":"
-								+ request.getServerPort() + uri));
+						TokenServer.getSignName(request, bf.toString()));
 			}
  			
  			 if(uri.contains("/url/shop") ){
@@ -347,7 +351,7 @@ public class IndexSeverlet extends HttpServlet {
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/framemain.jsp");
 			dispatcher.forward(request, response);	
-			
+			return ;
 		}else if(uri.contains("post") ){
 			if(uri.contains("post/client_fakouling")){
 				//1代表成功，2代表口令已存在，0代表插库失败

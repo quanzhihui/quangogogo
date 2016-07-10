@@ -16,8 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="zh-cmn-Hans">
 <head>
 	<script src="<%=basePath%>/example/jquery.min.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="<%=basePath%>/example/wx.js"></script>	
+
 	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
@@ -34,16 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body >
 
 <script>
-var clientwx='<%=request.getSession().getAttribute("clientwx")%>';
-var appid='<%=TokenServer.getappId()%>';
-var time='<%=request.getSession().getAttribute("wxtime")%>';
-var nstr='<%=TokenServer.getNoncestr()%>';
-var sign='<%=request.getSession().getAttribute("signname")%>';
-onload(appid,time,nstr,sign);
-
-
 $(document).ready(function(){
-
+var clientwx='<%=request.getSession().getAttribute("clientwx")%>';
 
 
 $("#redu").click(function(){
@@ -70,6 +61,7 @@ $("#redu").click(function(){
  });
  
  $("#dialog_qiandao").hide();
+ $("#fenxiang").hide();
  
  $("#qiandao").click(function(){
 
@@ -106,7 +98,9 @@ $("#dialog_qiandao").hide();
  $("#shangjiarukou").click(function(){
 	window.location.href="<%=path%>/index/url/shop/shopdl";
  });
- 
+ $("#dialog_fenxiang_confirm").click(function(){
+	 $("#fenxiang").hide();
+ });
  
  
  });
@@ -175,7 +169,16 @@ $("#dialog_qiandao").hide();
     </div>
 </div>
 
-
+<div class="weui_dialog_confirm"  id="fenxiang" >
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title"></strong></div>
+        <div class="weui_dialog_bd" >分享成功，赠送20积分</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary" id="dialog_fenxiang_confirm">确定</a>
+        </div>
+    </div>
+</div>
 
 
 
@@ -183,8 +186,23 @@ $("#dialog_qiandao").hide();
 	<script src="<%=path%>/example/zepto.min.js"></script>
     <script src="<%=path%>/example/router.min.js"></script>
     <script src="<%=path%>/example/example.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script>
 	
+	wx.config({
+    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '<%=TokenServer.getappId()%>', // 必填，公众号的唯一标识
+    timestamp: '<%=request.getSession().getAttribute("wxtime")%>', // 必填，生成签名的时间戳
+    nonceStr: '<%=TokenServer.getNoncestr()%>', // 必填，生成签名的随机串
+    signature: '<%=request.getSession().getAttribute("signname")%>',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
 
+
+	
+	</script>
+
+    <script src="<%=basePath%>/example/wx.js"></script>	
 
    
 	
